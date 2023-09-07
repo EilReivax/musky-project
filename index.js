@@ -1,5 +1,5 @@
 const express = require("express");
-// const Book = require("./models/book");
+const User = require("./models/user");
 
 const PORT_NUMBER = 8080;
 
@@ -19,24 +19,18 @@ app.listen(PORT_NUMBER, function () {
 });
 
 // Home Page
-app.get("/", function (request, response) {
-	response.render("index");
+app.get("/", function (req, res) {
+	res.render("index");
 });
 
-app.get('/view-all', function (req, res) {
-    let st = 'ID    Name</br>';
-    for (let i = 0; i < db.length; i++) {
-        st += db[i].id + ' | ' + db[i].userName + '</br>';
-    }
-    return st;
+app.get('/view-all-users', function (req, res) {
+    res.render("view-all-users", { users: users });
 });
 
-app.get("/add-user/:userName/", function (req, res) {
-    let id = Math.round(Math.random()*1000);
-    let userName = req.params.userName;
-    let newUser = {id: id, userName: userName};
+app.get("/add-user/:username/", function (req, res) {
+    let newUser = new User(req.params.username);
     users.push(newUser);
-    res.redirect("/view-all");
+    res.redirect("/view-all-users");
 });
 
 app.get('/delete-user', function (req, res) {
@@ -46,5 +40,5 @@ app.get('/delete-user', function (req, res) {
             users.splice(i, 1);
         }
     }
-    res.redirect("/view-all");
+    res.redirect("/view-all-users");
 });
