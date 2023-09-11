@@ -1,28 +1,26 @@
 class User {
-    constructor(username) {
-        this.id = generateId();
+    constructor(username, password) {
         this.username = username;
+        this.password = password;
     }
 
-    get id() {
-        return this._id;
-    }
-
+    // Getters
     get username() {
         return this._username;
     }
+
+    get password() {
+        return this._password;
+    }
     
-    set id (newId) {
-        this._id = newId;
+    // Setters
+    set username (username) {
+        this._username = username;
     }
 
-    set username (newUsername) {
-        this._username = newUsername;
+    set password (password) {
+        this._password = password;
     }
-}
-
-function generateId() {
-    return Math.round(Math.random()*1000);
 }
 
 module.exports = User;
