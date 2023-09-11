@@ -1,10 +1,11 @@
 const express = require("express");
-const User = require("./models/user");
+const Category = require("./models/category");
+const Task = require("./models/task");
 
 const PORT_NUMBER = 8080;
 
 let app = express();
-let users = [];
+let categories = [];
 
 app.use(express.static("node_modules/bootstrap/dist/css"));
 app.use(express.static("images"));
@@ -20,25 +21,32 @@ app.listen(PORT_NUMBER, function () {
 
 // Home Page
 app.get("/", function (req, res) {
-	res.render("index");
-});
-
-app.get('/view-all-users', function (req, res) {
-    res.render("view-all-users", { users: users });
-});
-
-app.get("/add-user/:username/", function (req, res) {
-    let newUser = new User(req.params.username);
-    users.push(newUser);
-    res.redirect("/view-all-users");
-});
-
-app.get('/delete-user', function (req, res) {
-    let id = req.query.id;
-    for (let i = 0; i < users.length; i++) {
-        if (users[i].id == id) {
-            users.splice(i, 1);
-        }
+    if (categories.length == 0) {
+        categories.push(new Category("To Do"));
+        categories.push(new Category("Doing"));
+        categories.push(new Category("Done"));
     }
-    res.redirect("/view-all-users");
+	res.render("index", { categories: categories });
+});
+
+// Add Category Page
+app.get("/add-category", function (req, res) {
+    res.render("add-category");
+});
+
+app.post("/add-category", function (req, res) {
+    let newCategory = new Category(req.body.title);
+    categories.push(newCategory);
+    res.redirect("/");
+});
+
+// Add Task Page
+app.get('/add-task', function (req, res) {
+    res.render("add-task", { categories: categories });
+});
+
+app.post("/add-task", function (req, res) {
+    let newTask = new Task(req.body.title, req.body.description, req.body.dueDate, req.body.priority);
+    categories[req.body.category].addTask(newTask);
+    res.redirect("/");
 });
