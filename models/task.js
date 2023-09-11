@@ -1,18 +1,13 @@
 class Task {
-    constructor(id, title, description, dueDate, priority, users) {
-        this.id = id;
+    constructor(title, description, dueDate, priority) {
         this.title = title;
         this.description = description;
         this.dueDate = new Date(dueDate);
-        this.priority = priority;
-        this.users = users;
+        this.priority = parseInt(priority);
+        this.progress = 0;
     }
 
     // Getters
-    get id () {
-        return this._id
-    }
-
     get title () {
         return this._title
     }
@@ -28,16 +23,12 @@ class Task {
     get priority () {
         return this._priority
     }
-
-    get users () {
-        return this._users
+    
+    get progress () {
+        return this._progress
     }
 
     // Setters
-    set id (id) {
-        this._id = id;
-    }
-
     set title (title) {
         this._title = title;
     }
@@ -54,8 +45,8 @@ class Task {
         this._priority = priority;
     }
 
-    set users (users) {
-        this._users = users;
+    set progress (progress) {
+        this._progress = progress;
     }
 }
 
