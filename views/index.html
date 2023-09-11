@@ -3,6 +3,16 @@
         <link href="bootstrap.min.css" rel="stylesheet"/>
     </head>
     <body>
-        <h1>Hello World</h1>
+        <h1>Musky Project</h1>
+        <table>
+            <% for (let i = 0; i < categories.length; i++) { %>
+                <tr>
+                    <% let tasks = categories[i].tasks %>
+                    <% for (let j = 0; j < tasks.length; i++) { %>
+                        <td><%= tasks[j] %></td>
+                    <% } %>
+                </tr>
+            <% } %>
+        </table>
     </body>
 </html>
