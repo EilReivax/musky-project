@@ -138,6 +138,11 @@ app.get("/delete-task/:id", function (req, res) {
     res.redirect("/");
 });
 
+// 404
+app.get("*", function (req, res) {
+    res.render("404");
+});
+
 // Functions
 function generateCategoryId() {
     const categoryId = `C-${categoryIdCounter}`;
