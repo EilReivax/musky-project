@@ -32,10 +32,10 @@ app.get("/", function (req, res) {
 
     for (i = 0; i < categories.length; i++) {
         let tasksinCategory = tasks.filter(task => task.categoryId == categories[i].id);
-        db.push({categoryTitle: categories[i].title, tasks: tasksinCategory})
+        db.push({category: categories[i], tasks: tasksinCategory})
     }
 
-    console.log("categories:", categories, "tasks:", tasks, "db:", db)
+    console.log("db:", db)
 
 	res.render("index", { db: db });
 });
