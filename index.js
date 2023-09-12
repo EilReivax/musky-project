@@ -6,6 +6,7 @@ const PORT_NUMBER = 8080;
 
 let app = express();
 let categories = [];
+let tasks = [];
 
 app.use(express.static("node_modules/bootstrap/dist/css"));
 app.use(express.static("images"));
@@ -22,11 +23,13 @@ app.listen(PORT_NUMBER, function () {
 // Home Page
 app.get("/", function (req, res) {
     if (categories.length == 0) {
-        categories.push(new Category("To Do"));
-        categories.push(new Category("Doing"));
-        categories.push(new Category("Done"));
+        categories.push(new Category(generateCategoryId(), "To Do"));
+        categories.push(new Category(generateCategoryId(), "Doing"));
+        categories.push(new Category(generateCategoryId(), "Done"));
     }
-	res.render("index", { categories: categories });
+    console.log(categories)
+    console.log(tasks)
+	res.render("index", { categories: categories, tasks: tasks });
 });
 
 // Add Category Page
@@ -35,10 +38,21 @@ app.get("/add-category", function (req, res) {
 });
 
 app.post("/add-category", function (req, res) {
-    let newCategory = new Category(req.body.title);
-    categories.push(newCategory);
+    let id = generateCategoryId();
+    let title = req.body.title;
+    categories.push(new Category(id, title));
+
     res.redirect("/");
 });
+
+// Edit Category Page
+app.get("/edit-category/:id", function (req, res) {
+    let id = req.params.id;
+    let category = categories.find(category => category.id == id);
+});
+
+// Delete Category
+
 
 // Add Task Page
 app.get('/add-task', function (req, res) {
@@ -46,7 +60,43 @@ app.get('/add-task', function (req, res) {
 });
 
 app.post("/add-task", function (req, res) {
-    let newTask = new Task(req.body.title, req.body.description, req.body.dueDate, req.body.priority);
-    categories[req.body.category].addTask(newTask);
+    let id = generateTaskId();
+    let title = req.body.title;
+    let description = req.body.description;
+    let dueDate = req.body.dueDate;
+    let priority = req.body.priority;
+    let categoryId = req.body.categoryId;
+    
+    tasks.push(new Task(id, title, description, dueDate, priority, categoryId));
     res.redirect("/");
 });
+
+// Edit Task Page
+app.get("edit-task/:id", function (req, res) {
+    let id = req.params.id;
+    let task = tasks.find(task => task.id == id);
+    res.render("edit-task", {task: task, categories: categories});
+});
+
+app.post("/edit-task/", function (req, res) {
+
+});
+
+// Delete Task
+
+
+// Functions
+let categoryIdCounter = 1;
+let taskIdCounter = 1;
+
+function generateCategoryId() {
+    const categoryId = `C-${categoryIdCounter}`;
+    categoryIdCounter++;
+    return categoryId;
+}
+
+function generateTaskId() {
+    const taskId = `T-${taskIdCounter}`;
+    taskIdCounter++;
+    return taskId;
+}
