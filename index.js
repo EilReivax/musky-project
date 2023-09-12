@@ -117,13 +117,13 @@ app.get("/delete-category/:id", function (req, res) {
     let category = categories.find(category => category.id == id)
     let categoryIndex = categories.indexOf(category);
 
-    categories.splice(categoryIndex, 1);
-
     for (let i = 0; i < tasks.length; i++) {
-        if (task[i].categoryId == category.id) {
+        if (tasks[i].categoryId == category.id) {
             tasks.splice(i, 1);
         }
     }
+
+    categories.splice(categoryIndex, 1);
 
     res.redirect("/");
 });
