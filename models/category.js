@@ -1,30 +1,25 @@
 class Category {
-    constructor(title) {
+    constructor(id, title) {
+        this.id = id;
         this.title = title;
-        this.tasks = [];
     }
 
     // Getters
+    get id() {
+        return this._id;
+    }
+
     get title() {
         return this._title;
     }
 
-    get tasks() {
-        return this._tasks;
-    }
-
     // Setters
+    set id(id) {
+        this._id = id;
+    }
+    
     set title(title) {
         this._title = title;
-    }
-
-    set tasks(tasks) {
-        this._tasks = tasks;
-    }
-
-    // Methods
-    addTask(task) {
-        this._tasks.push(task);
     }
 }
 
