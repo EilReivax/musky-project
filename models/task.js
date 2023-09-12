@@ -65,6 +65,19 @@ class Task {
     set categoryId(categoryId) {
         this._categoryId = categoryId;
     }
+
+    getPriority() {
+        switch (this._priority) {
+            case 1:
+                return "Low";
+            case 2:
+                return "Medium";
+            case 3:
+                return "High";
+            default:
+                return "No Priority";
+        }
+    }
 }
 
 module.exports = Task;
