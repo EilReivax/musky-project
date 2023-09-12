@@ -66,6 +66,10 @@ class Task {
         this._categoryId = categoryId;
     }
 
+    getDueDate() {
+        return this._dueDate.toLocaleString();
+    }
+
     getPriority() {
         switch (this._priority) {
             case 1:
