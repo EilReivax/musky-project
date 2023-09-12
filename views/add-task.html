@@ -29,10 +29,11 @@
                     </select>  
                 </div>
                 <div>
-                    <label for="category">Category</label>
-                    <select id="category" name="category" required>
+                    <label for="categoryId">Category</label>
+                    <select id="categoryId" name="categoryId" required>
+                        <option value="">Please select a category:</option>
                         <% for (let i = 0; i < categories.length; i++) { %>
-                            <option value="<%i%>"><%categories[i]%></option>
+                            <option value="<%= categories[i].id %>"><%= categories[i].title %></option>
                         <% } %>
                     </select> 
                 </div>
