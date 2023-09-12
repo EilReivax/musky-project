@@ -12,15 +12,15 @@
                     <input type="text" name="title" id="title" placeholder="Enter title name" required>
                 </div>
                 <div>
-                    <label for="description">Description</label>
+                    <label for="description">  Description</label>
                     <input type="text" name="description" class="form-control" id="description" placeholder="Enter title description">
                 </div>
                 <div>
-                    <label for="dueDate">Due Date</label>
+                    <label for="dueDate">  Due Date</label>
                     <input type="datetime-local" name="dueDate" class="form-control" id="dueDate">
                 </div>
                 <div>
-                    <label for="priority">Priority</label>
+                    <label for="priority">  Priority</label>
                     <select id="priority" name="priority">
                         <option value="0"></option>
                         <option value="1">Low</option>
@@ -29,7 +29,7 @@
                     </select>  
                 </div>
                 <div>
-                    <label for="categoryId">Category</label>
+                    <label for="categoryId">* Category</label>
                     <select id="categoryId" name="categoryId" required>
                         <option value="">Please select a category:</option>
                         <% for (let i = 0; i < categories.length; i++) { %>
