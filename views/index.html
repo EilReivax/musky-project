@@ -4,16 +4,22 @@
     </head>
     <body>
         <h1>Musky Project</h1>
+        <a href="/add-category"><button>Add Category</button></a>
+        <a href="/add-task"><button>Add Task</button></a>
         <ul>
-            <% db.forEach(category=> { %>
-                <li><%= category.categoryTitle %></li>
+            <% db.forEach(group=> { %>
+                <li><%= group.category.title %></li>
+                <a href="/edit-category/<%= group.category.id %>"><button>Edit</button></a>
+                <a href="/delete-category/<%= group.category.id %>"><button>Delete</button></a>
             <ul>
-                <% category.tasks.forEach(task => { %>
+                <% group.tasks.forEach(task => { %>
                     <li><%= task.title %></li>
                     <li><%= task.description %></li>
                     <li><%= task.getDueDate() %></li>
                     <li><%= task.getPriority() %></li>
                     <li><%= task.progress %></li>
+                    <a href="/edit-task/<%= task.id %>"><button>Edit</button></a>
+                    <a href="/delete-task/<%= task.id %>"><button>Delete</button></a>
                 <% }); %>
             </ul>
             <% }); %>
