@@ -27,16 +27,15 @@ categories.push(new Category(generateCategoryId(), "Doing"));
 categories.push(new Category(generateCategoryId(), "Done"));
 
 // Home Page
-app.get("/", function (req, res) {
-    console.log(categories)
-    console.log(tasks)
-    
-    let db = {};
+app.get("/", function (req, res) {    
+    let db = [];
 
     for (i = 0; i < categories.length; i++) {
         let tasksinCategory = tasks.filter(task => task.categoryId == categories[i].id);
-        db.push({category: categories[i].id, tasks: tasksinCategory})
+        db.push({categoryTitle: categories[i].title, tasks: tasksinCategory})
     }
+
+    console.log("categories:", categories, "tasks:", tasks, "db:", db)
 
 	res.render("index", { db: db });
 });
