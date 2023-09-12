@@ -30,8 +30,15 @@ categories.push(new Category(generateCategoryId(), "Done"));
 app.get("/", function (req, res) {
     console.log(categories)
     console.log(tasks)
+    
+    let db = {};
 
-	res.render("index", { categories: categories, tasks: tasks });
+    for (i = 0; i < categories.length; i++) {
+        let tasksinCategory = tasks.filter(task => task.categoryId == categories[i].id);
+        db.push({category: categories[i].id, tasks: tasksinCategory})
+    }
+
+	res.render("index", { db: db });
 });
 
 // Add Category Page
@@ -85,7 +92,7 @@ app.post("/edit-category/:id", function (req, res) {
 });
 
 // Edit Task Page
-app.get("edit-task/:id", function (req, res) {
+app.get("/edit-task/:id", function (req, res) {
     let id = req.params.id;
     let task = tasks.find(task => task.id == id);
 
@@ -106,7 +113,7 @@ app.post("/edit-task/:id", function (req, res) {
 });
 
 // Delete Category
-app.post("/delete-category/:id", function (req, res) {
+app.get("/delete-category/:id", function (req, res) {
     let id = req.params.id;
     let category = categories.find(category => category.id == id)
     let categoryIndex = categories.indexOf(category);
@@ -123,7 +130,7 @@ app.post("/delete-category/:id", function (req, res) {
 });
 
 // Delete Task
-app.post("/delete-task/:id", function (req, res) {
+app.get("/delete-task/:id", function (req, res) {
     let id = req.params.id;
     let taskIndex = tasks.indexOf(tasks.find(task => task.id == id))
 
