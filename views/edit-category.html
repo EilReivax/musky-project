@@ -5,13 +5,19 @@
     </head>
     <body>
         <main>
-            <h1>Edit Category</h1>
+            <div class="container-fluid p-5 bg-primary text-white text-center">
+                <h1>Edit Category</h1>
+            </div>
             <form action="/edit-category/<%= category.id %>" method="POST">
-                <div>
-                    <label for="title">* Title</label>
-                    <input type="text" name="title" id="title" value="<%= category.title %>" placeholder="Enter category title" required>
+                <div class="mt-5 text-center">
+                    <div>
+                        <label for="title">* Title</label>
+                        <input type="text" name="title" id="title" value="<%= category.title %>" placeholder="Enter category title" required>
+                    </div>
                 </div>
-                <button>Submit</button>
+                <div class="text-center mt-5">
+                    <button class="btn btn-lg btn-primary">Submit</button>
+                </div>
             </form>
         </main>
     </body>
