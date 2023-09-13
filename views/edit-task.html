@@ -5,21 +5,28 @@
     </head>
     <body>
         <main>
-            <h1>Edit Task</h1>
-            <form action="/edit-task/<% task.id %>" method="POST">
-                <div>
+            <div class="container-fluid p-5 bg-primary text-white text-center">
+                <h1>Edit Task</h1>
+            </div>
+            <form action="/add-task" method="POST">
+                        <div class="mt-5 text-center">
                     <label for="title">* Title</label>
                     <input type="text" name="title" id="title" value="<%= task.title %>" placeholder="Enter title name" required>
                 </div>
                 <div>
+                    <div class="container mt-5">
+                        <div class="row">
+                            <div class="col-xs-4 mt-5 ">
                     <label for="description">  Description</label>
                     <input type="text" name="description" class="form-control" id="description" value="<%= task.description %>" placeholder="Enter title description">
                 </div>
                 <div>
+                    <div class="col-xs-4 mt-5"></div>
                     <label for="dueDate">  Due Date</label>
                     <input type="datetime-local" name="dueDate" class="form-control" value="<%= task.dueDate %>" id="dueDate">
                 </div>
                 <div>
+                    <div class="col-xs-4 mt-5"></div>
                     <label for="priority">  Priority</label>
                     <select id="priority" name="priority">
                         <option value="<% task.priority %>"><%= task.getPriority() %></option>
@@ -30,6 +37,7 @@
                     </select>  
                 </div>
                 <div>
+                    <div class="col-xs-4 mt-5"></div>
                     <label for="categoryId">* Category</label>
                     <select id="categoryId" name="categoryId" required>
                         <option value="<% task.categoryId %>"><%= categories.find(category => category.id == task.categoryId).title %></option>
@@ -38,10 +46,12 @@
                         <% } %>
                     </select> 
                 </div>
-                <button>Submit</button>
-            </form>
-            <a href="/"><button>Cancel</button></a>
-            <a href="/delete-task/<%= task.id %>"><button>Delete Task</button></a>
+                <div class="text-center mt-5"></div>
+                <div class="text-center mt-5">
+                    <button class="btn btn-lg btn-primary">Submit</button>
+                    <a href="/"><button class="btn btn-lg btn-primary">Cancel</button></a>
+            <div class="text-center mt-5"></div>
+            <a href="/delete-task/<%= task.id %>"><button class="btn btn-lg btn-primary">Delete Task</button></a>
         </main>
     </body>
 </html>
