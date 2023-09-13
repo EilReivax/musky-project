@@ -8,7 +8,7 @@
             <div class="container-fluid p-5 bg-primary text-white text-center">
                 <h1>Edit Category</h1>
             </div>
-            <form action="/edit-category/<% category.id %>" method="POST">
+            <form action="/edit-category/<%= category.id %>" method="POST">
                 <div class="mt-5 text-center">
                     <div>
                         <label for="title">* Title</label>
@@ -17,12 +17,14 @@
                 </div>
                 <div class="text-center mt-5">
                     <button class="btn btn-lg btn-primary">Submit</button>
-                    <a href="/"><button class="btn btn-lg btn-primary">Cancel</button></a>
-                    <div class="text-center mt-5">
-                        <a href="/delete-category/<%= category.id %>"><button class="btn btn-lg btn-primary">Delete</button></a>
-                    </div>
                 </div>
             </form>
+            <div class="text-center mt-5">
+                <a href="/"><button class="btn btn-lg btn-primary">Cancel</button></a>
+            </div>
+            <div class="text-center mt-5">
+                <a href="/delete-category/<%= category.id %>"><button class="btn btn-lg btn-primary">Delete</button></a>
+            </div>
         </main>
     </body>
 </html>

@@ -45,18 +45,20 @@
                                 <%= categories.find(category => category.id == task.categoryId).title %></option>
                             <% for (let i = 0; i < categories.length; i++) { %>
                             <option value="<% categories[i].id %>"><%= categories[i].title %></option>
-                            <% } %>
-                        </select>
-                    </div>
-                    <div class="text-center mt-5">
-                        <button class="btn btn-sm btn-primary">Submit</button>
-                        <a href="/"><button class="btn btn-sm btn-primary">Cancel</button></a>
-                    </div>
-        </form>
-        <div class="text-center mt-5">
-            <a href="/delete-task/<%= task.id %>"><button class="btn btn-sm btn-primary">Delete Task</button></a>
-        </div>
-    </main>
-</body>
-
+                        <% } %>
+                    </select> 
+                </div>
+                <div class="text-center mt-5">
+                    <button class="btn btn-lg btn-primary">Submit</button>
+                </div>    
+                </form>
+                <div class="text-center mt-5">
+                    <a href="/"><button class="btn btn-lg btn-primary">Cancel</button></a>
+                </div>
+            <div class="text-center mt-5">
+                <a href="/delete-task/<%= task.id %>"><button class="btn btn-lg btn-primary">Delete Task</button></a>
+            </div>
+            
+        </main>
+    </body>
 </html>
