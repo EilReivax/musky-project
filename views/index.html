@@ -36,7 +36,6 @@
                         <dd class="list-group-item"><%= task.getDueDate() %></dd>
                         <dd class="list-group-item"><%= task.getPriority() %></dd>
                         <a href="/edit-task/<%= task.id %>"><button class="btn btn-primary btn-sm">Edit</button></a>
-                        <a href="/delete-task/<%= task.id %>"><button class="btn btn-primary btn-sm">Delete</button></a>
                     </div>
                     <% }); %>
                 </dl>
