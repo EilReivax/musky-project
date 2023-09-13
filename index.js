@@ -35,7 +35,7 @@ app.get("/", function (req, res) {
         db.push({category: categories[i], tasks: tasksinCategory})
     }
 
-    console.log("db:", db)
+    console.log("categories:", categories, "tasks:", tasks, "db:", db)
 
 	res.render("index", { db: db });
 });
