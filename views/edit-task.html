@@ -8,8 +8,8 @@
             <div class="container-fluid p-5 bg-primary text-white text-center">
                 <h1>Edit Task</h1>
             </div>
-            <form action="/add-task" method="POST">
-                        <div class="mt-5 text-center">
+            <form action="/edit-task<%= task.id %>" method="POST">
+                <div class="mt-5 text-center">
                     <label for="title">* Title</label>
                     <input type="text" name="title" id="title" value="<%= task.title %>" placeholder="Enter title name" required>
                 </div>
@@ -46,12 +46,17 @@
                         <% } %>
                     </select> 
                 </div>
-                <div class="text-center mt-5"></div>
                 <div class="text-center mt-5">
                     <button class="btn btn-lg btn-primary">Submit</button>
+                </div>    
+                </form>
+                <div class="text-center mt-5">
                     <a href="/"><button class="btn btn-lg btn-primary">Cancel</button></a>
-            <div class="text-center mt-5"></div>
-            <a href="/delete-task/<%= task.id %>"><button class="btn btn-lg btn-primary">Delete Task</button></a>
+                </div>
+            <div class="text-center mt-5">
+                <a href="/delete-task/<%= task.id %>"><button class="btn btn-lg btn-primary">Delete Task</button></a>
+            </div>
+            
         </main>
     </body>
 </html>
