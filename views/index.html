@@ -3,26 +3,37 @@
         <link href="bootstrap.min.css" rel="stylesheet"/>
     </head>
     <body>
-        <h1>Musky Project</h1>
-        <a href="/add-category"><button>Add Category</button></a>
-        <a href="/add-task"><button>Add Task</button></a>
-        <ul>
-            <% db.forEach(group=> { %>
-                <li><%= group.category.title %></li>
-                <a href="/edit-category/<%= group.category.id %>"><button>Edit</button></a>
-                <a href="/delete-category/<%= group.category.id %>"><button>Delete</button></a>
-            <ul>
-                <% group.tasks.forEach(task => { %>
-                    <li><%= task.title %></li>
-                    <li><%= task.description %></li>
-                    <li><%= task.getDueDate() %></li>
-                    <li><%= task.getPriority() %></li>
-                    <li><%= task.progress %></li>
-                    <a href="/edit-task/<%= task.id %>"><button>Edit</button></a>
-                    <a href="/delete-task/<%= task.id %>"><button>Delete</button></a>
-                <% }); %>
-            </ul>
-            <% }); %>
-        </ul>
+        <div class="container-fluid p-5 bg-primary text-white text-center">
+            <h1>Musky Project</h1>
+        </div>
+        <div class="text-center mt-5">
+            <a href="/add-category"><button class="btn btn-lg btn-primary">Add Category</button></a>
+            <a href="/add-task"><button class="btn btn-lg btn-primary">Add Task</button></a>
+        </div>
+        <div class="container mt-5">
+            <div class="row">
+                <dl class="list-group">
+                        <% db.forEach(group=> { %>
+                            <div class="col-xs-4 mt-5 ">
+                            <dt class="list-group-item">
+                                <%= group.category.title %>
+                                <a href="/edit-category/<%= group.category.id %>"><button class="btn btn-primary btn-sm">Edit</button></a>
+                            </dt>
+                        <dl>
+                            <% group.tasks.forEach(task => { %>
+                            <dd class="list-group-item"><%= task.title %></dd>
+                            <dd class="list-group-item"><%= task.description %></dd>
+                            <dd class="list-group-item"><%= task.getDueDate() %></dd>
+                            <dd class="list-group-item"><%= task.getPriority() %></dd>
+                            <dd class="list-group-item"><%= task.progress %></dd>
+                            <a href="/edit-task/<%= task.id %>"><button class="btn btn-primary btn-sm">Edit</button></a>
+                            <a href="/delete-task/<%= task.id %>"><button class="btn btn-primary btn-sm">Delete</button></a>
+                            <% }); %>
+                        </dl>
+                            </div>
+                    <% }); %>
+                </dl>
+            </div>
+        </div>
     </body>
 </html>
