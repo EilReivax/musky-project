@@ -54,9 +54,9 @@ app.post("/add-category", function (req, res) {
 });
 
 // Add Task Page
-// app.get('/add-task', function (req, res) {
-//     res.render("add-task", { categories: categories });
-// });
+app.get('/add-task', function (req, res) {
+    res.render("add-task", { categories: categories });
+});
 
 app.post("/add-task", function (req, res) {
     let id = generateTaskId();
@@ -111,21 +111,21 @@ app.post("/edit-task/:id", function (req, res) {
 });
 
 // Delete Category
-// app.get("/delete-category/:id", function (req, res) {
-//     let id = req.params.id;
-//     let category = categories.find(category => category.id == id)
-//     let categoryIndex = categories.indexOf(category);
+app.get("/delete-category/:id", function (req, res) {
+    let id = req.params.id;
+    let category = categories.find(category => category.id == id)
+    let categoryIndex = categories.indexOf(category);
 
-//     for (let i = 0; i < tasks.length; i++) {
-//         if (tasks[i].categoryId == category.id) {
-//             tasks.splice(i, 1);
-//         }
-//     }
+    for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].categoryId == category.id) {
+            tasks.splice(i, 1);
+        }
+    }
 
-//     categories.splice(categoryIndex, 1);
+    categories.splice(categoryIndex, 1);
 
-//     res.redirect("/");
-// });
+    res.redirect("/");
+});
 
 // Delete Task
 app.get("/delete-task/:id", function (req, res) {
