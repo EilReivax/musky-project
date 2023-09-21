@@ -22,6 +22,10 @@ body {
   overflow-x: hidden;
 }
 
+ul{
+  list-style-type: none;
+}
+
 body {
   background-image: url(../img/dash-bg-01.jpg);
   background-size: cover;
