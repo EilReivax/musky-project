@@ -54,17 +54,17 @@ app.post("/add-category", function (req, res) {
 });
 
 // Add Task Page
-app.get('/add-task', function (req, res) {
-    res.render("add-task", { categories: categories });
-});
+// app.get('/add-task', function (req, res) {
+//     res.render("add-task", { categories: categories });
+// });
 
-app.post("/add-task", function (req, res) {
+app.post("/add-task/:categoryId", function (req, res) {
     let id = generateTaskId();
     let title = req.body.title;
     let description = req.body.description;
     let dueDate = new Date(req.body.dueDate);
     let priority = parseInt(req.body.priority);
-    let categoryId = req.body.categoryId;
+    let categoryId = req.params.categoryId;
     
     tasks.push(new Task(id, title, description, dueDate, priority, categoryId));
 
