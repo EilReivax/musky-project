@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard Admin Template by Tooplate.com</title>
+    <title>Musky</title>
     <!--
 
     Template 2108 Dashboard
@@ -42,15 +42,12 @@
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mx-auto">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Add
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Category</a>
-                                        <a class="dropdown-item" href="#">Task</a>
-                                    </div>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="products.html">Add Cateory</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="accounts.html">Add Task</a>
                                 </li>
                             </ul>
                             <ul class="navbar-nav">
@@ -84,6 +81,7 @@
                         <canvas id="pieChart" class="chartjs-render-monitor"></canvas>
                     </div>
                 </div> -->
+                
 
                 <div class="tm-col tm-col-big">
                     <div class="bg-white tm-block h-100">
@@ -93,15 +91,12 @@
 
                             </div>
                             <div class="col-4 text-right">
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#exampleModal" data-whatever="@mdo">Edit</button>
-
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
+                                <a href="" class="tm-link-black" data-toggle="modal" data-target=".bd-example-modal-lg">Edit</a>
+                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                          <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -118,7 +113,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Send message</button>
+                                                    <button type="button" class="btn btn-primary">Save</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -129,26 +124,21 @@
                         <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
                             <li class="tm-list-group-item">
                                 Task 1
+                                <ul>
+                                    <li>Description</li>
+                                    <li>Due Date</li>
+                                    <li>Priority</li>
+                                    <li>Progress</li>
+                                </ul>
                             </li>
                             <li class="tm-list-group-item">
                                 Task 2
                             </li>
-                            <li class="tm-list-group-item">
-                                Task 3
-                            </li>
-                            <li class="tm-list-group-item">
-                                Task 4
-                            </li>
-                            <li class="tm-list-group-item">
-                                Task 5
-                            </li>
-                            <li class="tm-list-group-item">
-                                Task 6
-                            </li>
-                            <li class="tm-list-group-item">
-                                Task 7
-                            </li>
                         </ol>
+                            <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
+                                <button type="submit" class="btn btn-primary">Add Task
+                                </button>
+                            </div>
                     </div>
                 </div>
                 <!-- <div class="tm-col tm-col-big">
