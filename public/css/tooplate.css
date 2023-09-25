@@ -137,9 +137,15 @@ a:focus {
 }
 .tm-content-row::-webkit-scrollbar {
   width: 12px; /* Adjust the width as needed */
+  margin-left: -20px;
+  margin-right: -20px;
 }
 .tm-content-row::-webkit-scrollbar-thumb {
-  background-color: #888; /* Change the color as needed */
+  background-color: pink; /* Change the color as needed */
+   margin-left: -20px;
+  margin-right: -20px;
+  border-radius: 10px;
+
 }
 .tm-col {
   padding-left: 20px;
