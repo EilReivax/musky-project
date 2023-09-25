@@ -132,6 +132,7 @@ a:focus {
   justify-content: space-between;
   margin-left: -20px;
   margin-right: -20px; /* To offset col padding */
+  overflow-x: auto;
 }
 
 .tm-col {
@@ -561,4 +562,8 @@ footer {
   text-align: center;
   background-color: #ddd; 
   margin-right: 2px;
+}
+
+.scrolling-wrapper{
+	overflow-x: auto;
 }
