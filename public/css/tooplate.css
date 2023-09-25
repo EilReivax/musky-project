@@ -132,9 +132,15 @@ a:focus {
   justify-content: space-between;
   margin-left: -20px;
   margin-right: -20px; /* To offset col padding */
-  overflow-x: auto;
+  /* overflow-x: auto; */
+  overflow-x:scroll; 
 }
-
+.tm-content-row::-webkit-scrollbar {
+  width: 12px; /* Adjust the width as needed */
+}
+.tm-content-row::-webkit-scrollbar-thumb {
+  background-color: #888; /* Change the color as needed */
+}
 .tm-col {
   padding-left: 20px;
   padding-right: 20px;
