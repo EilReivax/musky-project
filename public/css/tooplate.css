@@ -565,6 +565,6 @@ footer {
 .task-box {
   -ms-flex: 0 0 33.333333%;
   flex: 0 0 33.333333%;
-  max-width: 33.333333%;
-  margin-right: 50px;
+  max-width: 25%;
+  margin-right: 23.3333px;
 }
