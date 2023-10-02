@@ -43,7 +43,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mx-auto">
                                 <li class="nav-item">
-                                    <!-- Add category pop up form -->
+                                    <!-- Add category -->
                                     <a class="nav-link" href="" data-toggle="modal" data-target="#add-category">Add Cateory</a>
                                     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-category">
                                         <div class="modal-dialog modal-lg">
@@ -84,7 +84,7 @@
                     </nav>
                 </div>
             </div>
-            <!-- row -->
+            <!-- column -->
             <div class="container-fluid">
                 <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
                 <% for (let i = 0; i < db.length; i++) { %>
@@ -96,7 +96,7 @@
                                     <h2 class="tm-block-title d-inline-block"><%= db[i].category.title %></h2>
                                 </div>
 
-                                <!-- Edit category pop up form -->
+                                <!-- Edit category -->
                                 <div class="col-4 text-right">
                                     <a href="" class="tm-link-black" data-toggle="modal" data-target="#edit-category">Edit</a>
                                     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-category">
@@ -187,7 +187,7 @@
                                     </li>
                                 <% } %>
                             </ol>
-                            <!-- Add category task -->
+                            <!-- Add task -->
                             <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
                                 <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#add-task">Add Task</button>
                                 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-task">
