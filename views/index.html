@@ -94,7 +94,7 @@
                                 <div class="col-8">
                                     <h2 class="tm-block-title d-inline-block"><%= db[i].category.title %></h2>
                                 </div>
-
+                            
                                 <!-- Edit category -->
                                 <div class="col-4 text-right">
                                     <a href="" class="tm-link-black" data-toggle="modal" data-target="#edit-category-<%= i %>">Edit</a>
@@ -116,15 +116,16 @@
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
+                                                        <a href="/delete-category/<%= db[i].category.id %>" class="btn btn-outline-danger">Delete</a>
                                                         <button class="btn btn-primary">Save</button>
                                                     </div>
                                                 </form>
-                                                <a href="/delete-category/<%= db[i].category.id %>"><button class="btn btn-outline-danger">Delete</button></a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
                             <!-- List of tasks -->
                             <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
                                 <% for (let j = 0; j < db[i].tasks.length; j++) { %>
@@ -182,10 +183,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
+                                                            <a href="/delete-task/<%= db[i].tasks[j].id %>" class="btn btn-outline-danger">Delete</a>
                                                             <button class="btn btn-primary">Save</button>
                                                         </div>
                                                     </form>
-                                                    <a href="/delete-task/<%= db[i].tasks[j].id %>"><button class="btn btn-outline-danger">Delete</button></a>
                                                 </div>
                                             </div>
                                         </div>
