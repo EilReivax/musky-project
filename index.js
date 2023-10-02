@@ -137,6 +137,10 @@ app.get("/delete-task/:id", function (req, res) {
     res.redirect("/");
 });
 
+app.get("/login", function (req, res) {
+    res.render("login");
+})
+
 // 404
 app.get("*", function (req, res) {
     res.render("404");
