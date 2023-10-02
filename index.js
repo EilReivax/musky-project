@@ -53,11 +53,7 @@ app.post("/add-category", function (req, res) {
     res.redirect("/");
 });
 
-// Add Task Page
-// app.get('/add-task', function (req, res) {
-//     res.render("add-task", { categories: categories });
-// });
-
+// Add Task
 app.post("/add-task/:categoryId", function (req, res) {
     let id = generateTaskId();
     let title = req.body.title;
@@ -137,8 +133,13 @@ app.get("/delete-task/:id", function (req, res) {
     res.redirect("/");
 });
 
+// Login
 app.get("/login", function (req, res) {
     res.render("login");
+})
+
+app.post("/login", function (req, res) {
+
 })
 
 // 404

@@ -105,8 +105,8 @@
                             <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
                                 <% for (let j = 0; j < db[i].tasks.length; j++) { %>
                                     <li class="tm-list-group-item">
-                                        <a href="" class="tm-link-black font-weight-bold" data-toggle="modal" data-target="#edit-task"><%= db[i].tasks[j].name %></a>
                                         <ul>
+                                            <li><a href="" class="tm-link-black font-weight-bold" data-toggle="modal" data-target="#edit-task"><%= db[i].tasks[j].name %></a></li>
                                             <li><%= db[i].tasks[j].description %></li>
                                             <li><%= db[i].tasks[j].getDueDate() %></li>
                                             <li><%= db[i].tasks[j].getPriority() %></li>
@@ -166,6 +166,51 @@
 
                             <!-- Add category task -->
                             <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#add-task">Add Task</button>
+
+                            <!--ADD TASK-->
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-task">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/add-task/<%= db[i].category.id %>" method="POST">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="title" class="col-form-label">Title:</label>
+                                                        <input type="text" class="form-control" id="title" name="title">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="description" class="col-form-label">Description:</label>
+                                                        <input type="text" class="form-control" id="description" name="description">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="dueDate" class="col-form-label">Due Date:</label>
+                                                        <input type="datetime-local" class="form-control" id="dueDate" name="dueDate">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="priority" class="col-form-label">Priority:</label>
+                                                        <select id="priority" name="priority">
+                                                            <option value="0">No Priority</option>
+                                                            <option value="1">Low</option>
+                                                            <option value="2">Medium</option>
+                                                            <option value="3">High</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button class="btn btn-primary">Save</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 <% } %>
@@ -213,50 +258,6 @@
         })
     </script>
     <!--Modals-->
-    <!--ADD TASK-->
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-task">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/add-task" method="POST">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="title" class="col-form-label">Title:</label>
-                                <input type="text" class="form-control" id="title" name="title">
-                            </div>
-                            <div class="form-group">
-                                <label for="description" class="col-form-label">Description:</label>
-                                <input type="text" class="form-control" id="description" name="description">
-                            </div>
-                            <div class="form-group">
-                                <label for="dueDate" class="col-form-label">Due Date:</label>
-                                <input type="datetime-local" class="form-control" id="dueDate" name="dueDate">
-                            </div>
-                            <div class="form-group">
-                                <label for="priority" class="col-form-label">Priority:</label>
-                                <select id="priority" name="priority">
-                                    <option value="0">No Priority</option>
-                                    <option value="1">Low</option>
-                                    <option value="2">Medium</option>
-                                    <option value="3">High</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     <!--ADD CATEGORY-->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-category">
         <div class="modal-dialog modal-lg">
