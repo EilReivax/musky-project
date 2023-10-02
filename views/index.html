@@ -45,6 +45,31 @@
                                 <li class="nav-item">
                                     <!-- Add category pop up form -->
                                     <a class="nav-link" href="" data-toggle="modal" data-target="#add-category">Add Cateory</a>
+                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-category">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form action="/add-category" method="POST">
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="title" class="col-form-label">Category Title:</label>
+                                                            <input type="text" class="form-control" id="title" name="title">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button class="btn btn-primary">Save</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
                             <ul class="navbar-nav">
@@ -63,7 +88,7 @@
             <div class="container-fluid">
                 <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
                 <% for (let i = 0; i < db.length; i++) { %>
-                    <div class="task-box">
+                    <div class="col-4">
                         <div class="bg-white tm-block">
                             <!--Category-->
                             <div class="row">
@@ -100,13 +125,13 @@
                                         </div>
                                     </div>
                                 </div>
-                            
+                            </div>
                             <!-- List of tasks -->
                             <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
                                 <% for (let j = 0; j < db[i].tasks.length; j++) { %>
                                     <li class="tm-list-group-item">
+                                        <a href="" class="tm-link-black font-weight-bold" data-toggle="modal" data-target="#edit-task"><%= db[i].tasks[j].name %></a>
                                         <ul>
-                                            <li><a href="" class="tm-link-black font-weight-bold" data-toggle="modal" data-target="#edit-task"><%= db[i].tasks[j].name %></a></li>
                                             <li><%= db[i].tasks[j].description %></li>
                                             <li><%= db[i].tasks[j].getDueDate() %></li>
                                             <li><%= db[i].tasks[j].getPriority() %></li>
@@ -162,20 +187,19 @@
                                     </li>
                                 <% } %>
                             </ol>
-                            </div>
 
                             <!-- Add category task -->
-                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#add-task">Add Task</button>
-
-                            <!--ADD TASK-->
-                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-task">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
+                            <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
+                                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#add-task">Add Task
+                                </button>
+                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-task">
+                                    <div class="modal-dialog modal-lg">
+                                      <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                                          <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
                                         </div>
                                         <div class="modal-body">
                                             <form action="/add-task/<%= db[i].category.id %>" method="POST">
@@ -208,13 +232,21 @@
                                                 </div>
                                             </form>
                                         </div>
+                                      </div>
                                     </div>
-                                </div>
+                                  </div>
                             </div>
                         </div>
                     </div>
                 <% } %>
             </div>
+            <footer class="row tm-mt-small">
+                <div class="col-12 font-weight-light">
+                    <p class="d-inline-block tm-bg-black text-white py-2 px-4">
+                        Copyright &copy; 2023 Musky
+                    </p>
+                </div>
+            </footer>
         </div>
     </div>
 
@@ -257,33 +289,6 @@
             });
         })
     </script>
-    <!--Modals-->
-    <!--ADD CATEGORY-->
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-category">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
-                    <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="/add-category" method="POST">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="title" class="col-form-label">Category Title:</label>
-                            <input type="text" class="form-control" id="title" name="title">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>
