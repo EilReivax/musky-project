@@ -123,6 +123,14 @@ app.post("/login", function (req, res) {
 
 })
 
+// add account
+app.get("/add-account", function (req, res) {
+    res.render("add-account");
+})
+
+app.post("/add-account", function (req, res) {
+})
+
 // 404
 app.get("*", function (req, res) {
     res.render("404");
