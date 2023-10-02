@@ -192,18 +192,8 @@ ol {
   padding: 20px;
 }
 
-.tm-list-group > li:hover {
-  color: #0266c4;
-}
-
 .tm-list-group-alternate-color > li:nth-child(odd) {
   background-color: #e6e6e6;
-}
-
-.tm-list-group > li:before {
-  counter-increment: myOrderedListItemsCounter;
-  content: counter(myOrderedListItemsCounter) ".";
-  margin-right: 0.5em;
 }
 
 .tm-list {
@@ -579,4 +569,8 @@ footer {
 
 .scrolling-wrapper{
 	overflow-x: auto;
+}
+
+ul {
+  padding-inline-start: 0px;
 }
