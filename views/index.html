@@ -98,8 +98,8 @@
 
                                 <!-- Edit category -->
                                 <div class="col-4 text-right">
-                                    <a href="" class="tm-link-black" data-toggle="modal" data-target="#edit-category">Edit</a>
-                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-category">
+                                    <a href="" class="tm-link-black" data-toggle="modal" data-target="#edit-category-<%= i %>">Edit</a>
+                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-category-<%= i %>">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -130,14 +130,14 @@
                             <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
                                 <% for (let j = 0; j < db[i].tasks.length; j++) { %>
                                     <li class="tm-list-group-item">
-                                        <a href="" class="tm-link-black font-weight-bold" data-toggle="modal" data-target="#edit-task"><%= db[i].tasks[j].title %></a>
+                                        <a href="" class="tm-link-black font-weight-bold" data-toggle="modal" data-target="#edit-task-<%= i %>"><%= db[i].tasks[j].title %></a>
                                         <ul>
                                             <li><%= db[i].tasks[j].description %></li>
                                             <li><%= db[i].tasks[j].getDueDate() %></li>
                                             <li><%= db[i].tasks[j].getPriority() %></li>
                                             <li><%= db[i].tasks[j].progress %></li>
                                         </ul>
-                                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-task">
+                                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-task-<%= i %>">
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -189,8 +189,8 @@
                             </ol>
                             <!-- Add task -->
                             <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
-                                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#add-task">Add Task</button>
-                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-task">
+                                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#add-task-<%= i %>">Add Task</button>
+                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-task-<%= i %>">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
