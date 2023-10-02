@@ -83,6 +83,10 @@ class Task {
                 return "No Priority";
         }
     }
+
+    getProgress() {
+        return Math.round(this._progress * 100);
+    }
 }
 
 module.exports = Task;
