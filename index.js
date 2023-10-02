@@ -39,11 +39,7 @@ app.get("/", function (req, res) {
 	res.render("index", { db: db });
 });
 
-// Add Category Page
-// app.get("/add-category", function (req, res) {
-//     res.render("add-category");
-// });
-
+// Add Category
 app.post("/add-category", function (req, res) {
     let id = generateCategoryId();
     let title = req.body.title;
@@ -67,15 +63,7 @@ app.post("/add-task/:categoryId", function (req, res) {
     res.redirect("/");
 });
 
-// Edit Category Page
-// app.get("/edit-category/:id", function (req, res) {
-//     let id = req.params.id;
-//     let category = categories.find(category => category.id == id);
-//     console.log(category)
-
-//     res.render("edit-category", { category: category });
-// });
-
+// Edit Category
 app.post("/edit-category/:id", function (req, res) {
     let id = req.params.id;
     let category = categories.find(category => category.id == id);
@@ -85,14 +73,7 @@ app.post("/edit-category/:id", function (req, res) {
     res.redirect("/");
 });
 
-// Edit Task Page
-// app.get("/edit-task/:id", function (req, res) {
-//     let id = req.params.id;
-//     let task = tasks.find(task => task.id == id);
-
-//     res.render("edit-task", {task: task, categories: categories});
-// });
-
+// Edit Task
 app.post("/edit-task/:id", function (req, res) {
     let id = req.params.id;
     let task = tasks.find(task => task.id == id);
@@ -101,7 +82,7 @@ app.post("/edit-task/:id", function (req, res) {
     task.description = req.body.description;
     task.dueDate = new Date(req.body.dueDate);
     task.priority = parseInt(req.body.priority);
-    task.categoryId = req.body.categoryId;
+    // task.categoryId = req.body.categoryId;
 
     res.redirect("/");
 });
