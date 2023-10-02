@@ -66,8 +66,9 @@ class Task {
         this._categoryId = categoryId;
     }
 
+    // Methods
     getDueDate() {
-        return this._dueDate.toLocaleString();
+        return this._dueDate.toLocaleDateString();
     }
 
     getPriority() {
