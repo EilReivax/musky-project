@@ -574,3 +574,7 @@ footer {
 ul {
   padding-inline-start: 0px;
 }
+
+.ml-auto, .mx-auto {
+  padding-top: 30px;
+}
