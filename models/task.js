@@ -11,30 +11,30 @@ class Task {
 
     // Getters
     get id() {
-        return this._id
+        return this._id;
     }
     get title() {
-        return this._title
+        return this._title;
     }
 
     get description() {
-        return this._description
+        return this._description;
     }
 
     get dueDate() {
-        return this._dueDate
+        return this._dueDate;
     }
 
     get priority() {
-        return this._priority
+        return this._priority;
     }
     
     get progress() {
-        return this._progress
+        return this._progress;
     }
 
     get categoryId() {
-        return this._categoryId
+        return this._categoryId;
     }
 
     // Setters
