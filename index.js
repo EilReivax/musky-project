@@ -82,6 +82,7 @@ app.post("/edit-task/:id", function (req, res) {
     task.description = req.body.description;
     task.dueDate = new Date(req.body.dueDate);
     task.priority = parseInt(req.body.priority);
+    task.progress = parseFloat(req.body.progress);
     // task.categoryId = req.body.categoryId;
 
     res.redirect("/");
