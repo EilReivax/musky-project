@@ -26,7 +26,6 @@
 
 <body id="reportsPage">
     <div class="" id="home">
-        <div class="container">
             <div class="row">
                 <div class="col-12">
                     <nav class="navbar navbar-expand-xl navbar-light bg-light">
@@ -87,14 +86,14 @@
             <div class="container-fluid">
                 <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
                 <% for (let i = 0; i < db.length; i++) { %>
-                    <div class="col-4">
+                    <div class="col-2">
                         <div class="bg-white tm-block">
                             <!--Category-->
                             <div class="row">
                                 <div class="col-8">
                                     <h2 class="tm-block-title d-inline-block"><%= db[i].category.title %></h2>
                                 </div>
-                            
+
                                 <!-- Edit category -->
                                 <div class="col-4 text-right">
                                     <a href="" class="tm-link-black" data-toggle="modal" data-target="#edit-category-<%= i %>">Edit</a>
@@ -125,7 +124,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
                             <!-- List of tasks -->
                             <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
                                 <% for (let j = 0; j < db[i].tasks.length; j++) { %>
@@ -243,7 +241,6 @@
                     </div>
                 <% } %>
             </div>
-        </div>
     </div>
 
     <script src="js/jquery-3.3.1.min.js"></script>

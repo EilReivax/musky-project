@@ -32,8 +32,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
-  padding-left: 50px;
-  padding-right: 50px;
+
 }
 
 .bg02 {
@@ -72,9 +71,7 @@ a:focus {
 
 .navbar {
   height: 100px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-top: 50px;
+
 }
 
 .tm-logout-icon {
@@ -129,12 +126,13 @@ a:focus {
 }
 
 .tm-content-row {
-  justify-content: space-between;
+  justify-content: left;
   margin-left: -20px;
   margin-right: -20px; /* To offset col padding */
   /* overflow-x: auto; */
-  overflow-x:scroll; 
+  overflow-x:scroll;
 }
+
 .tm-content-row::-webkit-scrollbar {
   width: 12px; /* Adjust the width as needed */
   margin-left: -20px;
@@ -143,7 +141,7 @@ a:focus {
 .tm-content-row::-webkit-scrollbar-thumb {
   background-color: #888; /* Change the color as needed */
   background-color: pink; /* Change the color as needed */
-   margin-left: -20px;
+  margin-left: -20px;
   margin-right: -20px;
   border-radius: 10px;
 
