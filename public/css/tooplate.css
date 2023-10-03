@@ -32,8 +32,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
-  padding-left: 50px;
-  padding-right: 50px;
+
 }
 
 .bg02 {
@@ -72,9 +71,7 @@ a:focus {
 
 .navbar {
   height: 100px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-top: 50px;
+
 }
 
 .tm-logout-icon {
