@@ -131,8 +131,8 @@ a:focus {
   margin-right: -20px; /* To offset col padding */
   /* overflow-x: auto; */
   overflow-x:scroll;
-  padding-left: 10%;
 }
+
 .tm-content-row::-webkit-scrollbar {
   width: 12px; /* Adjust the width as needed */
   margin-left: -20px;
