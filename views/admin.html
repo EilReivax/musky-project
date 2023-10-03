@@ -25,222 +25,224 @@
 </head>
 
 <body id="reportsPage">
-    <div class="" id="home">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="navbar navbar-expand-xl navbar-light bg-light">
-                        <a class="navbar-brand" href="#">
-                            <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
-                            <h1 class="tm-site-title mb-0">Musky Project</h1>
-                        </a>
-                        <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+    <div class="row">
+        <div class="col-12">
+            <nav class="navbar navbar-expand-xl navbar-light bg-light">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
+                    <h1 class="tm-site-title mb-0">Musky Project</h1>
+                </a>
 
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mx-auto">
-                                <li class="nav-item">
-                                    <!-- Add category -->
-                                    <a class="nav-link" href="" data-toggle="modal" data-target="#add-category">Add Cateory</a>
-                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-category">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <form action="/admin/add-category" method="POST">
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="title" class="col-form-label">Category Title:</label>
-                                                            <input type="text" class="form-control" id="title" name="title" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button class="btn btn-primary">Save</button>
-                                                    </div>
-                                                </form>
-                                            </div>
+                <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <!-- Add category -->
+                            <a class="nav-link" href="" data-toggle="modal" data-target="#add-category">Add Cateory</a>
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-category">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex" href="/">
-                                        <i class="far fa-user mr-2 tm-logout-icon"></i>
-                                        <span>Logout</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-            <!-- column -->
-            <div class="container-fluid">
-                <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
-                <% for (let i = 0; i < db.length; i++) { %>
-                    <div class="col-2">
-                        <div class="bg-white tm-block">
-                            <!--Category-->
-                            <div class="row">
-                                <div class="col-8">
-                                    <h2 class="tm-block-title d-inline-block"><%= db[i].category.title %></h2>
-                                </div>
-
-                                <!-- Edit category -->
-                                <div class="col-4 text-right">
-                                    <a href="" class="tm-link-black" data-toggle="modal" data-target="#edit-category-<%= i %>">Edit</a>
-                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-category-<%= i %>">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
+                                        <form action="/admin/add-category" method="POST">
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="title" class="col-form-label">Category Title:</label>
+                                                    <input type="text" class="form-control" id="title" name="title" required>
                                                 </div>
-                                                <form action="/admin/edit-category/<%= db[i].category.id %>" method="POST">
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="title" class="col-form-label">Title:</label>
-                                                            <input type="text" class="form-control" id="title" name="title" value="<%= db[i].category.title %>" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <a href="/admin/delete-category/<%= db[i].category.id %>" class="btn btn-outline-danger">Delete</a>
-                                                        <button class="btn btn-primary">Save</button>
-                                                    </div>
-                                                </form>
                                             </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-primary">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex" href="/">
+                                <i class="far fa-user mr-2 tm-logout-icon"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- column -->
+    <div class="container-fluid">
+        <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
+            <% for (let i = 0; i < db.length; i++) { %>
+                <div class="col-2">
+                    <div class="bg-white tm-block">
+                        <!--Category-->
+                        <div class="row">
+                            <div class="col-8">
+                                <h2 class="tm-block-title d-inline-block"><%= db[i].category.title %></h2>
+                            </div>
+
+                            <!-- Edit category -->
+                            <div class="col-4 text-right">
+                                <a href="" class="tm-link-black" data-toggle="modal" data-target="#edit-category-<%= i %>">Edit</a>
+                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-category-<%= i %>">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="/admin/edit-category/<%= db[i].category.id %>" method="POST">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="title" class="col-form-label">Title:</label>
+                                                        <input type="text" class="form-control" id="title" name="title" value="<%= db[i].category.title %>" required>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="/admin/delete-category/<%= db[i].category.id %>" class="btn btn-outline-danger">Delete</a>
+                                                    <button class="btn btn-primary">Save</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- List of tasks -->
-                            <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
-                                <% for (let j = 0; j < db[i].tasks.length; j++) { %>
-                                    <li class="tm-list-group-item">
-                                        <a href="" class="tm-link-black font-weight-bold" data-toggle="modal" data-target="#edit-task-<%= i %>-<%= j %>"><%= db[i].tasks[j].title %></a>
-                                        <ul>
-                                            <li><%= db[i].tasks[j].description %></li>
-                                            <li><%= db[i].tasks[j].getDueDate() %></li>
-                                            <li><%= db[i].tasks[j].getPriority() %></li>
-                                            <li>
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-success" role="progressbar" style="width: <%= db[i].tasks[j].getProgress() %>%;" aria-valuenow="<%= db[i].tasks[j].getProgress() %>" aria-valuemin="0" aria-valuemax="100"><%= db[i].tasks[j].getProgress() %>%</div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-task-<%=i%>-<%= j %>">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <form action="/admin/edit-task/<%= db[i].tasks[j].id %>" method="POST">
-                                                        <div class="modal-body">
-                                                            <div class="form-group">
-                                                                <label for="title" class="col-form-label">Title:</label>
-                                                                <input type="text" class="form-control" id="title" name="title" value="<%= db[i].tasks[j].title %>" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="description" class="col-form-label">Description:</label>
-                                                                <input type="text" class="form-control" id="description" name="description" value="<%= db[i].tasks[j].description %>">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="dueDate" class="col-form-label">Due Date:</label>
-                                                                <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%= db[i].tasks[j].getDueDate() %>">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="priority" class="col-form-label">Priority:</label>
-                                                                <select id="priority" name="priority">
-                                                                    <option value="<%= db[i].tasks[j].getPriority() %>">
-                                                                        <%= db[i].tasks[j].getPriority() %>
-                                                                    </option>
-                                                                    <option value="0">No Priority</option>
-                                                                    <option value="1">Low</option>
-                                                                    <option value="2">Medium</option>
-                                                                    <option value="3">High</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="progress" class="form-label">Progress: </label>
-                                                                <input type="range" class="form-range" min="0" max="1" step="0.01" name="progress" id="progress" value="<%= db[i].tasks[j].progress %>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <a href="/admin/delete-task/<%= db[i].tasks[j].id %>" class="btn btn-outline-danger">Delete</a>
-                                                            <button class="btn btn-primary">Save</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
+                        </div>
+                        <!-- List of tasks -->
+                        <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
+                            <% for (let j = 0; j < db[i].tasks.length; j++) { %>
+                                <li class="tm-list-group-item">
+                                    <a href="" class="tm-link-black font-weight-bold" data-toggle="modal" data-target="#edit-task-<%= i %>-<%= j %>"><%= db[i].tasks[j].title %></a>
+                                    <ul>
+                                        <li><%= db[i].tasks[j].description %></li>
+                                        <li><%= db[i].tasks[j].getDueDate() %></li>
+                                        <li><%= db[i].tasks[j].getPriority() %></li>
+                                        <li>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: <%= db[i].tasks[j].getProgress() %>%;" aria-valuenow="<%= db[i].tasks[j].getProgress() %>" aria-valuemin="0" aria-valuemax="100"><%= db[i].tasks[j].getProgress() %>%</div>
                                             </div>
-                                        </div>
-                                    </li>
-                                <% } %>
-                            </ol>
-                            <!-- Add task -->
-                            <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
-                                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#add-task-<%= i %>">Add Task</button>
-                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-task-<%= i %>">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="/admin/add-task/<%= db[i].category.id %>" method="POST">
+                                        </li>
+                                    </ul>
+                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-task-<%=i%>-<%= j %>">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form action="/admin/edit-task/<%= db[i].tasks[j].id %>" method="POST">
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="title" class="col-form-label">Title:</label>
-                                                            <input type="text" class="form-control" id="title" name="title" required>
+                                                            <input type="text" class="form-control" id="title" name="title" value="<%= db[i].tasks[j].title %>" required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="description" class="col-form-label">Description:</label>
-                                                            <input type="text" class="form-control" id="description" name="description">
+                                                            <input type="text" class="form-control" id="description" name="description" value="<%= db[i].tasks[j].description %>">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="dueDate" class="col-form-label">Due Date:</label>
-                                                            <input type="date" class="form-control" id="dueDate" name="dueDate">
+                                                            <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%= db[i].tasks[j].getDueDate() %>">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="priority" class="col-form-label">Priority:</label>
                                                             <select id="priority" name="priority">
+                                                                <option value="<%= db[i].tasks[j].getPriority() %>">
+                                                                    <%= db[i].tasks[j].getPriority() %>
+                                                                </option>
                                                                 <option value="0">No Priority</option>
                                                                 <option value="1">Low</option>
                                                                 <option value="2">Medium</option>
                                                                 <option value="3">High</option>
                                                             </select>
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label for="progress" class="form-label">Progress: </label>
+                                                            <input type="range" class="form-range" min="0" max="1" step="0.01" name="progress" id="progress" value="<%= db[i].tasks[j].progress %>">
+                                                        </div>
                                                     </div>
                                                     <div class="modal-footer">
+                                                        <a href="/admin/delete-task/<%= db[i].tasks[j].id %>" class="btn btn-outline-danger">Delete</a>
                                                         <button class="btn btn-primary">Save</button>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
+                                </li>
+                            <% } %>
+                        </ol>
+                        <!-- Add task -->
+                        <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
+                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#add-task-<%= i %>">Add Task</button>
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-task-<%= i %>">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/admin/add-task/<%= db[i].category.id %>" method="POST">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="title" class="col-form-label">Title:</label>
+                                                        <input type="text" class="form-control" id="title" name="title" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="description" class="col-form-label">Description:</label>
+                                                        <input type="text" class="form-control" id="description" name="description">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="dueDate" class="col-form-label">Due Date:</label>
+                                                        <input type="date" class="form-control" id="dueDate" name="dueDate">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="priority" class="col-form-label">Priority:</label>
+                                                        <select id="priority" name="priority">
+                                                            <option value="0">No Priority</option>
+                                                            <option value="1">Low</option>
+                                                            <option value="2">Medium</option>
+                                                            <option value="3">High</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-primary">Save</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <% } %>
-            </div>
+                </div>
+            <% } %>
+        </div>
     </div>
 
     <script src="js/jquery-3.3.1.min.js"></script>
