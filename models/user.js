@@ -1,5 +1,5 @@
 class User {
-    constructor(username, password, firstName, lastName, dateOfBirth, phoneNumber, address) {
+    constructor(username, password, firstName, lastName, dateOfBirth, phoneNumber, address, isAdmin) {
         this.username = username;
         this.email = username + "@musky.com.au";
         this.password = password;
@@ -8,6 +8,7 @@ class User {
         this.dateOfBirth = dateOfBirth
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.isAdmin = isAdmin;
     }
 
     // Getters
@@ -43,10 +44,17 @@ class User {
         return this._address;
     }
 
+    get isAdmin() {
+        return this._isAdmin;
+    }
+
     // Setters
     set username(username) {
         this._username = username;
-        this._email = username + "@musky.com.au";
+    }
+
+    set email(email) {
+        this._email = email;
     }
 
     set password(password) {
@@ -73,6 +81,10 @@ class User {
         this._address = address;
     }
 
+    set isAdmin(isAdmin) {
+        this._isAdmin = isAdmin;
+    }
+
     // Methods
     getFullName() {
         return this._firstName + " " + this._lastName;
@@ -82,3 +94,5 @@ class User {
         return this._dateOfBirth.toLocaleDateString();
     }
 }
+
+module.exports = User;

@@ -55,7 +55,7 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <form action="/add-category" method="POST">
+                                                <form action="/user/add-category" method="POST">
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="title" class="col-form-label">Category Title:</label>
@@ -73,7 +73,7 @@
                             </ul>
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link d-flex" href="login.html">
+                                    <a class="nav-link d-flex" href="/">
                                         <i class="far fa-user mr-2 tm-logout-icon"></i>
                                         <span>Logout</span>
                                     </a>
@@ -108,7 +108,7 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <form action="/edit-category/<%= db[i].category.id %>" method="POST">
+                                                <form action="/user/edit-category/<%= db[i].category.id %>" method="POST">
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="title" class="col-form-label">Title:</label>
@@ -116,7 +116,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <a href="/delete-category/<%= db[i].category.id %>" class="btn btn-outline-danger">Delete</a>
+                                                        <a href="/user/delete-category/<%= db[i].category.id %>" class="btn btn-outline-danger">Delete</a>
                                                         <button class="btn btn-primary">Save</button>
                                                     </div>
                                                 </form>
@@ -151,7 +151,7 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="/edit-task/<%= db[i].tasks[j].id %>" method="POST">
+                                                    <form action="/user/edit-task/<%= db[i].tasks[j].id %>" method="POST">
                                                         <div class="modal-body">
                                                             <div class="form-group">
                                                                 <label for="title" class="col-form-label">Title:</label>
@@ -183,7 +183,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <a href="/delete-task/<%= db[i].tasks[j].id %>" class="btn btn-outline-danger">Delete</a>
+                                                            <a href="/user/delete-task/<%= db[i].tasks[j].id %>" class="btn btn-outline-danger">Delete</a>
                                                             <button class="btn btn-primary">Save</button>
                                                         </div>
                                                     </form>
@@ -206,7 +206,7 @@
                                             </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="/add-task/<%= db[i].category.id %>" method="POST">
+                                                <form action="/user/add-task/<%= db[i].category.id %>" method="POST">
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="title" class="col-form-label">Title:</label>
