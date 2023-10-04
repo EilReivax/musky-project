@@ -27,7 +27,7 @@ ul{
 }
 
 body {
-  background-image: url(../img/background.png);
+  background-image: url(../img/background.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -36,11 +36,11 @@ body {
 }
 
 .bg02 {
-	background-image: url(../img/background.png);
+	background-image: url(../img/background.jpg);
 }
 
 .bg03 {
-	background-image: url(../img/background.png);
+	background-image: url(../img/background.jpg);
 }
 
 a {
