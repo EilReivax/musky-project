@@ -140,11 +140,8 @@ a:focus {
 }
 .tm-content-row::-webkit-scrollbar-thumb {
   background-color: #888; /* Change the color as needed */
-  background-color: pink; /* Change the color as needed */
-  margin-left: -20px;
-  margin-right: -20px;
+  background-color: whitesmoke; /* Change the color as needed */
   border-radius: 10px;
-
 }
 .tm-col {
   padding-left: 20px;
