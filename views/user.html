@@ -181,6 +181,10 @@
                                                             <label for="progress" class="form-label">Progress: </label>
                                                             <input type="range" class="form-range" min="0" max="1" step="0.01" name="progress" id="progress" value="<%= db[i].tasks[j].progress %>">
                                                         </div>
+                                                        <!--MEMBER INFORMATION NOT EDITABLE BY MEMBER-->
+                                                        <div class="form-group">
+                                                            <label for="assign-member" class="form-label">Member: User1</label>
+                                                        </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <a href="/user/delete-task/<%= db[i].tasks[j].id %>" class="btn btn-outline-danger">Delete</a>
