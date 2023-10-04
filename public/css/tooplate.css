@@ -573,3 +573,9 @@ ul {
 .ml-auto, .mx-auto {
   padding-top: 30px;
 }
+
+.error {
+  padding: 10px;
+  color: black;
+  border-radius: 15px;
+}

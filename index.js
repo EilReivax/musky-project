@@ -55,12 +55,12 @@ app.post("/", function (req, res) {
                 res.redirect("/user");
             }
         } else if (users[i].email == email && users[i].password != password) {
-            error = "Password is incorrect";
+            error = "Password is incorrect!";
             res.render ("login", { error: error });
         }
     }
 
-    error = "Email does not exist";
+    error = "Email does not exist!";
     res.render ("login", { error: error });
 })
 
