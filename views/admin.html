@@ -43,7 +43,7 @@
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
                             <!-- Add users -->
-                            <a class="nav-link" href="" data-toggle="modal" data-target="#add-member">Add Member</a>
+                            <a class="nav-link" href="" data-toggle="modal" data-target="#add-">Add Member</a>
                             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-member">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
@@ -111,12 +111,12 @@
             </nav>
         </div>
     </div>
-
+    <div class="container">
     <!-- column -->
     <div class="container-fluid">
         <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
             <% for (let i = 0; i < db.length; i++) { %>
-                <div class="col-2">
+                <div class="col-4">
                     <div class="bg-white tm-block">
                         <!--Category-->
                         <div class="row">
@@ -284,6 +284,7 @@
                 </div>
             <% } %>
         </div>
+    </div>
     </div>
 
     <script src="js/jquery-3.3.1.min.js"></script>
