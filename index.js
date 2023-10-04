@@ -38,24 +38,30 @@ users.push(
 
 // Login
 app.get("/", function (req, res) {
-    res.render("login");
+    let error = "";
+    res.render("login", { error: error });
 })
 
 app.post("/", function (req, res) {
     let email = req.body.email;
     let password = req.body.password;
+    let error = "";
 
-    let user = users.find(user => user.email == email && user.password == password);
-
-    if (user) {
-        if (user.isAdmin) {
-            res.redirect("/admin");
-        } else {
-            res.redirect("/user");
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].email == email && users[i].password == password) {
+            if (user[i].isAdmin) {
+                res.redirect("/admin");
+            } else {
+                res.redirect("/user");
+            }
+        } else if (users[i].email == email && users[i].password != password) {
+            error = "Password is incorrect";
+            res.render ("login", { error: error });
         }
-    } else {
-        res.send("User not found/password is incorrect");
     }
+
+    error = "Email does not exist";
+    res.render ("login", { error: error });
 })
 
 // Admin
