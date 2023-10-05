@@ -49,7 +49,7 @@ app.post("/", function (req, res) {
 
     for (let i = 0; i < users.length; i++) {
         if (users[i].email == email && users[i].password == password) {
-            if (user[i].isAdmin) {
+            if (users[i].isAdmin) {
                 res.redirect("/admin");
             } else {
                 res.redirect("/user");
