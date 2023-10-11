@@ -69,6 +69,87 @@
                                 </div>
                             </div>
                         </li>
+                                                <!-- Burndown Chart -->
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="" data-toggle="modal" data-target="#burndownModal">Chart</a>
+                                             
+                                                    <!-- Burndown Chart Modal -->
+                                                    <div class="modal fade" id="burndownModal" tabindex="-1" role="dialog" aria-labelledby="burndownModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="burndownModalLabel">Burndown Chart</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <canvas id="burndownChart"></canvas>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+                                                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+                                                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                                
+                                                    <script>
+                                                        // JavaScript for creating the burndown chart
+                                                        document.addEventListener('DOMContentLoaded', function () {
+                                                            // Dates for the burndown chart (format: 'YYYY-MM-DD')
+                                                            const plannedDates = ['2023-10-01', '2023-10-01', '2023-10-13', '2023-10-22', '2023-10-23'];
+                                                            const actualDates = ['2023-10-02', '2023-10-04', '2023-10-06', '2023-10-08', '2023-10-10'];
+                                                
+                                                            const chartData = {
+                                                                labels: plannedDates,
+                                                                datasets: [{
+                                                                    label: 'Planned Dates',
+                                                                    data: plannedDates.map(date => plannedDates.indexOf(date) + 1),
+                                                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                                                    fill: false
+                                                                }, {
+                                                                    label: 'Actual Dates',
+                                                                    data: actualDates.map(date => actualDates.indexOf(date) + 1),
+                                                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                                                    fill: false
+                                                                }]
+                                                            };
+                                                
+                                                            const chartOptions = {
+                                                                scales: {
+                                                                    x: {
+                                                                        display: true,
+                                                                        title: {
+                                                                            display: true,
+                                                                            text: 'Date'
+                                                                        }
+                                                                    },
+                                                                    y: {
+                                                                        display: true,
+                                                                        title: {
+                                                                            display: true,
+                                                                            text: 'Days'
+                                                                        }
+                                                                    }
+                                                                }
+                                                            };
+                                                
+                                                            const ctx = document.getElementById('burndownChart').getContext('2d');
+                                                            const burndownChart = new Chart(ctx, {
+                                                                type: 'line',
+                                                                data: chartData,
+                                                                options: chartOptions
+                                                            });
+                                                        });
+                                                    </script>
                     </ul>
 
                     <ul class="navbar-nav">
@@ -164,7 +245,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="dueDate" class="col-form-label">Due Date:</label>
-                                                                <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%= db[i].tasks[j].getDueDate() %>">
+                                                                <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%= db[i].tasks[j].getDueDate() %>" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="priority" class="col-form-label">Priority:</label>
@@ -223,7 +304,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="dueDate" class="col-form-label">Due Date:</label>
-                                                            <input type="date" class="form-control" id="dueDate" name="dueDate">
+                                                            <input type="date" class="form-control" id="dueDate" name="dueDate" required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="priority" class="col-form-label">Priority:</label>
