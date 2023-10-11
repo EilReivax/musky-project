@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="   ./css/tooplate.css">
+    
 </head>
 
 <body id="reportsPage">
@@ -116,7 +117,7 @@
     <div class="container-fluid">
         <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
             <% for (let i = 0; i < db.length; i++) { %>
-                <div class="col-4">
+                <div class="col-4" draggable="true">
                     <div class="bg-white tm-block">
                         <!--Category-->
                         <div class="row">
@@ -157,7 +158,7 @@
                         <!-- List of tasks -->
                         <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
                             <% for (let j = 0; j < db[i].tasks.length; j++) { %>
-                                <li class="tm-list-group-item">
+                                <li class="tm-list-group-item" draggable="true">
                                     <a href="" class="tm-link-black font-weight-bold" data-toggle="modal" data-target="#edit-task-<%= i %>-<%= j %>"><%= db[i].tasks[j].title %></a>
                                     <ul>
                                         <li><%= db[i].tasks[j].description %></li>
@@ -297,6 +298,8 @@
     </div>
     </div>
 
+    <script src = "/drag.js"></script>
+
     <script src="js/jquery-3.3.1.min.js"></script>
     <!-- https://jquery.com/download/ -->
     <script src="js/moment.min.js"></script>
@@ -336,6 +339,85 @@
             });
         })
     </script>
+
+
+<script>
+
+
+const draggables = document.querySelectorAll(".tm-list-group-item");
+const droppables = document.querySelectorAll(".col-4");
+
+draggables.forEach((task) => {
+  task.addEventListener("dragstart", () => {
+    task.classList.add("is-dragging");
+  });
+  task.addEventListener("dragend", () => {
+    task.classList.remove("is-dragging");
+  });
+});
+
+
+droppables.forEach((zone) => {
+  zone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+  });
+
+  zone.addEventListener("drop", (e) => {
+    const curTask = document.querySelector(".is-dragging");
+    const curTaskParent = curTask.parentNode;
+
+    if (curTaskParent !== zone) {
+      zone.querySelector(".tm-list-group").appendChild(curTask);
+    } else {
+      const tasks = zone.querySelectorAll(".tm-list-item");
+      const targetIndex = [...tasks].indexOf(curTask);
+      const targetTaskAbove = tasks[targetIndex - 1];
+      const targetTaskBelow = tasks[targetIndex + 1];
+
+      const mouseY = e.clientY;
+      const aboveTaskRect = targetTaskAbove.getBoundingClientRect();
+      const belowTaskRect = targetTaskBelow.getBoundingClientRect();
+      const distanceToAbove = Math.abs(mouseY - aboveTaskRect.bottom);
+      const distanceToBelow = Math.abs(mouseY - belowTaskRect.top);
+
+      if (distanceToAbove < distanceToBelow) {
+        zone.insertBefore(curTask, targetTaskAbove);
+      } else {
+        zone.insertBefore(curTask, targetTaskBelow.nextSibling);
+      }
+    }
+  });
+});
+
+const insertAboveTask = (zone, mouseY) => {
+  const els = zone.querySelectorAll(".task:not(.is-dragging)");
+
+  let closestTask = null;
+  let closestOffset = Number.POSITIVE_INFINITY;
+
+  els.forEach((task) => {
+    const { top, bottom } = task.getBoundingClientRect();
+
+    const offsetTop = mouseY - top;
+    const offsetBottom = bottom - mouseY;
+
+    if (offsetTop > -10 && offsetTop < closestOffset) {
+      closestOffset = offsetTop;
+      closestTask = task;
+    }
+
+    if (offsetBottom > -10 && offsetBottom < closestOffset) {
+      closestOffset = offsetBottom;
+      closestTask = task;
+    }
+  });
+
+  return closestTask;
+};
+
+
+
+</script>
 </body>
 
 </html>
