@@ -441,54 +441,35 @@ draggables.forEach((task) => {
 droppables.forEach((zone) => {
   zone.addEventListener("dragover", (e) => {
     e.preventDefault();
-  });
-
-  zone.addEventListener("drop", (e) => {
+    
+    const bottomTask = insertAboveTask(zone, e.clientY);
     const curTask = document.querySelector(".is-dragging");
-    const curTaskParent = curTask.parentNode;
 
-    if (curTaskParent !== zone) {
+    if (!bottomTask) {
       zone.querySelector(".tm-list-group").appendChild(curTask);
-    } else {
-      const tasks = zone.querySelectorAll(".tm-list-item");
-      const targetIndex = [...tasks].indexOf(curTask);
-      const targetTaskAbove = tasks[targetIndex - 1];
-      const targetTaskBelow = tasks[targetIndex + 1];
-
-      const mouseY = e.clientY;
-      const aboveTaskRect = targetTaskAbove.getBoundingClientRect();
-      const belowTaskRect = targetTaskBelow.getBoundingClientRect();
-      const distanceToAbove = Math.abs(mouseY - aboveTaskRect.bottom);
-      const distanceToBelow = Math.abs(mouseY - belowTaskRect.top);
-
-      if (distanceToAbove < distanceToBelow) {
-        zone.insertBefore(curTask, targetTaskAbove);
-      } else {
-        zone.insertBefore(curTask, targetTaskBelow.nextSibling);
-      }
+    } 
+    else {
+        zone.querySelector(".tm-list-group").insertBefore(curTask, bottomTask);
     }
   });
-});
+
+  
+  });
+
 
 const insertAboveTask = (zone, mouseY) => {
-  const els = zone.querySelectorAll(".task:not(.is-dragging)");
+  const els = zone.querySelectorAll(".tm-list-group-item:not(.is-dragging)");
 
   let closestTask = null;
-  let closestOffset = Number.POSITIVE_INFINITY;
+  let closestOffset = Number.NEGATIVE_INFINITY;
 
   els.forEach((task) => {
-    const { top, bottom } = task.getBoundingClientRect();
+    const { top } = task.getBoundingClientRect();
 
-    const offsetTop = mouseY - top;
-    const offsetBottom = bottom - mouseY;
+    const offset = mouseY - top;
 
-    if (offsetTop > -10 && offsetTop < closestOffset) {
-      closestOffset = offsetTop;
-      closestTask = task;
-    }
-
-    if (offsetBottom > -10 && offsetBottom < closestOffset) {
-      closestOffset = offsetBottom;
+    if (offset < 0 && offset > closestOffset) {
+      closestOffset = offset;
       closestTask = task;
     }
   });

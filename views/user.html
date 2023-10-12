@@ -170,7 +170,7 @@
         <div class="container-fluid">
             <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
                 <% for (let i = 0; i < db.length; i++) { %>
-                    <div class="col-4">
+                    <div class="col-4" draggable="true">
                         <div class="bg-white tm-block">
                             <!--Category-->
                             <div class="row">
@@ -211,7 +211,7 @@
                             <!-- List of tasks -->
                             <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
                                 <% for (let j = 0; j < db[i].tasks.length; j++) { %>
-                                    <li class="tm-list-group-item">
+                                    <li class="tm-list-group-item" draggable="true">
                                         <a href="" class="tm-link-black font-weight-bold" data-toggle="modal" data-target="#edit-task-<%= i %>-<%= j %>"><%= db[i].tasks[j].title %></a>
                                         <ul>
                                             <li><%= db[i].tasks[j].description %></li>
@@ -372,5 +372,61 @@
         })
     </script>
 </body>
+
+
+<script>
+
+const draggables = document.querySelectorAll(".tm-list-group-item");
+const droppables = document.querySelectorAll(".col-4");
+
+draggables.forEach((task) => {
+  task.addEventListener("dragstart", () => {
+    task.classList.add("is-dragging");
+  });
+  task.addEventListener("dragend", () => {
+    task.classList.remove("is-dragging");
+  });
+});
+
+
+droppables.forEach((zone) => {
+  zone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    
+    const bottomTask = insertAboveTask(zone, e.clientY);
+    const curTask = document.querySelector(".is-dragging");
+
+    if (!bottomTask) {
+      zone.querySelector(".tm-list-group").appendChild(curTask);
+    } 
+    else {
+        zone.querySelector(".tm-list-group").insertBefore(curTask, bottomTask);
+    }
+  });
+
+  
+  });
+
+
+const insertAboveTask = (zone, mouseY) => {
+  const els = zone.querySelectorAll(".tm-list-group-item:not(.is-dragging)");
+
+  let closestTask = null;
+  let closestOffset = Number.NEGATIVE_INFINITY;
+
+  els.forEach((task) => {
+    const { top } = task.getBoundingClientRect();
+
+    const offset = mouseY - top;
+
+    if (offset < 0 && offset > closestOffset) {
+      closestOffset = offset;
+      closestTask = task;
+    }
+  });
+
+  return closestTask;
+};
+</script>
 
 </html>
