@@ -240,7 +240,7 @@
                         <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
                             <% for (let j = 0; j < db[i].tasks.length; j++) { %>
                                 <li class="tm-list-group-item" draggable="true">
-                                    <a href="" class="tm-link-black font-weight-bold" data-toggle="modal" data-target="#edit-task-<%= i %>-<%= j %>"><%= db[i].tasks[j].title %></a>
+                                    <a href="" class="tm-link-black font-weight-bold not-drag" data-toggle="modal" data-target="#edit-task-<%= i %>-<%= j %>"><%= db[i].tasks[j].title %></a>
                                     <ul>
                                         <li><%= db[i].tasks[j].description %></li>
                                         <li><%= db[i].tasks[j].getDueDate() %></li>
