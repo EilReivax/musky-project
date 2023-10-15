@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Musky</title>
+    <link rel="icon" type="image/x-icon" href="../img/logo/icon.png">
+    <!--
+
+    Template 2108 Dashboard
+
+	http://www.tooplate.com/view/2108-dashboard
+
+    -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <!-- https://fonts.google.com/specimen/Open+Sans -->
+    <link rel="stylesheet" href="./css/fontawesome.min.css">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="./css/fullcalendar.min.css">
+    <!-- https://fullcalendar.io/ -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="   ./css/tooplate.css">
+    
+</head>
+
+<body id="reportsPage">
+    <div class="row">
+        <div class="col-12">
+            <nav class="navbar navbar-expand-xl navbar-light bg-light">
+                <a class="navbar-brand" href="#">
+                    <img width="160px" src="../img/logo/no_text.png">
+                </a>
+
+                <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <!-- Add users -->
+                            <a class="nav-link" href="" data-toggle="modal" data-target="#member">Members</a>
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="member">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Member Settings</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="/add/category" method="POST">
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="title" class="col-form-label">Add Member:</label>
+                                                    <input type="text" class="form-control" id="title" name="title" placeholder="Enter Member's Email" required>
+                                                </div>
+                                                <label for="title" class="col-form-label">Member Lists:</label>
+                                                <ol>
+                                                    <li>
+                                                        <div class="form-group">
+                                                            <label for="priority" class="col-form-label">User 1</label>
+                                                            <button class="btn-sm btn-danger">X</button>
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-primary">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <!-- Add category -->
+                            <a class="nav-link" href="" data-toggle="modal" data-target="#add-category">Add Category</a>
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-category">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="/add/category" method="POST">
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="title" class="col-form-label">Category Title:</label>
+                                                    <input type="text" class="form-control" id="title" name="title" required>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-primary">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Burndown Chart -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="" data-toggle="modal" data-target="#burndownModal">Chart</a>
+                        
+                            <!-- Burndown Chart Modal -->
+                            <div class="modal fade" id="burndownModal" tabindex="-1" role="dialog" aria-labelledby="burndownModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="burndownModalLabel">Burndown Chart</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <canvas id="burndownChart"></canvas>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    
+                        <script>
+                            // JavaScript for creating the burndown chart
+                            document.addEventListener('DOMContentLoaded', function () {
+                                // Dates for the burndown chart (format: 'YYYY-MM-DD')
+                                const plannedDates = ['2023-10-01', '2023-10-01', '2023-10-13', '2023-10-22', '2023-10-23'];
+                                const actualDates = ['2023-10-02', '2023-10-04', '2023-10-06', '2023-10-08', '2023-10-10'];
+                    
+                                const chartData = {
+                                    labels: plannedDates,
+                                    datasets: [{
+                                        label: 'Planned Dates',
+                                        data: plannedDates.map(date => plannedDates.indexOf(date) + 1),
+                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                        fill: false
+                                    }, {
+                                        label: 'Actual Dates',
+                                        data: actualDates.map(date => actualDates.indexOf(date) + 1),
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                        fill: false
+                                    }]
+                                };
+                    
+                                const chartOptions = {
+                                    scales: {
+                                        x: {
+                                            display: true,
+                                            title: {
+                                                display: true,
+                                                text: 'Date'
+                                            }
+                                        },
+                                        y: {
+                                            display: true,
+                                            title: {
+                                                display: true,
+                                                text: 'Days'
+                                            }
+                                        }
+                                    }
+                                };
+                    
+                                const ctx = document.getElementById('burndownChart').getContext('2d');
+                                const burndownChart = new Chart(ctx, {
+                                    type: 'line',
+                                    data: chartData,
+                                    options: chartOptions
+                                });
+                            });
+                        </script>
+                    </ul>
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex" href="/logout">
+                                <i class="far fa-user mr-2 tm-logout-icon"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+    <!-- column -->
+    <div class="container-fluid">
+        <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
+            <% for (let i = 0; i < categories.length; i++) { %>
+                <div class="col-4" draggable="false">
+                    <div class="bg-white tm-block">
+                        <!--Category-->
+                        <div class="row">
+                            <div class="col-8">
+                                <h2 class="tm-block-title d-inline-block"><%= categories[i].title %></h2>
+                            </div>
+
+                            <!-- Edit category -->
+                            <div class="col-4 text-right">
+                                <a href="" class="tm-link-black" data-toggle="modal" data-target="#edit-category-<%= i %>">Edit</a>
+                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-category-<%= i %>">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="/edit/category/<%= categories[i]._id %>" method="POST">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="title" class="col-form-label">Title:</label>
+                                                        <input type="text" class="form-control" id="title" name="title" value="<%= categories[i].title %>" required>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="/delete/category/<%= categories[i]._id %>" class="btn btn-outline-danger">Delete</a>
+                                                    <button class="btn btn-primary">Save</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- List of tasks -->
+                        <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
+                            <% for (let j = 0; j < categories[i].taskList.length; j++) { %>
+                                <li class="tm-list-group-item" draggable="true">
+                                    <a href="" class="tm-link-black font-weight-bold not-drag" data-toggle="modal" data-target="#edit-task-<%= i %>-<%= j %>"><%= categories[i].taskList[j].title %></a>
+                                    <ul>
+                                        <li><%= categories[i].taskList[j].description %></li>
+                                        <li><%= categories[i].taskList[j].dueDate.toLocaleDateString() %></li>
+                                        <li><%= categories[i].taskList[j].getPriority() %></li>
+                                        <li>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: <%= categories[i].taskList[j].getProgress() %>%;" aria-valuenow="<%= categories[i].taskList[j].getProgress() %>" aria-valuemin="0" aria-valuemax="100"><%= categories[i].taskList[j].getProgress() %>%</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-task-<%=i%>-<%= j %>">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form action="/edit/task/<%= categories[i].taskList[j]._id %>" method="POST">
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="title" class="col-form-label">Title:</label>
+                                                            <input type="text" class="form-control" id="title" name="title" value="<%= categories[i].taskList[j].title %>" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="description" class="col-form-label">Description:</label>
+                                                            <input type="text" class="form-control" id="description" name="description" value="<%= categories[i].taskList[j].description %>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="dueDate" class="col-form-label">Due Date:</label>
+                                                            <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%= categories[i].taskList[j].dueDate.toLocaleDateString() %>" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="priority" class="col-form-label">Priority:</label>
+                                                            <select id="priority" name="priority">
+                                                                <option value="<%= categories[i].taskList[j].priority %>">
+                                                                    <%= categories[i].taskList[j].getPriority() %>
+                                                                </option>
+                                                                <option value="0">No Priority</option>
+                                                                <option value="1">Low</option>
+                                                                <option value="2">Medium</option>
+                                                                <option value="3">High</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="progress" class="form-label">Progress: </label>
+                                                            <input type="range" class="form-range" min="0" max="1" step="0.01" name="progress" id="progress" value="<%= categories[i].taskList[j].progress %>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="assign-member" class="col-form-label">Member:</label>
+                                                            <select id="assign-member" name="assign-member">
+                                                                <option value="JAVASCRIPT HERE">
+                                                                    <%= categories[i].taskList[j].getPriority() %>
+                                                                </option>
+                                                                <option value="0">User 1</option>
+                                                                <option value="1">User 2</option>
+                                                                <option value="2">User 3</option>
+                                                                <option value="3">User 4</option>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a href="/delete/task/<%= categories[i].taskList[j]._id %>" class="btn btn-outline-danger">Delete</a>
+                                                        <button class="btn btn-primary">Save</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            <% } %>
+                        </ol>
+                        <!-- Add task -->
+                        <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
+                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#add-task-<%= i %>">Add Task</button>
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-task-<%= i %>">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/add/task/<%= categories[i]._id %>" method="POST">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="title" class="col-form-label">Title:</label>
+                                                        <input type="text" class="form-control" id="title" name="title" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="description" class="col-form-label">Description:</label>
+                                                        <input type="text" class="form-control" id="description" name="description">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="dueDate" class="col-form-label">Due Date:</label>
+                                                        <input type="date" class="form-control" id="dueDate" name="dueDate" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="priority" class="col-form-label">Priority:</label>
+                                                        <select id="priority" name="priority">
+                                                            <option value="0">No Priority</option>
+                                                            <option value="1">Low</option>
+                                                            <option value="2">Medium</option>
+                                                            <option value="3">High</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="assign-member" class="col-form-label">Member:</label>
+                                                        <select id="assign-member" name="assign-member">
+                                                            <option value="0">--</option>
+                                                            <option value="0">User 1</option>
+                                                            <option value="1">User 2</option>
+                                                            <option value="2">User 3</option>
+                                                            <option value="3">User 4</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-primary">Save</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    </div>
+
+    <script src = "/drag.js"></script>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="js/moment.min.js"></script>
+    <!-- https://momentjs.com/ -->
+    <script src="js/utils.js"></script>
+    <script src="js/Chart.min.js"></script>
+    <!-- http://www.chartjs.org/docs/latest/ -->
+    <script src="js/fullcalendar.min.js"></script>
+    <!-- https://fullcalendar.io/ -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script src="js/tooplate-scripts.js"></script>
+    <script>
+        let ctxLine,
+            ctxBar,
+            ctxPie,
+            optionsLine,
+            optionsBar,
+            optionsPie,
+            configLine,
+            configBar,
+            configPie,
+            lineChart;
+        barChart, pieChart;
+        // DOM is ready
+        $(function () {
+            updateChartOptions();
+            drawLineChart(); // Line Chart
+            drawBarChart(); // Bar Chart
+            drawPieChart(); // Pie Chart
+            drawCalendar(); // Calendar
+            $(window).resize(function () {
+                updateChartOptions();
+                updateLineChart();
+                updateBarChart();
+                reloadPage();
+            });
+        })
+    </script>
+
+
+    <script>
+        const draggables = document.querySelectorAll(".tm-list-group-item");
+        const droppables = document.querySelectorAll(".col-4");
+
+        draggables.forEach((task) => {
+            task.addEventListener("dragstart", () => {
+                task.classList.add("is-dragging");
+            });
+
+            task.addEventListener("dragend", () => {
+                task.classList.remove("is-dragging");
+            });
+        });
+
+        droppables.forEach((zone) => {
+            zone.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                
+                const bottomTask = insertAboveTask(zone, e.clientY);
+                const curTask = document.querySelector(".is-dragging");
+
+                if (!bottomTask) {
+                zone.querySelector(".tm-list-group").appendChild(curTask);
+                } else {
+                    zone.querySelector(".tm-list-group").insertBefore(curTask, bottomTask);
+                }
+            });
+        });
+
+
+        const insertAboveTask = (zone, mouseY) => {
+            const els = zone.querySelectorAll(".tm-list-group-item:not(.is-dragging)");
+
+            let closestTask = null;
+            let closestOffset = Number.NEGATIVE_INFINITY;
+
+            els.forEach((task) => {
+                const { top } = task.getBoundingClientRect();
+
+                const offset = mouseY - top;
+
+                if (offset < 0 && offset > closestOffset) {
+                closestOffset = offset;
+                closestTask = task;
+                }
+            });
+
+            return closestTask;
+        };
+
+
+
+    </script>
+</body>
+
+</html>

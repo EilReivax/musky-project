@@ -1,26 +1,14 @@
-class Category {
-    constructor(id, title) {
-        this.id = id;
-        this.title = title;
-    }
+const mongoose = require('mongoose');
 
-    // Getters
-    get id() {
-        return this._id;
-    }
+const categorySchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    taskList: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Task'
+    }]
+});
 
-    get title() {
-        return this._title;
-    }
-
-    // Setters
-    set id(id) {
-        this._id = id;
-    }
-    
-    set title(title) {
-        this._title = title;
-    }
-}
-
-module.exports = Category;
+module.exports = mongoose.model('Category', categorySchema);
