@@ -1,10 +1,14 @@
-const Task = require("./models/task");
+const Task = require("../models/task");
+const Category = require("../models/category");
 
 module.exports = {
     createOne: async function (req, res) {
-        let task = new Task(req.body).save();
+        let task = new Task(req.body);
         await task.save();
-        res.redirect('/');
+
+        await Category.findByIdAndUpdate(req.params.id, { $push: {taskList: task._id} })
+
+        res.redirect('/dashboard');
     },
 
     getAll: async function (req, res) {
@@ -13,23 +17,21 @@ module.exports = {
     },
 
     updateOne: async function (req, res) {
-        let task = req.body;
         await Task.findByIdAndUpdate(
-            task._id, 
+            req.params.id, 
             {
-                title: task.name,
-                description: task.description,
-                dueDate: task.dueDate,
-                priority: task.priority,
-                progress: task.progress
+                title: req.body.name,
+                description: req.body.description,
+                dueDate: req.body.dueDate,
+                priority: parseInt(req.body.priority),
+                progress: req.body.progress
             }
         );
-        res.redirect('/');
+        res.redirect('/dashboard');
     },
 
     deleteOne: async function (req, res) {
-        let task = req.body;
-        await Task.findByIdAndDelete(task._id);
-        res.redirect('/');
+        await Task.findByIdAndDelete(req.params.id);
+        res.redirect('/dashboard');
     }
 }

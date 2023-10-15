@@ -1,10 +1,10 @@
-const Category = require("./models/category");
+const Category = require("../models/category");
 
 module.exports = {
     createOne: async function (req, res) {
         let category = new Category(req.body);
         await category.save();
-        res.redirect('/');
+        res.redirect('/dashboard');
     },
 
     getAll: async function (req, res) {
@@ -12,22 +12,22 @@ module.exports = {
             .populate('taskList')
             .exec();
 
-        return categories;
+        console.log(categories);
+
+        res.render("index", {categories: categories});
     },
 
     updateOne: async function (req, res) {
-        let category = req.body;
-        await Category.findByIdAndUpdate(category._id, 
+        await Category.findByIdAndUpdate(req.params.id, 
         {
-            name: category.name,
-            taskList: category.taskList
+            name: req.body.name,
+            taskList: req.body.taskList
         });
-        res.redirect('/');
+        res.redirect('/dashboard');
     },
 
     deleteOne: async function (req, res) {
-        let category = req.body;
-        await Category.findByIdAndDelete(category._id);
-        res.redirect('/');        
+        await Category.findByIdAndDelete(req.params.id);
+        res.redirect('/dashboard');        
     }
 }

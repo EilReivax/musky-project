@@ -17,18 +17,14 @@ const taskSchema = new mongoose.Schema({
         max: 3
     },
     progress: {
-        type: Number,
-        default: 0
+        type: mongoose.Decimal128,
+        default: 0.0
     }
 });
 
 // Methods
-taskSchema.methods.getDueDate = function () {
-    return this._dueDate.toLocaleDateString();
-}
-
 taskSchema.methods.getPriority = function () {
-    switch (this._priority) {
+    switch (this.priority) {
         case 1:
             return "Low";
         case 2:
@@ -41,7 +37,7 @@ taskSchema.methods.getPriority = function () {
 }
 
 taskSchema.methods.getProgress = function () {
-    return Math.round(this._progress * 100);
+    return Math.round(this.progress * 100);
 }
 
 module.exports = mongoose.model('Task', taskSchema);
