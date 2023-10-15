@@ -55,7 +55,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="/admin/add/category" method="POST">
+                                        <form action="/add/category" method="POST">
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label for="title" class="col-form-label">Add Member:</label>
@@ -92,7 +92,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="/admin/add/category" method="POST">
+                                        <form action="/add/category" method="POST">
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label for="title" class="col-form-label">Category Title:</label>
@@ -107,92 +107,93 @@
                                 </div>
                             </div>
                         </li>
-                                                <!-- Burndown Chart -->
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="" data-toggle="modal" data-target="#burndownModal">Chart</a>
-                                             
-                                                    <!-- Burndown Chart Modal -->
-                                                    <div class="modal fade" id="burndownModal" tabindex="-1" role="dialog" aria-labelledby="burndownModalLabel"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="burndownModalLabel">Burndown Chart</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <canvas id="burndownChart"></canvas>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                
-                                                    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-                                                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-                                                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                                                
-                                                    <script>
-                                                        // JavaScript for creating the burndown chart
-                                                        document.addEventListener('DOMContentLoaded', function () {
-                                                            // Dates for the burndown chart (format: 'YYYY-MM-DD')
-                                                            const plannedDates = ['2023-10-01', '2023-10-01', '2023-10-13', '2023-10-22', '2023-10-23'];
-                                                            const actualDates = ['2023-10-02', '2023-10-04', '2023-10-06', '2023-10-08', '2023-10-10'];
-                                                
-                                                            const chartData = {
-                                                                labels: plannedDates,
-                                                                datasets: [{
-                                                                    label: 'Planned Dates',
-                                                                    data: plannedDates.map(date => plannedDates.indexOf(date) + 1),
-                                                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                                                    fill: false
-                                                                }, {
-                                                                    label: 'Actual Dates',
-                                                                    data: actualDates.map(date => actualDates.indexOf(date) + 1),
-                                                                    borderColor: 'rgba(255, 99, 132, 1)',
-                                                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                                                    fill: false
-                                                                }]
-                                                            };
-                                                
-                                                            const chartOptions = {
-                                                                scales: {
-                                                                    x: {
-                                                                        display: true,
-                                                                        title: {
-                                                                            display: true,
-                                                                            text: 'Date'
-                                                                        }
-                                                                    },
-                                                                    y: {
-                                                                        display: true,
-                                                                        title: {
-                                                                            display: true,
-                                                                            text: 'Days'
-                                                                        }
-                                                                    }
-                                                                }
-                                                            };
-                                                
-                                                            const ctx = document.getElementById('burndownChart').getContext('2d');
-                                                            const burndownChart = new Chart(ctx, {
-                                                                type: 'line',
-                                                                data: chartData,
-                                                                options: chartOptions
-                                                            });
-                                                        });
-                                                    </script>
+                        <!-- Burndown Chart -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="" data-toggle="modal" data-target="#burndownModal">Chart</a>
+                        
+                            <!-- Burndown Chart Modal -->
+                            <div class="modal fade" id="burndownModal" tabindex="-1" role="dialog" aria-labelledby="burndownModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="burndownModalLabel">Burndown Chart</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <canvas id="burndownChart"></canvas>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    
+                        <script>
+                            // JavaScript for creating the burndown chart
+                            document.addEventListener('DOMContentLoaded', function () {
+                                // Dates for the burndown chart (format: 'YYYY-MM-DD')
+                                const plannedDates = ['2023-10-01', '2023-10-01', '2023-10-13', '2023-10-22', '2023-10-23'];
+                                const actualDates = ['2023-10-02', '2023-10-04', '2023-10-06', '2023-10-08', '2023-10-10'];
+                    
+                                const chartData = {
+                                    labels: plannedDates,
+                                    datasets: [{
+                                        label: 'Planned Dates',
+                                        data: plannedDates.map(date => plannedDates.indexOf(date) + 1),
+                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                        fill: false
+                                    }, {
+                                        label: 'Actual Dates',
+                                        data: actualDates.map(date => actualDates.indexOf(date) + 1),
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                        fill: false
+                                    }]
+                                };
+                    
+                                const chartOptions = {
+                                    scales: {
+                                        x: {
+                                            display: true,
+                                            title: {
+                                                display: true,
+                                                text: 'Date'
+                                            }
+                                        },
+                                        y: {
+                                            display: true,
+                                            title: {
+                                                display: true,
+                                                text: 'Days'
+                                            }
+                                        }
+                                    }
+                                };
+                    
+                                const ctx = document.getElementById('burndownChart').getContext('2d');
+                                const burndownChart = new Chart(ctx, {
+                                    type: 'line',
+                                    data: chartData,
+                                    options: chartOptions
+                                });
+                            });
+                        </script>
                     </ul>
 
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link d-flex" href="/">
+                            <a class="nav-link d-flex" href="/logout">
                                 <i class="far fa-user mr-2 tm-logout-icon"></i>
                                 <span>Logout</span>
                             </a>
@@ -206,13 +207,13 @@
     <!-- column -->
     <div class="container-fluid">
         <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
-            <% for (let i = 0; i < db.length; i++) { %>
+            <% for (let i = 0; i < categories.length; i++) { %>
                 <div class="col-4" draggable="false">
                     <div class="bg-white tm-block">
                         <!--Category-->
                         <div class="row">
                             <div class="col-8">
-                                <h2 class="tm-block-title d-inline-block"><%= db[i].category.title %></h2>
+                                <h2 class="tm-block-title d-inline-block"><%= categories[i].title %></h2>
                             </div>
 
                             <!-- Edit category -->
@@ -228,15 +229,15 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form action="/admin/edit/category/<%= db[i].category.id %>" method="POST">
+                                            <form action="/edit/category/<%= categories[i]._id %>" method="POST">
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="title" class="col-form-label">Title:</label>
-                                                        <input type="text" class="form-control" id="title" name="title" value="<%= db[i].category.title %>" required>
+                                                        <input type="text" class="form-control" id="title" name="title" value="<%= categories[i].title %>" required>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="/admin/delete/category/<%= db[i].category.id %>" class="btn btn-outline-danger">Delete</a>
+                                                    <a href="/delete/category/<%= categories[i]._id %>" class="btn btn-outline-danger">Delete</a>
                                                     <button class="btn btn-primary">Save</button>
                                                 </div>
                                             </form>
@@ -247,16 +248,16 @@
                         </div>
                         <!-- List of tasks -->
                         <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
-                            <% for (let j = 0; j < db[i].tasks.length; j++) { %>
+                            <% for (let j = 0; j < categories[i].taskList.length; j++) { %>
                                 <li class="tm-list-group-item" draggable="true">
-                                    <a href="" class="tm-link-black font-weight-bold not-drag" data-toggle="modal" data-target="#edit-task-<%= i %>-<%= j %>"><%= db[i].tasks[j].title %></a>
+                                    <a href="" class="tm-link-black font-weight-bold not-drag" data-toggle="modal" data-target="#edit-task-<%= i %>-<%= j %>"><%= categories[i].taskList[j].title %></a>
                                     <ul>
-                                        <li><%= db[i].tasks[j].description %></li>
-                                        <li><%= db[i].tasks[j].getDueDate() %></li>
-                                        <li><%= db[i].tasks[j].getPriority() %></li>
+                                        <li><%= categories[i].taskList[j].description %></li>
+                                        <li><%= categories[i].taskList[j].dueDate.toLocaleDateString() %></li>
+                                        <li><%= categories[i].taskList[j].getPriority() %></li>
                                         <li>
                                             <div class="progress">
-                                                <div class="progress-bar bg-success" role="progressbar" style="width: <%= db[i].tasks[j].getProgress() %>%;" aria-valuenow="<%= db[i].tasks[j].getProgress() %>" aria-valuemin="0" aria-valuemax="100"><%= db[i].tasks[j].getProgress() %>%</div>
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: <%= categories[i].taskList[j].getProgress() %>%;" aria-valuenow="<%= categories[i].taskList[j].getProgress() %>" aria-valuemin="0" aria-valuemax="100"><%= categories[i].taskList[j].getProgress() %>%</div>
                                             </div>
                                         </li>
                                     </ul>
@@ -270,25 +271,25 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <form action="/admin/edit/task/<%= db[i].tasks[j].id %>" method="POST">
+                                                <form action="/edit/task/<%= categories[i].taskList[j]._id %>" method="POST">
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="title" class="col-form-label">Title:</label>
-                                                            <input type="text" class="form-control" id="title" name="title" value="<%= db[i].tasks[j].title %>" required>
+                                                            <input type="text" class="form-control" id="title" name="title" value="<%= categories[i].taskList[j].title %>" required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="description" class="col-form-label">Description:</label>
-                                                            <input type="text" class="form-control" id="description" name="description" value="<%= db[i].tasks[j].description %>">
+                                                            <input type="text" class="form-control" id="description" name="description" value="<%= categories[i].taskList[j].description %>">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="dueDate" class="col-form-label">Due Date:</label>
-                                                            <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%= db[i].tasks[j].getDueDate() %>" required>
+                                                            <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%= categories[i].taskList[j].dueDate.toLocaleDateString() %>" required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="priority" class="col-form-label">Priority:</label>
                                                             <select id="priority" name="priority">
-                                                                <option value="<%= db[i].tasks[j].getPriority() %>">
-                                                                    <%= db[i].tasks[j].getPriority() %>
+                                                                <option value="<%= categories[i].taskList[j].priority %>">
+                                                                    <%= categories[i].taskList[j].getPriority() %>
                                                                 </option>
                                                                 <option value="0">No Priority</option>
                                                                 <option value="1">Low</option>
@@ -298,13 +299,13 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="progress" class="form-label">Progress: </label>
-                                                            <input type="range" class="form-range" min="0" max="1" step="0.01" name="progress" id="progress" value="<%= db[i].tasks[j].progress %>">
+                                                            <input type="range" class="form-range" min="0" max="1" step="0.01" name="progress" id="progress" value="<%= categories[i].taskList[j].progress %>">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="assign-member" class="col-form-label">Member:</label>
                                                             <select id="assign-member" name="assign-member">
                                                                 <option value="JAVASCRIPT HERE">
-                                                                    <%= db[i].tasks[j].getPriority() %>
+                                                                    <%= categories[i].taskList[j].getPriority() %>
                                                                 </option>
                                                                 <option value="0">User 1</option>
                                                                 <option value="1">User 2</option>
@@ -315,7 +316,7 @@
 
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <a href="/admin/delete/task/<%= db[i].tasks[j].id %>" class="btn btn-outline-danger">Delete</a>
+                                                        <a href="/delete/task/<%= categories[i].taskList[j]._id %>" class="btn btn-outline-danger">Delete</a>
                                                         <button class="btn btn-primary">Save</button>
                                                     </div>
                                                 </form>
@@ -338,7 +339,7 @@
                                         </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="/admin/add/task/<%= db[i].category.id %>" method="POST">
+                                            <form action="/add/task/<%= categories[i]._id %>" method="POST">
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="title" class="col-form-label">Title:</label>
@@ -431,64 +432,59 @@
     </script>
 
 
-<script>
+    <script>
+        const draggables = document.querySelectorAll(".tm-list-group-item");
+        const droppables = document.querySelectorAll(".col-4");
+
+        draggables.forEach((task) => {
+            task.addEventListener("dragstart", () => {
+                task.classList.add("is-dragging");
+            });
+
+            task.addEventListener("dragend", () => {
+                task.classList.remove("is-dragging");
+            });
+        });
+
+        droppables.forEach((zone) => {
+            zone.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                
+                const bottomTask = insertAboveTask(zone, e.clientY);
+                const curTask = document.querySelector(".is-dragging");
+
+                if (!bottomTask) {
+                zone.querySelector(".tm-list-group").appendChild(curTask);
+                } else {
+                    zone.querySelector(".tm-list-group").insertBefore(curTask, bottomTask);
+                }
+            });
+        });
 
 
-const draggables = document.querySelectorAll(".tm-list-group-item");
-const droppables = document.querySelectorAll(".col-4");
+        const insertAboveTask = (zone, mouseY) => {
+            const els = zone.querySelectorAll(".tm-list-group-item:not(.is-dragging)");
 
-draggables.forEach((task) => {
-  task.addEventListener("dragstart", () => {
-    task.classList.add("is-dragging");
-  });
-  task.addEventListener("dragend", () => {
-    task.classList.remove("is-dragging");
-  });
-});
+            let closestTask = null;
+            let closestOffset = Number.NEGATIVE_INFINITY;
 
+            els.forEach((task) => {
+                const { top } = task.getBoundingClientRect();
 
-droppables.forEach((zone) => {
-  zone.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    
-    const bottomTask = insertAboveTask(zone, e.clientY);
-    const curTask = document.querySelector(".is-dragging");
+                const offset = mouseY - top;
 
-    if (!bottomTask) {
-      zone.querySelector(".tm-list-group").appendChild(curTask);
-    } 
-    else {
-        zone.querySelector(".tm-list-group").insertBefore(curTask, bottomTask);
-    }
-  });
+                if (offset < 0 && offset > closestOffset) {
+                closestOffset = offset;
+                closestTask = task;
+                }
+            });
 
-  
-  });
-
-
-const insertAboveTask = (zone, mouseY) => {
-  const els = zone.querySelectorAll(".tm-list-group-item:not(.is-dragging)");
-
-  let closestTask = null;
-  let closestOffset = Number.NEGATIVE_INFINITY;
-
-  els.forEach((task) => {
-    const { top } = task.getBoundingClientRect();
-
-    const offset = mouseY - top;
-
-    if (offset < 0 && offset > closestOffset) {
-      closestOffset = offset;
-      closestTask = task;
-    }
-  });
-
-  return closestTask;
-};
+            return closestTask;
+        };
 
 
 
-</script>
+    </script>
 </body>
 
 </html>
