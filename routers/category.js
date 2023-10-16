@@ -1,4 +1,5 @@
 const Category = require("../models/category");
+const User = require("../models/user");
 
 module.exports = {
     createOne: async function (req, res) {
@@ -11,10 +12,10 @@ module.exports = {
         let categories = await Category.find()
             .populate('taskList')
             .exec();
+        
+        let users = await User.find().exec();
 
-        console.log(categories);
-
-        res.render("index", {categories: categories});
+        res.render("index", {categories: categories, users: users});
     },
 
     updateOne: async function (req, res) {

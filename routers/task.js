@@ -12,7 +12,9 @@ module.exports = {
     },
 
     getAll: async function (req, res) {
-        let tasks = await Task.find().exec();
+        let tasks = await Task.find()
+        .populate('userList')
+        .exec();
         return tasks;
     },
 

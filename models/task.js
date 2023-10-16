@@ -19,6 +19,10 @@ const taskSchema = new mongoose.Schema({
     progress: {
         type: mongoose.Decimal128,
         default: 0.0
+    },
+    userList: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'User'
     }
 });
 
