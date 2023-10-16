@@ -47,8 +47,11 @@ app.get("/register", function (req, res) {
 
 app.post("/register", User.createOne);
 
-app.get("/", function (req, res) {
-    res.render("login", {user: req.user, message: req.flash('error')});
+app.get("/", async function (req, res) {
+    if (!await UserModel.findOne({ username: "admin" })) {
+        UserModel.register(new UserModel({ username: "admin", isAdmin: true }), 'admin');
+    }
+    res.render("login", { user: req.user, message: req.flash('error') });
 })
 
 app.post("/", passport.authenticate("local", {
@@ -65,6 +68,8 @@ app.get("/logout", function (req, res) {
         res.redirect('/');
     });
 });
+
+app.get("/delete/user/:id", User.deleteOne);
 
 // Dashboard
 app.get("/dashboard", isAuthenticated, Category.getAll);
