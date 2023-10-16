@@ -61,9 +61,9 @@ app.post('/', passport.authenticate('local', {
 }));
 
 app.get('/logout', function (req, res) {
-    req.logout((err) => {
-        if (err) {
-          console.error(err);
+    req.logout((error) => {
+        if (error) {
+            res.status(400).json({ error: error });
         }
         res.redirect('/');
     });
