@@ -27,6 +27,7 @@
 </head>
 
 <body id="reportsPage">
+    <!-- Navbar -->
     <div class="row">
         <div class="col-12">
             <nav class="navbar navbar-expand-xl navbar-light bg-light">
@@ -42,45 +43,44 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <!-- Add users -->
-                            <a class="nav-link" href="" data-toggle="modal" data-target="#member">Members</a>
-                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="member">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Member Settings</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="/add/user" method="POST">
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label for="title" class="col-form-label">Add Member:</label>
-                                                    <input type="text" class="form-control" id="title" name="title" placeholder="Enter Member's Email" required>
+                        <% if (currentUser.isAdmin) { %>
+                            <li class="nav-item">
+                                <!-- Add users -->
+                                <a class="nav-link" href="" data-toggle="modal" data-target="#users">Users</a>
+                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="users">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Manage Users</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <form>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="title" class="col-form-label">Users:</label>
+                                                        <ol>
+                                                            <% for (let i = 1; i < users.length; i++) { %>
+                                                                <li>
+                                                                    <label for="priority" class="col-form-label"><%= users[i].username %></label>
+                                                                    <a class="btn-sm btn-danger" href="/delete/user/<%= users[i]._id %>">X</a>
+                                                                </li>
+                                                            <% } %>
+                                                        </ol>
+                                                    </div>
                                                 </div>
-                                                <label for="title" class="col-form-label">Member Lists:</label>
-                                                <ol>
-                                                    <li>
-                                                        <div class="form-group">
-                                                            <label for="priority" class="col-form-label">User 1</label>
-                                                            <button class="btn-sm btn-danger">X</button>
-                                                        </div>
-                                                    </li>
-                                                </ol>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-primary">Save</button>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        <% } %>
+                        
+                        <!-- Add category -->
                         <li class="nav-item">
-                            <!-- Add category -->
                             <a class="nav-link" href="" data-toggle="modal" data-target="#add-category">Add Category</a>
                             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-category">
                                 <div class="modal-dialog modal-lg">
@@ -92,6 +92,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
+
                                         <form action="/add/category" method="POST">
                                             <div class="modal-body">
                                                 <div class="form-group">
@@ -99,6 +100,7 @@
                                                     <input type="text" class="form-control" id="title" name="title" required>
                                                 </div>
                                             </div>
+
                                             <div class="modal-footer">
                                                 <button class="btn btn-primary">Save</button>
                                             </div>
@@ -107,11 +109,11 @@
                                 </div>
                             </div>
                         </li>
+                        <!-- End add category -->
+
                         <!-- Burndown Chart -->
                         <li class="nav-item">
                             <a class="nav-link" href="" data-toggle="modal" data-target="#burndownModal">Chart</a>
-                        
-                            <!-- Burndown Chart Modal -->
                             <div class="modal fade" id="burndownModal" tabindex="-1" role="dialog" aria-labelledby="burndownModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
@@ -122,9 +124,11 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
+
                                         <div class="modal-body">
                                             <canvas id="burndownChart"></canvas>
                                         </div>
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
@@ -132,226 +136,205 @@
                                 </div>
                             </div>
                         </li>
-                        
-                        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                    
-                        <script>
-                            // JavaScript for creating the burndown chart
-                            document.addEventListener('DOMContentLoaded', function () {
-                                // Dates for the burndown chart (format: 'YYYY-MM-DD')
-                                const plannedDates = ['2023-10-01', '2023-10-01', '2023-10-13', '2023-10-22', '2023-10-23'];
-                                const actualDates = ['2023-10-02', '2023-10-04', '2023-10-06', '2023-10-08', '2023-10-10'];
-                    
-                                const chartData = {
-                                    labels: plannedDates,
-                                    datasets: [{
-                                        label: 'Planned Dates',
-                                        data: plannedDates.map(date => plannedDates.indexOf(date) + 1),
-                                        borderColor: 'rgba(75, 192, 192, 1)',
-                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                        fill: false
-                                    }, {
-                                        label: 'Actual Dates',
-                                        data: actualDates.map(date => actualDates.indexOf(date) + 1),
-                                        borderColor: 'rgba(255, 99, 132, 1)',
-                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                        fill: false
-                                    }]
-                                };
-                    
-                                const chartOptions = {
-                                    scales: {
-                                        x: {
-                                            display: true,
-                                            title: {
-                                                display: true,
-                                                text: 'Date'
-                                            }
-                                        },
-                                        y: {
-                                            display: true,
-                                            title: {
-                                                display: true,
-                                                text: 'Days'
-                                            }
-                                        }
-                                    }
-                                };
-                    
-                                const ctx = document.getElementById('burndownChart').getContext('2d');
-                                const burndownChart = new Chart(ctx, {
-                                    type: 'line',
-                                    data: chartData,
-                                    options: chartOptions
-                                });
-                            });
-                        </script>
+                        <!-- End burndown Chart -->
                     </ul>
-
+                    
                     <ul class="navbar-nav">
+                        <!-- Logout -->
                         <li class="nav-item">
                             <a class="nav-link d-flex" href="/logout">
                                 <i class="far fa-user mr-2 tm-logout-icon"></i>
                                 <span>Logout</span>
                             </a>
                         </li>
+                        <!-- End logout -->
                     </ul>
                 </div>
             </nav>
         </div>
     </div>
-    <div class="container">
-    <!-- column -->
-    <div class="container-fluid">
-        <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
-            <% for (let i = 0; i < categories.length; i++) { %>
-                <div class="col-4" draggable="false">
-                    <div class="bg-white tm-block">
-                        <!--Category-->
-                        <div class="row">
-                            <div class="col-8">
-                                <h2 class="tm-block-title d-inline-block"><%= categories[i].title %></h2>
-                            </div>
+    <!-- End Navbar -->
 
-                            <!-- Edit category -->
-                            <div class="col-4 text-right">
-                                <a href="" class="tm-link-black" data-toggle="modal" data-target="#edit-category-<%= i %>">Edit</a>
-                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-category-<%= i %>">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <form action="/edit/category/<%= categories[i]._id %>" method="POST">
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label for="title" class="col-form-label">Title:</label>
-                                                        <input type="text" class="form-control" id="title" name="title" value="<%= categories[i].title %>" required>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="/delete/category/<%= categories[i]._id %>" class="btn btn-outline-danger">Delete</a>
-                                                    <button class="btn btn-primary">Save</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
+    <!-- Content -->
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
+                <!-- Categories -->
+                <% for (let i = 0; i < categories.length; i++) { %>
+                    <div class="col-4" draggable="false">
+                        <div class="bg-white tm-block">
+                            <div class="row">
+                                <div class="col-8">
+                                    <h2 class="tm-block-title d-inline-block"><%= categories[i].title %></h2>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- List of tasks -->
-                        <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
-                            <% for (let j = 0; j < categories[i].taskList.length; j++) { %>
-                                <li class="tm-list-group-item" draggable="true">
-                                    <a href="" class="tm-link-black font-weight-bold not-drag" data-toggle="modal" data-target="#edit-task-<%= i %>-<%= j %>"><%= categories[i].taskList[j].title %></a>
-                                    <ul>
-                                        <li><%= categories[i].taskList[j].description %></li>
-                                        <li><%= categories[i].taskList[j].dueDate.toLocaleDateString() %></li>
-                                        <li><%= categories[i].taskList[j].getPriority() %></li>
-                                        <li>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-success" role="progressbar" style="width: <%= categories[i].taskList[j].getProgress() %>%;" aria-valuenow="<%= categories[i].taskList[j].getProgress() %>" aria-valuemin="0" aria-valuemax="100"><%= categories[i].taskList[j].getProgress() %>%</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-task-<%=i%>-<%= j %>">
+
+                                <!-- Edit category -->
+                                <div class="col-4 text-right">
+                                    <a href="" class="tm-link-black" data-toggle="modal" data-target="#edit-category-<%= i %>">Edit</a>
+                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-category-<%= i %>">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <form action="/edit/task/<%= categories[i].taskList[j]._id %>" method="POST">
+                                                <!-- Edit category form -->
+                                                <form action="/edit/category/<%= categories[i]._id %>" method="POST">
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="title" class="col-form-label">Title:</label>
-                                                            <input type="text" class="form-control" id="title" name="title" value="<%= categories[i].taskList[j].title %>" required>
+                                                            <input type="text" class="form-control" id="title" name="title" value="<%= categories[i].title %>" required>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="description" class="col-form-label">Description:</label>
-                                                            <input type="text" class="form-control" id="description" name="description" value="<%= categories[i].taskList[j].description %>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="dueDate" class="col-form-label">Due Date:</label>
-                                                            <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%= categories[i].taskList[j].dueDate.toLocaleDateString() %>" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="priority" class="col-form-label">Priority:</label>
-                                                            <select id="priority" name="priority">
-                                                                <option value="<%= categories[i].taskList[j].priority %>">
-                                                                    <%= categories[i].taskList[j].getPriority() %>
-                                                                </option>
-                                                                <option value="0">No Priority</option>
-                                                                <option value="1">Low</option>
-                                                                <option value="2">Medium</option>
-                                                                <option value="3">High</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="progress" class="form-label">Progress: </label>
-                                                            <input type="range" class="form-range" min="0" max="1" step="0.01" name="progress" id="progress" value="<%= categories[i].taskList[j].progress %>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="userList" class="col-form-label">Users:</label>
-                                                            <ul>
-                                                                <% for (let i = 0; i < users.length; i++) { %>
-                                                                    <li>
-                                                                        <input type="checkbox" name="userList" id="userList" value="<%= users[i]._id %>" <%= categories[i].taskList[j].userList.includes(users._id) ? 'checked' : '' %>>
-                                                                        <%= users[i].username %>
-                                                                    </li>
-                                                                <% } %>
-                                                            </ul>
-                                                        </div>
-
                                                     </div>
+
                                                     <div class="modal-footer">
-                                                        <a href="/delete/task/<%= categories[i].taskList[j]._id %>" class="btn btn-outline-danger">Delete</a>
+                                                        <a href="/delete/category/<%= categories[i]._id %>" class="btn btn-outline-danger">Delete</a>
                                                         <button class="btn btn-primary">Save</button>
                                                     </div>
                                                 </form>
+                                                <!-- End edit category form -->
                                             </div>
                                         </div>
                                     </div>
-                                </li>
-                            <% } %>
-                        </ol>
-                        <!-- Add task -->
-                        <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
-                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#add-task-<%= i %>">Add Task</button>
-                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-task-<%= i %>">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                </div>
+                                <!-- End edit category -->
+                            </div>
+
+                            <!-- Tasks -->
+                            <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
+                                <% for (let j = 0; j < categories[i].taskList.length; j++) { %>
+                                    <li class="tm-list-group-item" draggable="true">
+                                        <a href="" class="tm-link-black font-weight-bold not-drag" data-toggle="modal" data-target="#edit-task-<%= i %>-<%= j %>"><%= categories[i].taskList[j].title %></a>
+                                        <ul>
+                                            <li><%= categories[i].taskList[j].description %></li>
+                                            <li><%= categories[i].taskList[j].dueDate.toLocaleDateString() %></li>
+                                            <li><%= categories[i].taskList[j].getPriority() %></li>
+                                            <li>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: <%= categories[i].taskList[j].getProgress() %>%;" aria-valuenow="<%= categories[i].taskList[j].getProgress() %>" aria-valuemin="0" aria-valuemax="100"><%= categories[i].taskList[j].getProgress() %>%</div>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                        <!-- Edit task -->
+                                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="edit-task-<%=i%>-<%= j %>">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- Edit task form -->
+                                                    <form action="/edit/task/<%= categories[i].taskList[j]._id %>" method="POST">
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="title" class="col-form-label">Title:</label>
+                                                                <input type="text" class="form-control" id="title" name="title" value="<%= categories[i].taskList[j].title %>" required>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="description" class="col-form-label">Description:</label>
+                                                                <input type="text" class="form-control" id="description" name="description" value="<%= categories[i].taskList[j].description %>">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="dueDate" class="col-form-label">Due Date:</label>
+                                                                <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%= categories[i].taskList[j].dueDate.toISOString().slice(0, 10) %>" required>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="priority" class="col-form-label">Priority:</label>
+                                                                <select id="priority" name="priority">
+                                                                    <option value="<%= categories[i].taskList[j].priority %>">
+                                                                        <%= categories[i].taskList[j].getPriority() %>
+                                                                    </option>
+                                                                    <option value="0">No Priority</option>
+                                                                    <option value="1">Low</option>
+                                                                    <option value="2">Medium</option>
+                                                                    <option value="3">High</option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="progress" class="form-label">Progress: </label>
+                                                                <input type="range" class="form-range" min="0" max="1" step="0.01" name="progress" id="progress" value="<%= categories[i].taskList[j].progress %>">
+                                                            </div>
+                                                            
+                                                            <% if (currentUser.isAdmin) { %>
+                                                                <div class="form-group">
+                                                                    <label for="userList" class="col-form-label">Users:</label>
+                                                                    <ul>
+                                                                        <% for (let k = 1; k < users.length; k++) { %>
+                                                                            <li>
+                                                                                <input type="checkbox" name="userList" id="userList" value="<%= users[k]._id %>" <%= categories[i].taskList[j].userList.includes(users[k]._id) ? 'checked' : '' %> />
+                                                                                <%= users[k].username %>
+                                                                            </li>
+                                                                        <% } %>
+                                                                    </ul>
+                                                                </div>
+                                                            <% } else { %>
+                                                                <label for="userList" class="col-form-label">Users:</label>
+                                                                <ul>
+                                                                    <% for (let k = 0; k < categories[i].taskList[j].userList.length; k++) { %>
+                                                                        <li><%= categories[i].taskList[j].userList[k].username %></li>
+                                                                    <% } %>
+                                                                </ul>
+                                                            <% } %>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <a href="/delete/task/<%= categories[i].taskList[j]._id %>" class="btn btn-outline-danger">Delete</a>
+                                                            <button class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </form>
+                                                    <!-- End edit task form -->
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="modal-body">
+                                        <!-- End edit task -->
+                                    </li>
+                                <% } %>
+                            </ol>
+                            <!-- End tasks -->
+
+                            <!-- Add task -->
+                            <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
+                                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#add-task-<%= i %>">Add Task</button>
+                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-task-<%= i %>">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <!-- Add task form -->
                                             <form action="/add/task/<%= categories[i]._id %>" method="POST">
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="title" class="col-form-label">Title:</label>
                                                         <input type="text" class="form-control" id="title" name="title" required>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label for="description" class="col-form-label">Description:</label>
                                                         <input type="text" class="form-control" id="description" name="description">
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label for="dueDate" class="col-form-label">Due Date:</label>
                                                         <input type="date" class="form-control" id="dueDate" name="dueDate" required>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label for="priority" class="col-form-label">Priority:</label>
                                                         <select id="priority" name="priority">
@@ -361,48 +344,107 @@
                                                             <option value="3">High</option>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="userList" class="col-form-label">Users:</label>
-                                                        <ul>
-                                                            <% for (let i = 0; i < users.length; i++) { %>
-                                                                <li>
-                                                                    <input type="checkbox" name="userList" id="userList" value="<%= users[i]._id %>">
-                                                                    <%= users[i].username %>
-                                                                </li>
-                                                            <% } %>
-                                                        </ul>
-                                                    </div>
+
+                                                    <% if (currentUser.isAdmin) { %>
+                                                        <div class="form-group">
+                                                            <label for="userList" class="col-form-label">Users:</label>
+                                                            <ul>
+                                                                <% for (let k = 1; k < users.length; k++) { %>
+                                                                    <li>
+                                                                        <input type="checkbox" name="userList" id="userList" value="<%= users[k]._id %>" />
+                                                                        <%= users[k].username %>
+                                                                    </li>
+                                                                <% } %>
+                                                            </ul>
+                                                        </div>
+                                                    <% } %>
                                                 </div>
+
                                                 <div class="modal-footer">
                                                     <button class="btn btn-primary">Save</button>
                                                 </div>
                                             </form>
+                                            <!-- End add task form -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- End add task -->
                         </div>
                     </div>
-                </div>
-            <% } %>
+                <% } %>
+                <!-- End categories -->
+            </div>
         </div>
     </div>
-    </div>
+    <!-- End content -->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // JavaScript for creating the burndown chart
+        document.addEventListener('DOMContentLoaded', function () {
+            // Dates for the burndown chart (format: 'YYYY-MM-DD')
+            const plannedDates = ['2023-10-01', '2023-10-01', '2023-10-13', '2023-10-22', '2023-10-23'];
+            const actualDates = ['2023-10-02', '2023-10-04', '2023-10-06', '2023-10-08', '2023-10-10'];
+
+            const chartData = {
+                labels: plannedDates,
+                datasets: [{
+                    label: 'Planned Dates',
+                    data: plannedDates.map(date => plannedDates.indexOf(date) + 1),
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: false
+                }, {
+                    label: 'Actual Dates',
+                    data: actualDates.map(date => actualDates.indexOf(date) + 1),
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: false
+                }]
+            };
+
+            const chartOptions = {
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Days'
+                        }
+                    }
+                }
+            };
+
+            const ctx = document.getElementById('burndownChart').getContext('2d');
+            const burndownChart = new Chart(ctx, {
+                type: 'line',
+                data: chartData,
+                options: chartOptions
+            });
+        });
+    </script>
 
     <script src = "/drag.js"></script>
-
     <script src="js/jquery-3.3.1.min.js"></script>
-    <!-- https://jquery.com/download/ -->
     <script src="js/moment.min.js"></script>
-    <!-- https://momentjs.com/ -->
     <script src="js/utils.js"></script>
     <script src="js/Chart.min.js"></script>
-    <!-- http://www.chartjs.org/docs/latest/ -->
     <script src="js/fullcalendar.min.js"></script>
-    <!-- https://fullcalendar.io/ -->
     <script src="js/bootstrap.min.js"></script>
-    <!-- https://getbootstrap.com/ -->
     <script src="js/tooplate-scripts.js"></script>
+
     <script>
         let ctxLine,
             ctxBar,
@@ -414,8 +456,9 @@
             configBar,
             configPie,
             lineChart;
-        barChart, pieChart;
-        // DOM is ready
+            barChart, 
+            pieChart;
+
         $(function () {
             updateChartOptions();
             drawLineChart(); // Line Chart
@@ -430,7 +473,6 @@
             });
         })
     </script>
-
 
     <script>
         const draggables = document.querySelectorAll(".tm-list-group-item");
@@ -481,9 +523,6 @@
 
             return closestTask;
         };
-
-
-
     </script>
 </body>
 
