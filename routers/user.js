@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Task = require("../models/task");
 
 module.exports = {
     createOne: async function (req, res) {
@@ -19,8 +20,11 @@ module.exports = {
     },
 
     deleteOne: async function (req, res) {
-        let user = req.body;
         await User.findByIdAndDelete(req.params.id);
+        await Task.updateMany(
+            { userList: { $in: [req.params.id] } },
+            { $pull: { userList: req.params.id } }
+        )
         res.redirect('/dashboard');
     }
 }
