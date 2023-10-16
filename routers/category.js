@@ -15,7 +15,7 @@ module.exports = {
         
         let users = await User.find().exec();
 
-        res.render("index", {categories: categories, users: users});
+        res.render("index", {categories: categories, users: users, currentUser: req.user});
     },
 
     updateOne: async function (req, res) {
