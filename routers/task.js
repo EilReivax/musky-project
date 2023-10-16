@@ -26,7 +26,8 @@ module.exports = {
                 description: req.body.description,
                 dueDate: req.body.dueDate,
                 priority: parseInt(req.body.priority),
-                progress: req.body.progress
+                progress: req.body.progress,
+                userList: req.body.userList
             }
         );
         res.redirect('/dashboard');
@@ -34,6 +35,10 @@ module.exports = {
 
     deleteOne: async function (req, res) {
         await Task.findByIdAndDelete(req.params.id);
+        await Category.updateMany(
+            { taskList: { $in: [req.params.id] } }, 
+            { $pull: { taskList: req.params.id } }
+        );
         res.redirect('/dashboard');
     }
 }
