@@ -6,7 +6,7 @@ module.exports = {
         try {
             User.register(new User({username: req.body.username}), req.body.password);
         } catch (error) {
-            console.log(error);
+            res.status(400).json({ error: error });
         }
         
         res.redirect('/dashboard');
@@ -23,7 +23,7 @@ module.exports = {
                 }
             )
         } catch (error) {
-            console.log(error);
+            res.status(400).json({ error: error });
         }
 
         res.redirect('/dashboard');
@@ -37,7 +37,7 @@ module.exports = {
                 { $pull: { userList: req.params.id } }
             )
         } catch (error) {
-            console.log(error);
+            res.status(400).json({ error: error });
         }
         
         res.redirect('/dashboard');

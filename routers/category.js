@@ -7,7 +7,7 @@ module.exports = {
             let category = new Category(req.body);
             await category.save();
         } catch (error) {
-            console.log(error);
+            res.status(400).json({ error: error });
         }
 
         res.redirect('/dashboard');
@@ -31,7 +31,7 @@ module.exports = {
         
             users = await User.find().exec();
         } catch (error) {
-            console.log(error);
+            res.status(400).json({ error: error });
         }
 
         res.render("index", {categories: categories, users: users, currentUser: req.user});
@@ -45,7 +45,7 @@ module.exports = {
                 taskList: req.body.taskList
             });
         } catch (error) {
-            console.log(error);
+            res.status(400).json({ error: error });
         }
 
         res.redirect('/dashboard');
@@ -55,7 +55,7 @@ module.exports = {
         try {
             await Category.findByIdAndDelete(req.params.id);
         } catch (error) {
-            console.log(error);
+            res.status(400).json({ error: error });
         }
       
         res.redirect('/dashboard'); 

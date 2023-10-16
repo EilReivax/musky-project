@@ -9,7 +9,7 @@ module.exports = {
     
             await Category.findByIdAndUpdate(req.params.id, { $push: {taskList: task._id} })
         } catch (error) {
-            console.log(error);
+            res.status(400).json({ error: error });
         }
 
         res.redirect('/dashboard');
@@ -24,7 +24,7 @@ module.exports = {
                 .exec();
             
         } catch (error) {
-            console.log(error);
+            res.status(400).json({ error: error });
         }
 
         return tasks;
@@ -44,7 +44,7 @@ module.exports = {
                 }
             );
         } catch (error) {
-            console.log(error);
+            res.status(400).json({ error: error });
         }
 
         res.redirect('/dashboard');
@@ -58,7 +58,7 @@ module.exports = {
                 { $pull: { taskList: req.params.id } }
             );
         } catch (error) {
-            console.log(error);
+            res.status(400).json({ error: error });
         }
         
         res.redirect('/dashboard');
