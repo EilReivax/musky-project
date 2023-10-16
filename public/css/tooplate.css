@@ -401,6 +401,7 @@ footer {
   .navbar-expand-lg .navbar-nav .nav-link {
     padding: 15px 20px;
   }
+  
 }
 
 @media (min-width: 1200px) {
@@ -480,6 +481,14 @@ footer {
   .tm-edit-product-row {
     flex-direction: column-reverse;
   }
+
+   .col-4 {
+    flex: 0 0 100%; /* Each col-4 takes up the full width of its container */
+
+    height: auto;
+    max-width: none;
+   }
+
 }
 
 @media (max-width: 633px) {
