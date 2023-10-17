@@ -40,7 +40,7 @@ module.exports = {
             res.status(400).json({ error: error });
         }
 
-        res.render("index", {categories: categories, users: users, currentUser: req.user});
+        res.render("index", {categories: categories, tasks: tasks, users: users, currentUser: req.user});
     },
 
     updateOne: async function (req, res) {
