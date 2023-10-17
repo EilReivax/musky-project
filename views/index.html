@@ -209,7 +209,7 @@
                                     <li class="tm-list-group-item" draggable="true">
                                         <a href="" class="tm-link-black font-weight-bold not-drag" data-toggle="modal" data-target="#edit-task-<%- i %>-<%- j %>"><%= categories[i].taskList[j].title %></a>
                                         <ul>
-                                            <li><%= categories[i].taskList[j].description %></li>
+                                            <li class="description-item"><%= categories[i].taskList[j].description %></li>
                                             <li><%= categories[i].taskList[j].dueDate.toLocaleDateString() %></li>
                                             <li><%= categories[i].taskList[j].getPriority() %></li>
                                             <li>

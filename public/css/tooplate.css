@@ -680,3 +680,11 @@ div#p-footer {
   display: block !important;
   position: relative;
 }
+
+.description-item {
+  max-width: 400px; /* Adjust the maximum width as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
