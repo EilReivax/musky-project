@@ -35,7 +35,7 @@ module.exports = {
             await Task.findByIdAndUpdate(
                 req.params.id, 
                 {
-                    title: req.body.name,
+                    title: req.body.title,
                     description: req.body.description,
                     dueDate: req.body.dueDate,
                     priority: parseInt(req.body.priority),
