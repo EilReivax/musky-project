@@ -4,7 +4,7 @@ const Task = require("../models/task");
 module.exports = {
     createOne: async function (req, res) {
         try {
-            User.register(new User({username: req.body.username}), req.body.password);
+            User.register(new User({ username: req.body.username }), req.body.password);
         } catch (error) {
             res.status(400).json({ error: error });
         }
@@ -33,8 +33,8 @@ module.exports = {
         try {
             await User.findByIdAndDelete(req.params.id);
             await Task.updateMany(
-                { userList: { $in: [req.params.id] } },
-                { $pull: { userList: req.params.id } }
+                { userList: { $in: [req.params.id] }},
+                { $pull: { userList: req.params.id }}
             )
         } catch (error) {
             res.status(400).json({ error: error });
