@@ -20,6 +20,10 @@ const taskSchema = new mongoose.Schema({
         type: mongoose.Decimal128,
         default: 0.0
     },
+    dateCompleted: {
+        type: Date,
+        default: null
+    },
     userList: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'User'
@@ -27,6 +31,18 @@ const taskSchema = new mongoose.Schema({
 });
 
 // Methods
+taskSchema.methods.isCompleted = function () {
+    if (this.progress == 1) {
+        if (this.dateCompleted == null) {
+            this.dateCompleted = new Date();
+        }
+        return true;
+    } else {
+        this.dateCompleted = null;
+        return false;
+    }
+}
+
 taskSchema.methods.getPriority = function () {
     switch (this.priority) {
         case 1:
