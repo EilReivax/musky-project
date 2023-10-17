@@ -34,7 +34,7 @@ module.exports = {
             tasks = await Task.find()
             .populate('userList')
             .exec();
-            
+
             users = await User.find().exec();
         } catch (error) {
             res.status(400).json({ error: error });
@@ -45,11 +45,13 @@ module.exports = {
 
     updateOne: async function (req, res) {
         try {
-            await Category.findByIdAndUpdate(req.params.id, 
-            {
-                title: req.body.title,
-                taskList: req.body.taskList
-            });
+            await Category.findByIdAndUpdate(
+                req.params.id, 
+                {
+                    title: req.body.title,
+                    taskList: req.body.taskList
+                }
+            );
         } catch (error) {
             res.status(400).json({ error: error });
         }
