@@ -15,21 +15,6 @@ module.exports = {
         res.redirect('/dashboard');
     },
 
-    getAll: async function (req, res) {
-        let tasks = []
-
-        try {
-            tasks = await Task.find()
-                .populate('userList')
-                .exec();
-            
-        } catch (error) {
-            res.status(400).json({ error: error });
-        }
-
-        return tasks;
-    },
-
     updateOne: async function (req, res) {
         try {
             await Task.findByIdAndUpdate(

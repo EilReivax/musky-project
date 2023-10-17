@@ -1,4 +1,5 @@
 const Category = require('../models/category');
+const Task = require('../models/task');
 const User = require('../models/user');
 
 module.exports = {
@@ -15,6 +16,7 @@ module.exports = {
 
     getAll: async function (req, res) {
         let categories = []
+        let tasks = []
         let users = []
 
         try {
@@ -28,7 +30,11 @@ module.exports = {
                 }
             })
             .exec();
-        
+
+            tasks = await Task.find()
+            .populate('userList')
+            .exec();
+            
             users = await User.find().exec();
         } catch (error) {
             res.status(400).json({ error: error });
@@ -41,7 +47,7 @@ module.exports = {
         try {
             await Category.findByIdAndUpdate(req.params.id, 
             {
-                name: req.body.name,
+                title: req.body.title,
                 taskList: req.body.taskList
             });
         } catch (error) {
