@@ -452,7 +452,7 @@ footer {
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1182px) {
   .tm-col-big,
   .tm-col-small {
     width: 100%;
