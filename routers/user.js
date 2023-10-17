@@ -21,7 +21,7 @@ module.exports = {
                     password: req.body.password,
                     isAdmin: req.body.isAdmin
                 }
-            )
+            );
         } catch (error) {
             res.status(400).json({ error: error });
         }
@@ -35,7 +35,7 @@ module.exports = {
             await Task.updateMany(
                 { userList: { $in: [req.params.id] }},
                 { $pull: { userList: req.params.id }}
-            )
+            );
         } catch (error) {
             res.status(400).json({ error: error });
         }
