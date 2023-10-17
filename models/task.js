@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const taskSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        maxLength: 20
     },
     description: String,
     dueDate: {
