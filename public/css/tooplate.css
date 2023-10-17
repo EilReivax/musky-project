@@ -401,7 +401,6 @@ footer {
   .navbar-expand-lg .navbar-nav .nav-link {
     padding: 15px 20px;
   }
-  
 }
 
 @media (min-width: 1200px) {
@@ -467,6 +466,10 @@ footer {
   }
   .tm-block {
     padding: 30px;
+  }
+
+  .text-right {
+    text-align: left!important;
   }
 
   .tm-table-actions-row {
