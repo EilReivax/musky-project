@@ -203,8 +203,8 @@
                                 <!-- End edit category -->
                             </div>
 
-                            <!-- Tasks -->
                             <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
+                                <!-- Tasks -->
                                 <% for (let j = 0; j < categories[i].taskList.length; j++) { %>
                                     <li class="tm-list-group-item" draggable="true">
                                         <a href="" class="tm-link-black font-weight-bold not-drag" data-toggle="modal" data-target="#edit-task-<%= i %>-<%= j %>"><%= categories[i].taskList[j].title %></a>
@@ -301,8 +301,8 @@
                                         <!-- End edit task -->
                                     </li>
                                 <% } %>
+                                <!-- End tasks -->
                             </ol>
-                            <!-- End tasks -->
 
                             <!-- Add task -->
                             <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
