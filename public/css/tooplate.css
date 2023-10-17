@@ -639,9 +639,6 @@ a.boxclose {
   font-size: 17px;
   display: inline-block;
   line-height: 0px;
-  /*
-  padding: 11px 7px 17px 7px;
-  */
   padding: 11px 8px 15px;
 }
 .boxclose:before {
@@ -651,10 +648,6 @@ a.boxclose {
   display: block;
   clear: both;
   position: relative;
-  /*
-  top: -20px;
-  left: -30px;
-  */
 }
 #gfb_newsletter_signup_form h1 {
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
@@ -664,7 +657,6 @@ a.boxclose {
   color: #333;
   padding: 0px 10px;
   text-align: center;
-  /*style="margin-bottom:20px; font-size:18px;"*/
 }
 div#p-footer {
   padding: 15px;
