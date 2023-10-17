@@ -490,8 +490,16 @@ footer {
 
     height: auto;
     max-width: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
    }
-
+  .col-8 {
+    max-height: 40px;
+  }
+  .tm-block-title {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
 }
 
 @media (max-width: 633px) {
