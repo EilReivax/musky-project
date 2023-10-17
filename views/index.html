@@ -96,7 +96,7 @@
                                         <form action="/add/category" method="POST">
                                             <div class="modal-body">
                                                 <div class="form-group">
-                                                    <label for="title" class="col-form-label">Category Title:</label>
+                                                    <label for="title" class="col-form-label">Category Title<span class="text-danger">*</span>:</label>
                                                     <input type="text" class="form-control" id="title" name="title" required>
                                                 </div>
                                             </div>
@@ -186,7 +186,7 @@
                                             <form action="/edit/category/<%- categories[i]._id %>" method="POST">
                                                 <div class="modal-body">
                                                     <div class="form-group">
-                                                        <label for="title" class="col-form-label">Title:</label>
+                                                        <label for="title" class="col-form-label">Title<span class="text-danger">*</span>:</label>
                                                         <input type="text" class="form-control" id="title" name="title" value="<%- categories[i].title %>" required>
                                                     </div>
                                                 </div>
@@ -236,7 +236,7 @@
                                                     <form action="/edit/task/<%- categories[i].taskList[j]._id %>" method="POST">
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <label for="title" class="col-form-label">Title:</label>
+                                                                <label for="title" class="col-form-label">Title<span class="text-danger">*</span>:</label>
                                                                 <input type="text" class="form-control" id="title" name="title" value="<%- categories[i].taskList[j].title %>" required>
                                                             </div>
 
@@ -246,7 +246,7 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="dueDate" class="col-form-label">Due Date:</label>
+                                                                <label for="dueDate" class="col-form-label">Due Date<span class="text-danger">*</span>:</label>
                                                                 <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%- categories[i].taskList[j].dueDate.toISOString().slice(0, 10) %>" required>
                                                             </div>
 
@@ -328,7 +328,7 @@
                                             <form action="/add/task/<%- categories[i]._id %>" method="POST">
                                                 <div class="modal-body">
                                                     <div class="form-group">
-                                                        <label for="title" class="col-form-label">Title:</label>
+                                                        <label for="title" class="col-form-label">Title<span class="text-danger">*</span>:</label>
                                                         <input type="text" class="form-control" id="title" name="title" required>
                                                     </div>
 
@@ -338,7 +338,7 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="dueDate" class="col-form-label">Due Date:</label>
+                                                        <label for="dueDate" class="col-form-label">Due Date<span class="text-danger">*</span>:</label>
                                                         <input type="date" class="form-control" id="dueDate" name="dueDate" required>
                                                     </div>
 
