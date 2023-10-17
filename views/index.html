@@ -266,6 +266,13 @@
                                                                 <label for="progress" class="form-label">Progress: </label>
                                                                 <input type="range" class="form-range" min="0" max="1" step="0.01" name="progress" id="progress" value="<%= categories[i].taskList[j].progress %>">
                                                             </div>
+
+                                                            <% if (categories[i].taskList[j].isCompleted()) { %>
+                                                                <div class="form-group">
+                                                                    <label for="completedDate" class="form-label">Completed Date: </label>
+                                                                    <input type="date" class="form-control" name="completedDate" id="completedDate" value="<%= categories[i].taskList[j].completedDate.toISOString().slice(0, 10) %>">
+                                                                </div>
+                                                            <% } %>
                                                             
                                                             <% if (currentUser.isAdmin) { %>
                                                                 <div class="form-group">

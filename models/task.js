@@ -20,7 +20,7 @@ const taskSchema = new mongoose.Schema({
         type: mongoose.Decimal128,
         default: 0.0
     },
-    dateCompleted: {
+    completedDate: {
         type: Date,
         default: null
     },
@@ -33,12 +33,12 @@ const taskSchema = new mongoose.Schema({
 // Methods
 taskSchema.methods.isCompleted = function () {
     if (this.progress == 1) {
-        if (this.dateCompleted == null) {
-            this.dateCompleted = new Date();
+        if (this.completedDate == null) {
+            this.completedDate = new Date();
         }
         return true;
     } else {
-        this.dateCompleted = null;
+        this.completedDate = null;
         return false;
     }
 }
