@@ -14,42 +14,12 @@ module.exports = {
         res.redirect('/dashboard');
     },
 
-    getAll: async function (req, res) {
-        let categories = []
-        let tasks = []
-        let users = []
-
-        try {
-            categories = await Category.find()
-            .populate({
-                path: 'taskList',
-                model: 'Task',
-                populate: {
-                    path: 'userList',
-                    model: 'User'
-                }
-            })
-            .exec();
-
-            tasks = await Task.find()
-            .populate('userList')
-            .exec();
-
-            users = await User.find().exec();
-        } catch (error) {
-            res.status(400).json({ error: error });
-        }
-
-        res.render("index", {categories: categories, tasks: tasks, users: users, currentUser: req.user});
-    },
-
     updateOne: async function (req, res) {
         try {
             await Category.findByIdAndUpdate(
                 req.params.id, 
                 {
-                    title: req.body.title,
-                    taskList: req.body.taskList
+                    title: req.body.title
                 }
             );
         } catch (error) {

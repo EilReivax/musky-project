@@ -6,6 +6,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
 
+const Project = require('./routers/project');
 const Category = require('./routers/category');
 const Task = require('./routers/task');
 const User = require('./routers/user');
@@ -72,7 +73,7 @@ app.get('/logout', function (req, res) {
 app.get('/delete/user/:id', User.deleteOne);
 
 // Dashboard
-app.get('/dashboard', isAuthenticated, Category.getAll);
+app.get('/dashboard', isAuthenticated, Project.getAll);
 
 // Category endpoints
 app.post('/add/category', isAuthenticated, Category.createOne);
