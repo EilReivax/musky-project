@@ -435,7 +435,8 @@
         const projectEnd = new Date(<%- JSON.stringify(project.endDate.toISOString().slice(0, 10)) %>);
 
         const plannedDates = generateDateArray(projectStart, projectEnd); // Replace with your actual date generation logic
-        let actualDates = []; // Replace with your actual data
+        let actualDates = [];
+        let dueDates = [];
 
         for (let i = 0; i < tasks.length; i++) {
             if (tasks[i].completedDate) {
@@ -443,21 +444,32 @@
             }
         }
 
-        const tasksPlanned = <%- JSON.stringify(countTasks) %>; // Total planned tasks REPLACE THIS WITH TOTAL TASKS
-        const tasksRemaining = tasksPlanned - <%- JSON.stringify(countTasksCompleted) %>; // Remaining tasks each day REPLACE THIS WITH TOTAL TASKS - TOTAL TASKS DONE
+        for (let i = 0; i < tasks.length; i++) {
+            dueDates.push(new Date(tasks[i].dueDate).toISOString().slice(0, 10));
+        }
+
+
+        const tasksPlanned = <%- JSON.stringify(countTasks) %>; // Total planned tasks
 
         // Create labels for the X-axis (days between start and end dates)
         const labels = plannedDates.map(date => date.toLocaleDateString());
 
         // Calculate the number of tasks for each day
-        const tasksPerDayPlanned = plannedDates.map((date, index) => {
-            const remainingTasks = tasksPlanned - Math.floor((index / plannedDates.length) * tasksPlanned);
-            return Math.max(0, remainingTasks);
+        let totalTasksPlanned = tasksPlanned;
+        const tasksPerDayPlanned = plannedDates.map((date) => {
+            const dueDate = dueDates.filter(d => d === date.toISOString().slice(0, 10)).length;
+            totalTasksPlanned -= dueDate;
+            return totalTasksPlanned;
         });
-        const tasksPerDayActual = plannedDates.map((date, index) => {
+
+        let totalTasksActual = tasksPlanned;
+        const tasksPerDayActual = plannedDates.map((date) => {
             const actualDate = actualDates.filter(d => d === date.toISOString().slice(0, 10)).length;
-            return tasksPlanned - actualDate;
+            totalTasksActual -= actualDate;
+            return totalTasksActual;
         });
+
+        console.log(tasksPerDayPlanned)
         // Create a simple line chart using Chart.js
         const ctx = document.getElementById('burndownChart').getContext('2d');
         const chart = new Chart(ctx, {
