@@ -92,37 +92,30 @@
                                         <form action="/edit/project" method="POST">
                                             <div class="modal-body">
                                                 <canvas id="burndownChart"></canvas>
-
-                                                <div class="form-group">
-                                                    <label for="startDate" class="col-form-label">Project Start Date:</label>
-                                                    <input type="date" class="form-control" id="startDate" name="startDate" <% if (project.hasStartDate()) { %> value="<%- project.startDate.toISOString().slice(0, 10) %>" <% } %> >
-                                                </div>
-                                                
-                                                
-                                                <div class="form-group">
-                                                    <label for="endDate" class="col-form-label">Project End Date:</label>
-                                                    <input type="date" class="form-control" id="endDate" name="endDate" <% if (project.hasEndDate()) { %> value="<%- project.endDate.toISOString().slice(0, 10) %>" <% } %> >
-                                                </div>
                                                 
                                                 <% if (currentUser.isAdmin) { %>
                                                     <div class="form-group">
-                                                        <label for="userList" class="col-form-label">Users:</label>
-                                                        <ul>
-                                                            <% for (let k = 1; k < users.length; k++) { %>
-                                                                <li>
-                                                                    <input type="checkbox" name="userList" id="userList" value="<%- users[k]._id %>" <% if (task.userList.some(user => String(user._id) == String(users[k]._id))) { %> checked <% } %> />
-                                                                    <%= users[k].username %>
-                                                                </li>
-                                                            <% } %>
-                                                        </ul>
+                                                        <label for="startDate" class="col-form-label">Project Start Date:</label>
+                                                        <input type="date" class="form-control" id="startDate" name="startDate" <% if (project.hasStartDate()) { %> value="<%- project.startDate.toISOString().slice(0, 10) %>" <% } %> >
+                                                    </div>
+                                                    
+                                                    
+                                                    <div class="form-group">
+                                                        <label for="endDate" class="col-form-label">Project End Date:</label>
+                                                        <input type="date" class="form-control" id="endDate" name="endDate" <% if (project.hasEndDate()) { %> value="<%- project.endDate.toISOString().slice(0, 10) %>" <% } %> >
                                                     </div>
                                                 <% } else { %>
-                                                    <label for="userList" class="col-form-label">Users:</label>
-                                                    <ul>
-                                                        <% for (let k = 0; k < task.userList.length; k++) { %>
-                                                            <li><%= task.userList[k].username %></li>
-                                                        <% } %>
-                                                    </ul>
+                                                    <div class="form-group">
+                                                        <label for="startDate" class="col-form-label">
+                                                            Project Start Date: <% if (project.hasStartDate()) { %> <%= project.startDate.toISOString().slice(0, 10) %> <% } %>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label for="endDate" class="col-form-label">
+                                                            Project End Date:<% if (project.hasEndDate()) { %> <%= project.endDate.toISOString().slice(0, 10) %> <% } %>
+                                                        </label>
+                                                    </div>
                                                 <% } %>
                                             </div>
 
