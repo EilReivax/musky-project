@@ -1,6 +1,4 @@
 const Category = require('../models/category');
-const Task = require('../models/task');
-const User = require('../models/user');
 
 module.exports = {
     createOne: async function (req, res) {
