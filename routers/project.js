@@ -95,7 +95,7 @@ module.exports = {
             .exec();
 
             for (let i = 0; i < categories.length; i++) {
-                categories[i].taskList.sort((a, b) => b.progress - a.progress);
+                categories[i].taskList.sort((a, b) => a.progress - b.progress);
             }
 
             tasks = await Task.find()
