@@ -432,8 +432,8 @@
         const plannedDates = generateDateArray(projectStart,
         projectEnd); // Replace with your actual date generation logic
         const actualDates = ['2023-10-02', '2023-10-04', '2023-10-06', '2023-10-08', '2023-10-10']; // Replace with your actual data
-        const tasksPlanned = plannedDates.length; // Total planned tasks REPLACE THIS WITH TOTAL TASKS
-        const tasksRemaining = tasksPlanned - actualDates.length; // Remaining tasks each day REPLACE THIS WITH TOTAL TASKS - TOTAL TASKS DONE
+        const tasksPlanned = <%- JSON.stringify(countTasks) %>; // Total planned tasks REPLACE THIS WITH TOTAL TASKS
+        const tasksRemaining = tasksPlanned - <%- JSON.stringify(countTasksCompleted) %>; // Remaining tasks each day REPLACE THIS WITH TOTAL TASKS - TOTAL TASKS DONE
 
         // Create labels for the X-axis (days between start and end dates)
         const labels = plannedDates.map(date => date.toLocaleDateString());
