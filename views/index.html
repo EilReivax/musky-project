@@ -24,7 +24,6 @@
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="   ./css/tooplate.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-
     
 </head>
 
@@ -289,6 +288,13 @@
                                                                 <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%- task.dueDate.toISOString().slice(0, 10) %>" required>
                                                             </div>
 
+                                                            <% if (task.isCompleted()) { %>
+                                                                <div class="form-group">
+                                                                    <label for="completedDate" class="form-label">Completed Date: </label>
+                                                                    <input type="date" class="form-control" name="completedDate" id="completedDate" value="<%- task.completedDate.toISOString().slice(0, 10) %>">
+                                                                </div>
+                                                            <% } %>
+
                                                             <div class="form-group">
                                                                 <label for="priority" class="col-form-label">Priority:</label>
                                                                 <select id="priority" name="priority">
@@ -306,13 +312,6 @@
                                                                 <label for="progress" class="form-label">Progress: </label>
                                                                 <input type="range" class="form-range" min="0" max="1" step="0.01" name="progress" id="progress" value="<%- task.progress %>">
                                                             </div>
-
-                                                            <% if (task.isCompleted()) { %>
-                                                                <div class="form-group">
-                                                                    <label for="completedDate" class="form-label">Completed Date: </label>
-                                                                    <input type="date" class="form-control" name="completedDate" id="completedDate" value="<%- task.completedDate.toISOString().slice(0, 10) %>">
-                                                                </div>
-                                                            <% } %>
                                                             
                                                             <% if (currentUser.isAdmin) { %>
                                                                 <div class="form-group">
@@ -430,19 +429,19 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        const tasks = <%- JSON.stringify(tasks) %>
+        // new Date(document.getElementById('startDate').value)
+        // new Date(document.getElementById('endDate').value)
+        // Sample data
+
+        // const projectStart = new Date(document.getElementById('startDate').value);
+        // const projectEnd = new Date(document.getElementById('endDate').value);
+
         const projectStart = new Date(<%- JSON.stringify(project.startDate.toISOString().slice(0, 10)) %>);
         const projectEnd = new Date(<%- JSON.stringify(project.endDate.toISOString().slice(0, 10)) %>);
 
-        const plannedDates = generateDateArray(projectStart, projectEnd); // Replace with your actual date generation logic
-        let actualDates = []; // Replace with your actual data
-
-        for (let i = 0; i < tasks.length; i++) {
-            if (tasks[i].completedDate) {
-                actualDates.push(new Date(tasks[i].completedDate).toISOString().slice(0, 10));
-            }
-        }
-
+        const plannedDates = generateDateArray(projectStart,
+        projectEnd); // Replace with your actual date generation logic
+        const actualDates = ['2023-10-02', '2023-10-04', '2023-10-06', '2023-10-08', '2023-10-10']; // Replace with your actual data
         const tasksPlanned = <%- JSON.stringify(countTasks) %>; // Total planned tasks REPLACE THIS WITH TOTAL TASKS
         const tasksRemaining = tasksPlanned - <%- JSON.stringify(countTasksCompleted) %>; // Remaining tasks each day REPLACE THIS WITH TOTAL TASKS - TOTAL TASKS DONE
 
@@ -509,6 +508,9 @@
             return dateArray;
         }
     </script>
+    
+    
+    
 
     <script src = "/drag.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -520,99 +522,124 @@
     <script src="js/tooplate-scripts.js"></script>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-            const draggables = document.querySelectorAll(".tm-list-group-item");
-            const droppables = document.querySelectorAll(".col-4");
+        let ctxLine,
+            ctxBar,
+            ctxPie,
+            optionsLine,
+            optionsBar,
+            optionsPie,
+            configLine,
+            configBar,
+            configPie,
+            lineChart;
+            barChart, 
+            pieChart;
 
-        draggables.forEach((task) => {
-            task.addEventListener("dragstart", () => {
-                task.classList.add("is-dragging");
+        $(function () {
+            updateChartOptions();
+            drawLineChart(); // Line Chart
+            drawBarChart(); // Bar Chart
+            drawPieChart(); // Pie Chart
+            drawCalendar(); // Calendar
+            $(window).resize(function () {
+                updateChartOptions();
+                updateLineChart();
+                updateBarChart();
+                reloadPage();
             });
+        })
+    </script>
 
-            task.addEventListener("dragend", () => {
-                task.classList.remove("is-dragging");
-                updateLocalStorage();
-            });
+<script>
+    const draggables = document.querySelectorAll(".tm-list-group-item");
+    const droppables = document.querySelectorAll(".col-4");
+
+    draggables.forEach((task) => {
+        task.addEventListener("dragstart", () => {
+            task.classList.add("is-dragging");
         });
 
-        droppables.forEach((zone) => {
-            zone.addEventListener("dragover", (e) => {
-                e.preventDefault();
-
-                const bottomTask = insertAboveTask(zone, e.clientY);
-                const curTask = document.querySelector(".is-dragging");
-
-                if (!bottomTask) {
-                    zone.querySelector(".tm-list-group").appendChild(curTask);
-                } else {
-                    zone.querySelector(".tm-list-group").insertBefore(curTask, bottomTask);
-                }
-                updateLocalStorage();
-            });
-        });
-
-        const loadFromLocalStorage = () => {
-            const data = JSON.parse(localStorage.getItem('categoryData'));
-            if (data) {
-                Object.keys(data).forEach(categoryId => {
-                    const category = document.getElementById(categoryId);
-                    const taskList = data[categoryId];
-
-                    if (category) {
-                        const taskContainer = document.getElementById(`categoryTasks-${categoryId.split('-')[1]}`);
-                        
-                        taskList.forEach(taskId => {
-                            const task = document.getElementById(taskId);
-                            taskContainer.appendChild(task);
-                        });
-                    }
-                });
-            }
-        };
-
-        const insertAboveTask = (zone, mouseY) => {
-            const els = zone.querySelectorAll(".tm-list-group-item:not(.is-dragging)");
-
-            let closestTask = null;
-            let closestOffset = Number.NEGATIVE_INFINITY;
-
-            els.forEach((task) => {
-                const { top } = task.getBoundingClientRect();
-
-                const offset = mouseY - top;
-
-                if (offset < 0 && offset > closestOffset) {
-                    closestOffset = offset;
-                    closestTask = task;
-                }
-            });
-
-            return closestTask;
-        };
-
-        const updateLocalStorage = () => {
-            const categories = document.querySelectorAll(".col-4");
-            const data = {};
-
-            categories.forEach((category, i) => {
-                const categoryId = category.id;
-                const tasks = Array.from(category.querySelectorAll(".tm-list-group-item")).map(task => task.id);
-                data[categoryId] = tasks;
-            });
-
-            localStorage.setItem('categoryData', JSON.stringify(data));
-        };
-
-        // Call updateLocalStorage after any drag and drop operation
-        document.addEventListener('DOMNodeRemoved', updateLocalStorage);
-
-        // Load state from localStorage on page load
-        window.addEventListener('load', function() {
-            loadFromLocalStorage();
+        task.addEventListener("dragend", () => {
+            task.classList.remove("is-dragging");
+            updateLocalStorage();
         });
     });
-</script>
 
+    droppables.forEach((zone) => {
+        zone.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            
+            const bottomTask = insertAboveTask(zone, e.clientY);
+            const curTask = document.querySelector(".is-dragging");
+
+            if (!bottomTask) {
+                zone.querySelector(".tm-list-group").appendChild(curTask);
+            } else {
+                zone.querySelector(".tm-list-group").insertBefore(curTask, bottomTask);
+            }
+            updateLocalStorage();
+        });
+    });
+    const loadFromLocalStorage = () => {
+    const data = JSON.parse(localStorage.getItem('categoryData'));
+    if (data) {
+        Object.keys(data).forEach(categoryId => {
+            const category = document.getElementById(categoryId);
+            const taskList = data[categoryId];
+
+            if (category) {
+                const taskContainer = document.getElementById(`categoryTasks-${categoryId.split('-')[1]}`);
+                
+                taskList.forEach(taskId => {
+                    const task = document.getElementById(taskId);
+                    taskContainer.appendChild(task);
+                });
+            }
+        });
+    }
+};
+    const insertAboveTask = (zone, mouseY) => {
+        const els = zone.querySelectorAll(".tm-list-group-item:not(.is-dragging)");
+
+        let closestTask = null;
+        let closestOffset = Number.NEGATIVE_INFINITY;
+
+        els.forEach((task) => {
+            const { top } = task.getBoundingClientRect();
+
+            const offset = mouseY - top;
+
+            if (offset < 0 && offset > closestOffset) {
+                closestOffset = offset;
+                closestTask = task;
+            }
+        });
+
+        return closestTask;
+    };
+
+    const updateLocalStorage = () => {
+        const categories = document.querySelectorAll(".col-4");
+        const data = {};
+
+        categories.forEach((category, i) => {
+            const categoryId = category.id;
+            const tasks = Array.from(category.querySelectorAll(".tm-list-group-item")).map(task => task.id);
+            data[categoryId] = tasks;
+        });
+
+        localStorage.setItem('categoryData', JSON.stringify(data));
+    };
+
+    // Call updateLocalStorage after any drag and drop operation
+    document.addEventListener('DOMNodeRemoved', updateLocalStorage);
+
+    // Load state from localStorage on page load
+    window.addEventListener('load', function() {
+        loadFromLocalStorage();
+        updateLocalStorage(); // Save initial state (optional)
+    });
+</script>
 </body>
 
 </html>
