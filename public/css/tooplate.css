@@ -69,11 +69,6 @@ a:focus {
   letter-spacing: 1px;
 }
 
-.navbar {
-  height: 100px;
-
-}
-
 .tm-logout-icon {
   font-size: 1.5em;
 }
@@ -455,9 +450,20 @@ footer {
   .nav-item {
     margin-right: 0;
   }
+
+
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    background-color: #000;
+    }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1182px) {
   .tm-col-big,
   .tm-col-small {
     width: 100%;
@@ -673,4 +679,12 @@ div#p-footer {
   padding: 15px;
   display: block !important;
   position: relative;
+}
+
+.description-item {
+  max-width: 400px; /* Adjust the maximum width as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
 }

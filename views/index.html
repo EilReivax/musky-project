@@ -35,7 +35,7 @@
                     <img width="160px" src="../img/logo/no_text.png">
                 </a>
 
-                <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+                <button class="navbar-toggler mr-0" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -96,7 +96,7 @@
                                         <form action="/add/category" method="POST">
                                             <div class="modal-body">
                                                 <div class="form-group">
-                                                    <label for="title" class="col-form-label">Category Title:</label>
+                                                    <label for="title" class="col-form-label">Category Title<span class="text-danger">*</span>:</label>
                                                     <input type="text" class="form-control" id="title" name="title" required>
                                                 </div>
                                             </div>
@@ -187,7 +187,7 @@
                                             <form action="/edit/category/<%- category._id %>" method="POST">
                                                 <div class="modal-body">
                                                     <div class="form-group">
-                                                        <label for="title" class="col-form-label">Title:</label>
+                                                        <label for="title" class="col-form-label">Title<span class="text-danger">*</span>:</label>
                                                         <input type="text" class="form-control" id="title" name="title" value="<%- category.title %>" required>
                                                     </div>
                                                 </div>
@@ -211,7 +211,7 @@
                                     <li class="tm-list-group-item" draggable="true">
                                         <a href="" class="tm-link-black font-weight-bold not-drag" data-toggle="modal" data-target="#edit-task-<%- i %>-<%- j %>"><%= task.title %></a>
                                         <ul>
-                                            <li><%= task.description %></li>
+                                            <li class="description-item"><%= task.description %></li>
                                             <li><%= task.dueDate.toLocaleDateString() %></li>
                                             <li><%= task.getPriority() %></li>
                                             <li>
@@ -238,7 +238,7 @@
                                                     <form action="/edit/task/<%- task._id %>" method="POST">
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <label for="title" class="col-form-label">Title:</label>
+                                                                <label for="title" class="col-form-label">Title<span class="text-danger">*</span>:</label>
                                                                 <input type="text" class="form-control" id="title" name="title" value="<%- task.title %>" required>
                                                             </div>
 
@@ -248,7 +248,7 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="dueDate" class="col-form-label">Due Date:</label>
+                                                                <label for="dueDate" class="col-form-label">Due Date<span class="text-danger">*</span>:</label>
                                                                 <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%- task.dueDate.toISOString().slice(0, 10) %>" required>
                                                             </div>
 
@@ -330,7 +330,7 @@
                                             <form action="/add/task/<%- category._id %>" method="POST">
                                                 <div class="modal-body">
                                                     <div class="form-group">
-                                                        <label for="title" class="col-form-label">Title:</label>
+                                                        <label for="title" class="col-form-label">Title<span class="text-danger">*</span>:</label>
                                                         <input type="text" class="form-control" id="title" name="title" required>
                                                     </div>
 
@@ -340,7 +340,7 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="dueDate" class="col-form-label">Due Date:</label>
+                                                        <label for="dueDate" class="col-form-label">Due Date<span class="text-danger">*</span>:</label>
                                                         <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%- new Date().toISOString().slice(0, 10) %>" required>
                                                     </div>
 
