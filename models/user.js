@@ -11,8 +11,8 @@ const userSchema = new mongoose.Schema({
         default: null
     },
     totalHours: {
-        type: Number,
-        default: 0
+        type: mongoose.Decimal128,
+        default: 0.0
     },
     lastLogin: {
         type: Date,
@@ -25,11 +25,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.methods.averageHours = function () {
-    return Math.rount(this.totalHours / totalDays() * 10) / 10;
-}
-
-function totalDays() {
-    (this.lastLogin.getTime() - this.startDate.getTime()) / (1000 * 60 * 60 * 24)
+    return Math.round(this.totalHours / (this.lastLogin.getTime() - this.startDate.getTime()) / (1000 * 60 * 60 * 24) * 10) / 10;
 }
 
 userSchema.plugin(passportLocalMongoose);
