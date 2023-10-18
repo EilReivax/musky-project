@@ -89,13 +89,47 @@
                                             </button>
                                         </div>
 
-                                        <div class="modal-body">
-                                            <canvas id="burndownChart"></canvas>
-                                        </div>
+                                        <form action="/edit/project" method="POST">
+                                            <div class="modal-body">
+                                                <canvas id="burndownChart"></canvas>
 
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        </div>
+                                                <div class="form-group">
+                                                    <label for="startDate" class="col-form-label">Project Start Date:</label>
+                                                    <input type="date" class="form-control" id="startDate" name="startDate" <% if (project.hasStartDate()) { %> value="<%- project.startDate.toISOString().slice(0, 10) %>" <% } %> >
+                                                </div>
+                                                
+                                                
+                                                <div class="form-group">
+                                                    <label for="endDate" class="col-form-label">Project End Date:</label>
+                                                    <input type="date" class="form-control" id="endDate" name="endDate" <% if (project.hasEndDate()) { %> value="<%- project.endDate.toISOString().slice(0, 10) %>" <% } %> >
+                                                </div>
+                                                
+                                                <% if (currentUser.isAdmin) { %>
+                                                    <div class="form-group">
+                                                        <label for="userList" class="col-form-label">Users:</label>
+                                                        <ul>
+                                                            <% for (let k = 1; k < users.length; k++) { %>
+                                                                <li>
+                                                                    <input type="checkbox" name="userList" id="userList" value="<%- users[k]._id %>" <% if (task.userList.some(user => String(user._id) == String(users[k]._id))) { %> checked <% } %> />
+                                                                    <%= users[k].username %>
+                                                                </li>
+                                                            <% } %>
+                                                        </ul>
+                                                    </div>
+                                                <% } else { %>
+                                                    <label for="userList" class="col-form-label">Users:</label>
+                                                    <ul>
+                                                        <% for (let k = 0; k < task.userList.length; k++) { %>
+                                                            <li><%= task.userList[k].username %></li>
+                                                        <% } %>
+                                                    </ul>
+                                                <% } %>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button class="btn btn-primary">Save</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -400,11 +434,14 @@
         // JavaScript for creating the burndown char
         document.addEventListener('DOMContentLoaded', function () {
             // Dates for the burndown chart (format: 'YYYY-MM-DD')
+            let project = <%- JSON.stringify(project) %>
+
             let tasks = <%- JSON.stringify(tasks) %>
             let completedTasks = [];
             for (let i = 0; i < tasks.length; i++) {
                 
             }
+
             const plannedDates = ['2023-10-01', '2023-10-01', '2023-10-13', '2023-10-22', '2023-10-23'];
             const actualDates = ['2023-10-02', '2023-10-04', '2023-10-06', '2023-10-08', '2023-10-10'];
 

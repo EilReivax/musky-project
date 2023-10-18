@@ -13,6 +13,22 @@ module.exports = {
         res.render('login', { message: req.flash('error') });
     },
 
+    updateOne: async function (req, res) {
+        try {
+            await Project.findByIdAndUpdate(
+                PROJECT_ID,
+                {
+                    startDate: req.body.startDate,
+                    endDate: req.body.endDate
+                }
+            );
+        } catch (error) {
+            res.status(400).json({ error: error });
+        }
+
+        res.redirect('/dashboard');
+    },
+
     getAll: async function (req, res) {
         let project = {};
         let categories = [];
@@ -63,5 +79,5 @@ module.exports = {
         }
 
         res.render("index", {project: project, categories: categories, tasks: tasks, users: users, currentUser: req.user});
-    },
+    }
 }
