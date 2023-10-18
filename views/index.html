@@ -320,7 +320,8 @@
                                                                         <% for (let k = 1; k < users.length; k++) { %>
                                                                             <li>
                                                                                 <input type="checkbox" name="userList" id="userList" value="<%- users[k]._id %>" <% if (task.userList.some(user => String(user._id) == String(users[k]._id))) { %> checked <% } %> />
-                                                                                <label for="assigned-users" class=""><%= users[k].username %></label>                                                                            </li>
+                                                                                <label for="assigned-users" class=""><%= users[k].username %></label>                                                                            
+                                                                            </li>
                                                                         <% } %>
                                                                     </ul>
                                                                 </div>
@@ -436,6 +437,7 @@
         // const projectStart = new Date(document.getElementById('startDate').value);
         // const projectEnd = new Date(document.getElementById('endDate').value);
 
+        const tasks = <%- JSON.stringify(tasks) %>
         const projectStart = new Date(<%- JSON.stringify(project.startDate.toISOString().slice(0, 10)) %>);
         const projectEnd = new Date(<%- JSON.stringify(project.endDate.toISOString().slice(0, 10)) %>);
 
@@ -474,7 +476,6 @@
             return totalTasksActual;
         });
 
-        console.log(tasksPerDayPlanned)
         // Create a simple line chart using Chart.js
         const ctx = document.getElementById('burndownChart').getContext('2d');
         const chart = new Chart(ctx, {
@@ -540,124 +541,98 @@
     <script src="js/tooplate-scripts.js"></script>
 
     <script>
-        let ctxLine,
-            ctxBar,
-            ctxPie,
-            optionsLine,
-            optionsBar,
-            optionsPie,
-            configLine,
-            configBar,
-            configPie,
-            lineChart;
-            barChart, 
-            pieChart;
+        document.addEventListener('DOMContentLoaded', function() {
+            const draggables = document.querySelectorAll(".tm-list-group-item");
+            const droppables = document.querySelectorAll(".col-4");
 
-        $(function () {
-            updateChartOptions();
-            drawLineChart(); // Line Chart
-            drawBarChart(); // Bar Chart
-            drawPieChart(); // Pie Chart
-            drawCalendar(); // Calendar
-            $(window).resize(function () {
-                updateChartOptions();
-                updateLineChart();
-                updateBarChart();
-                reloadPage();
+            draggables.forEach((task) => {
+                task.addEventListener("dragstart", () => {
+                    task.classList.add("is-dragging");
+                });
+
+                task.addEventListener("dragend", () => {
+                    task.classList.remove("is-dragging");
+                    updateLocalStorage();
+                });
+            });
+
+            droppables.forEach((zone) => {
+                zone.addEventListener("dragover", (e) => {
+                    e.preventDefault();
+                    
+                    const bottomTask = insertAboveTask(zone, e.clientY);
+                    const curTask = document.querySelector(".is-dragging");
+
+                    if (!bottomTask) {
+                        zone.querySelector(".tm-list-group").appendChild(curTask);
+                    } else {
+                        zone.querySelector(".tm-list-group").insertBefore(curTask, bottomTask);
+                    }
+                    updateLocalStorage();
+                });
+            });
+
+            const loadFromLocalStorage = () => {
+                const data = JSON.parse(localStorage.getItem('categoryData'));
+                if (data) {
+                    Object.keys(data).forEach(categoryId => {
+                        const category = document.getElementById(categoryId);
+                        const taskList = data[categoryId];
+
+                        if (category) {
+                            const taskContainer = document.getElementById(`categoryTasks-${categoryId.split('-')[1]}`);
+                            
+                            taskList.forEach(taskId => {
+                                const task = document.getElementById(taskId);
+                                taskContainer.appendChild(task);
+                            });
+                        }
+                    });
+                }
+            };
+
+            const insertAboveTask = (zone, mouseY) => {
+                const els = zone.querySelectorAll(".tm-list-group-item:not(.is-dragging)");
+
+                let closestTask = null;
+                let closestOffset = Number.NEGATIVE_INFINITY;
+
+                els.forEach((task) => {
+                    const { top } = task.getBoundingClientRect();
+
+                    const offset = mouseY - top;
+
+                    if (offset < 0 && offset > closestOffset) {
+                        closestOffset = offset;
+                        closestTask = task;
+                    }
+                });
+
+                return closestTask;
+            };
+
+            const updateLocalStorage = () => {
+                const categories = document.querySelectorAll(".col-4");
+                const data = {};
+
+                categories.forEach((category, i) => {
+                    const categoryId = category.id;
+                    const tasks = Array.from(category.querySelectorAll(".tm-list-group-item")).map(task => task.id);
+                    data[categoryId] = tasks;
+                });
+
+                localStorage.setItem('categoryData', JSON.stringify(data));
+            };
+
+            // Call updateLocalStorage after any drag and drop operation
+            document.addEventListener('DOMNodeRemoved', updateLocalStorage);
+
+            // Load state from localStorage on page load
+            window.addEventListener('load', function() {
+                loadFromLocalStorage();
             });
         })
     </script>
-
-<script>
-    const draggables = document.querySelectorAll(".tm-list-group-item");
-    const droppables = document.querySelectorAll(".col-4");
-
-    draggables.forEach((task) => {
-        task.addEventListener("dragstart", () => {
-            task.classList.add("is-dragging");
-        });
-
-        task.addEventListener("dragend", () => {
-            task.classList.remove("is-dragging");
-            updateLocalStorage();
-        });
-    });
-
-    droppables.forEach((zone) => {
-        zone.addEventListener("dragover", (e) => {
-            e.preventDefault();
-            
-            const bottomTask = insertAboveTask(zone, e.clientY);
-            const curTask = document.querySelector(".is-dragging");
-
-            if (!bottomTask) {
-                zone.querySelector(".tm-list-group").appendChild(curTask);
-            } else {
-                zone.querySelector(".tm-list-group").insertBefore(curTask, bottomTask);
-            }
-            updateLocalStorage();
-        });
-    });
-    const loadFromLocalStorage = () => {
-    const data = JSON.parse(localStorage.getItem('categoryData'));
-    if (data) {
-        Object.keys(data).forEach(categoryId => {
-            const category = document.getElementById(categoryId);
-            const taskList = data[categoryId];
-
-            if (category) {
-                const taskContainer = document.getElementById(`categoryTasks-${categoryId.split('-')[1]}`);
-                
-                taskList.forEach(taskId => {
-                    const task = document.getElementById(taskId);
-                    taskContainer.appendChild(task);
-                });
-            }
-        });
-    }
-};
-    const insertAboveTask = (zone, mouseY) => {
-        const els = zone.querySelectorAll(".tm-list-group-item:not(.is-dragging)");
-
-        let closestTask = null;
-        let closestOffset = Number.NEGATIVE_INFINITY;
-
-        els.forEach((task) => {
-            const { top } = task.getBoundingClientRect();
-
-            const offset = mouseY - top;
-
-            if (offset < 0 && offset > closestOffset) {
-                closestOffset = offset;
-                closestTask = task;
-            }
-        });
-
-        return closestTask;
-    };
-
-    const updateLocalStorage = () => {
-        const categories = document.querySelectorAll(".col-4");
-        const data = {};
-
-        categories.forEach((category, i) => {
-            const categoryId = category.id;
-            const tasks = Array.from(category.querySelectorAll(".tm-list-group-item")).map(task => task.id);
-            data[categoryId] = tasks;
-        });
-
-        localStorage.setItem('categoryData', JSON.stringify(data));
-    };
-
-    // Call updateLocalStorage after any drag and drop operation
-    document.addEventListener('DOMNodeRemoved', updateLocalStorage);
-
-    // Load state from localStorage on page load
-    window.addEventListener('load', function() {
-        loadFromLocalStorage();
-        updateLocalStorage(); // Save initial state (optional)
-    });
-</script>
 </body>
 
 </html>
