@@ -67,6 +67,7 @@ app.get('/delete/user/:id', isAuthenticated, User.deleteOne);
 
 // Dashboard
 app.get('/dashboard', isAuthenticated, Project.getAll);
+app.post('/edit/project', isAuthenticated, Project.updateOne);
 
 // Category endpoints
 app.post('/add/category', isAuthenticated, Category.createOne);
