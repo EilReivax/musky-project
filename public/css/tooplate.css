@@ -705,3 +705,9 @@ div#p-footer {
 .pad-task {
   margin-top: 20px;
 }
+
+.margin-sbuto {
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-bottom: -40px;
+}

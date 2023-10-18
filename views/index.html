@@ -154,7 +154,7 @@
                                                                 <li>
                                                                     <a class="btn-sm btn-danger" href="/delete/user/<%- users[i]._id %>">X</a>
                                                                     <label for="priority" class="col-form-label"><%= users[i].username %></label>
-                                                                    <label for="average-hours" class="col-form-label"><%= users[i].averageHours() %></label>
+                                                                    <label for="average-hours" class="col-form-label">| average hours: <%= users[i].averageHours() %> hrs</label>
                                                                 </li>
                                                             <% } %>
                                                         </ol>
@@ -187,6 +187,9 @@
     <!-- End Navbar -->
 
     <!-- Content -->
+    <div class="row margin-sbuto">
+        <a href="/dashboard" class="btn btn-light">Sort</a>
+    </div>
     <div class="container">
         <div class="container-fluid">
             <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
@@ -315,8 +318,7 @@
                                                                         <% for (let k = 1; k < users.length; k++) { %>
                                                                             <li>
                                                                                 <input type="checkbox" name="userList" id="userList" value="<%- users[k]._id %>" <% if (task.userList.some(user => String(user._id) == String(users[k]._id))) { %> checked <% } %> />
-                                                                                <%= users[k].username %>
-                                                                            </li>
+                                                                                <label for="assigned-users" class=""><%= users[k].username %></label>                                                                            </li>
                                                                         <% } %>
                                                                     </ul>
                                                                 </div>
