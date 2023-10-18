@@ -615,17 +615,17 @@
     };
 
     const updateLocalStorage = () => {
-    const categories = document.querySelectorAll(".col-4");
-    const data = {};
+        const categories = document.querySelectorAll(".col-4");
+        const data = {};
 
-    categories.forEach((category, i) => {
-        const categoryId = category.id;
-        const tasks = Array.from(category.querySelectorAll(".tm-list-group-item")).map(task => task.id);
-        data[categoryId] = tasks;
-    });
+        categories.forEach((category, i) => {
+            const categoryId = category.id;
+            const tasks = Array.from(category.querySelectorAll(".tm-list-group-item")).map(task => task.id);
+            data[categoryId] = tasks;
+        });
 
-    localStorage.setItem('categoryData', JSON.stringify(data));
-};
+        localStorage.setItem('categoryData', JSON.stringify(data));
+    };
 
     // Call updateLocalStorage after any drag and drop operation
     document.addEventListener('DOMNodeRemoved', updateLocalStorage);

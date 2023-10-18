@@ -11,6 +11,7 @@ module.exports = {
             let newProject = new Project({ 
                 _id: PROJECT_ID,
                 startDate: new Date(),
+                lastLogin: new Date(),
                 endDate: new Date()
             });
             await newProject.save();
@@ -21,6 +22,7 @@ module.exports = {
                 { 
                     username: 'admin',
                     startDate: new Date(),
+                    lastLogin: new Date(),
                     isAdmin: true 
                 }), 
                 'admin'
