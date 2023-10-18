@@ -176,15 +176,11 @@ ol {
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 8px;
-  /* background-color: #e6e6e6; for odd coloring */
+  background-color: #e6e6e6;
 }
 
 .tm-list-group-pad-big > li {
   padding: 20px;
-}
-
-.tm-list-group-alternate-color > li:nth-child(odd) {
-  background-color: #e6e6e6;
 }
 
 .tm-list {
@@ -441,6 +437,8 @@ footer {
     right: 20px;
     width: 245px;
     z-index: 1000;
+    margin-top: 10px;
+    margin-right: 40px;
   }
 
   .navbar-nav .nav-link {
@@ -702,4 +700,8 @@ div#p-footer {
 
 .toggler-nav {
   padding-top: 0px;
+}
+
+.pad-task {
+  margin-top: 20px;
 }
