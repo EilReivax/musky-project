@@ -6,7 +6,8 @@ module.exports = {
         User.register(new User(
             { 
                 username: req.body.username,
-                startDate: new Date()
+                startDate: new Date(),
+                lastLogin: new Date()
             }
         ), 
         req.body.password,
