@@ -427,8 +427,13 @@
         // new Date(document.getElementById('startDate').value)
         // new Date(document.getElementById('endDate').value)
         // Sample data
-        const projectStart = new Date(document.getElementById('startDate').value);
-        const projectEnd = new Date(document.getElementById('endDate').value);
+
+        // const projectStart = new Date(document.getElementById('startDate').value);
+        // const projectEnd = new Date(document.getElementById('endDate').value);
+
+        const projectStart = new Date(<%- JSON.stringify(project.startDate.toISOString().slice(0, 10)) %>);
+        const projectEnd = new Date(<%- JSON.stringify(project.endDate.toISOString().slice(0, 10)) %>);
+
         const plannedDates = generateDateArray(projectStart,
         projectEnd); // Replace with your actual date generation logic
         const actualDates = ['2023-10-02', '2023-10-04', '2023-10-06', '2023-10-08', '2023-10-10']; // Replace with your actual data
