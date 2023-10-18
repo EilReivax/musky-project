@@ -54,15 +54,7 @@ app.get('/register', function (req, res) {
 });
 app.post('/register', User.createOne);
 
-app.get('/logout', function (req, res) {
-    req.logout((error) => {
-        if (error) {
-            res.status(400).json({ error: error });
-        }
-        res.redirect('/');
-    });
-});
-
+app.get('/logout', User.logout);
 app.get('/delete/user/:id', isAuthenticated, User.deleteOne);
 
 // Dashboard
@@ -79,6 +71,7 @@ app.post('/add/task/:id', isAuthenticated, Task.createOne);
 app.post('/edit/task/:id', isAuthenticated, Task.updateOne);
 app.get('/delete/task/:id', isAuthenticated, Task.deleteOne);
 
+// Functions
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();

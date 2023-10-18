@@ -3,7 +3,14 @@ const Task = require("../models/task");
 
 module.exports = {
     createOne: async function (req, res) {
-        User.register(new User({ username: req.body.username }), req.body.password, (error, user) => {
+        User.register(new User(
+            { 
+                username: req.body.username,
+                startDate: new Date()
+            }
+        ), 
+        req.body.password,
+        (error, user) => {
             if (error) {
                 console.log(error)
                 req.flash('error', error.message);
@@ -43,5 +50,16 @@ module.exports = {
         }
         
         res.redirect('/dashboard');
+    },
+
+    logout: async function (req, res) {
+        console.log(req.user);
+
+        req.logout((error) => {
+            if (error) {
+                res.status(400).json({ error: error });
+            }
+            res.redirect('/');
+        });
     }
 }
