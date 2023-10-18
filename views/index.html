@@ -622,7 +622,7 @@
 };
 
     // Call updateLocalStorage after any drag and drop operation
-    document.addEventListener('dragend', updateLocalStorage);
+    document.addEventListener('DOMNodeRemoved', updateLocalStorage);
 
     // Load state from localStorage on page load
     window.addEventListener('load', function() {
