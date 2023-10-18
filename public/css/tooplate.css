@@ -698,3 +698,7 @@ div#p-footer {
 .back-link:hover{
   text-decoration: underline;
 }
+
+.toggler-nav {
+  padding-top: 0px;
+}
