@@ -152,8 +152,9 @@
                                                         <ol>
                                                             <% for (let i = 1; i < users.length; i++) { %>
                                                                 <li>
-                                                                    <label for="priority" class="col-form-label"><%= users[i].username %></label>
                                                                     <a class="btn-sm btn-danger" href="/delete/user/<%- users[i]._id %>">X</a>
+                                                                    <label for="priority" class="col-form-label"><%= users[i].username %></label>
+                                                                    <label for="average-hours" class="col-form-label"><%= users[i].averageHours() %></label>
                                                                 </li>
                                                             <% } %>
                                                         </ol>
