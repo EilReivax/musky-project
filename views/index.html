@@ -161,11 +161,12 @@
             <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
                 <!-- Categories -->
                 <% for (let i = 0; i < categories.length; i++) { %>
+                    <% let category = categories[i] %>
                     <div class="col-4" draggable="false">
                         <div class="bg-white tm-block">
                             <div class="row">
                                 <div class="col-8">
-                                    <h2 class="tm-block-title d-inline-block"><%= categories[i].title %></h2>
+                                    <h2 class="tm-block-title d-inline-block"><%= category.title %></h2>
                                 </div>
 
                                 <!-- Edit category -->
@@ -183,16 +184,16 @@
                                                 </button>
                                             </div>
                                             <!-- Edit category form -->
-                                            <form action="/edit/category/<%- categories[i]._id %>" method="POST">
+                                            <form action="/edit/category/<%- category._id %>" method="POST">
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="title" class="col-form-label">Title:</label>
-                                                        <input type="text" class="form-control" id="title" name="title" value="<%- categories[i].title %>" required>
+                                                        <input type="text" class="form-control" id="title" name="title" value="<%- category.title %>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <a href="/delete/category/<%- categories[i]._id %>" class="btn btn-outline-danger">Delete</a>
+                                                    <a href="/delete/category/<%- category._id %>" class="btn btn-outline-danger">Delete</a>
                                                     <button class="btn btn-primary">Save</button>
                                                 </div>
                                             </form>
@@ -205,16 +206,17 @@
 
                             <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
                                 <!-- Tasks -->
-                                <% for (let j = 0; j < categories[i].taskList.length; j++) { %>
+                                <% for (let j = 0; j < category.taskList.length; j++) { %>
+                                    <% let task = category.taskList[j] %>
                                     <li class="tm-list-group-item" draggable="true">
-                                        <a href="" class="tm-link-black font-weight-bold not-drag" data-toggle="modal" data-target="#edit-task-<%- i %>-<%- j %>"><%= categories[i].taskList[j].title %></a>
+                                        <a href="" class="tm-link-black font-weight-bold not-drag" data-toggle="modal" data-target="#edit-task-<%- i %>-<%- j %>"><%= task.title %></a>
                                         <ul>
-                                            <li><%= categories[i].taskList[j].description %></li>
-                                            <li><%= categories[i].taskList[j].dueDate.toLocaleDateString() %></li>
-                                            <li><%= categories[i].taskList[j].getPriority() %></li>
+                                            <li><%= task.description %></li>
+                                            <li><%= task.dueDate.toLocaleDateString() %></li>
+                                            <li><%= task.getPriority() %></li>
                                             <li>
                                                 <div class="progress">
-                                                    <div <% /* eslint-disable css-propertyvalueexpected */ %> class="progress-bar bg-success" role="progressbar" style="width: <%- categories[i].taskList[j].getProgress() %>%;" aria-valuenow="<%- categories[i].taskList[j].getProgress() %>" aria-valuemin="0" aria-valuemax="100"><%= categories[i].taskList[j].getProgress() %>%</div>
+                                                    <div <% /* eslint-disable css-propertyvalueexpected */ %> class="progress-bar bg-success" role="progressbar" style="width: <%- task.getProgress() %>%;" aria-valuenow="<%- task.getProgress() %>" aria-valuemin="0" aria-valuemax="100"><%= task.getProgress() %>%</div>
                                                 </div>
                                             </li>
                                         </ul>
@@ -233,28 +235,28 @@
                                                     </div>
 
                                                     <!-- Edit task form -->
-                                                    <form action="/edit/task/<%- categories[i].taskList[j]._id %>" method="POST">
+                                                    <form action="/edit/task/<%- task._id %>" method="POST">
                                                         <div class="modal-body">
                                                             <div class="form-group">
                                                                 <label for="title" class="col-form-label">Title:</label>
-                                                                <input type="text" class="form-control" id="title" name="title" value="<%- categories[i].taskList[j].title %>" required>
+                                                                <input type="text" class="form-control" id="title" name="title" value="<%- task.title %>" required>
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label for="description" class="col-form-label">Description:</label>
-                                                                <input type="text" class="form-control" id="description" name="description" value="<%- categories[i].taskList[j].description %>">
+                                                                <input type="text" class="form-control" id="description" name="description" value="<%- task.description %>">
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label for="dueDate" class="col-form-label">Due Date:</label>
-                                                                <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%- categories[i].taskList[j].dueDate.toISOString().slice(0, 10) %>" required>
+                                                                <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%- task.dueDate.toISOString().slice(0, 10) %>" required>
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label for="priority" class="col-form-label">Priority:</label>
                                                                 <select id="priority" name="priority">
-                                                                    <option value="<%- categories[i].taskList[j].priority %>">
-                                                                        <%= categories[i].taskList[j].getPriority() %>
+                                                                    <option value="<%- task.priority %>">
+                                                                        <%= task.getPriority() %>
                                                                     </option>
                                                                     <option value="0">No Priority</option>
                                                                     <option value="1">Low</option>
@@ -265,13 +267,13 @@
 
                                                             <div class="form-group">
                                                                 <label for="progress" class="form-label">Progress: </label>
-                                                                <input type="range" class="form-range" min="0" max="1" step="0.01" name="progress" id="progress" value="<%- categories[i].taskList[j].progress %>">
+                                                                <input type="range" class="form-range" min="0" max="1" step="0.01" name="progress" id="progress" value="<%- task.progress %>">
                                                             </div>
 
-                                                            <% if (categories[i].taskList[j].isCompleted()) { %>
+                                                            <% if (task.isCompleted()) { %>
                                                                 <div class="form-group">
                                                                     <label for="completedDate" class="form-label">Completed Date: </label>
-                                                                    <input type="date" class="form-control" name="completedDate" id="completedDate" value="<%- categories[i].taskList[j].completedDate.toISOString().slice(0, 10) %>">
+                                                                    <input type="date" class="form-control" name="completedDate" id="completedDate" value="<%- task.completedDate.toISOString().slice(0, 10) %>">
                                                                 </div>
                                                             <% } %>
                                                             
@@ -281,7 +283,7 @@
                                                                     <ul>
                                                                         <% for (let k = 1; k < users.length; k++) { %>
                                                                             <li>
-                                                                                <input type="checkbox" name="userList" id="userList" value="<%- users[k]._id %>" <%- categories[i].taskList[j].userList.includes(users[k]._id) ? 'checked' : '' %> />
+                                                                                <input type="checkbox" name="userList" id="userList" value="<%- users[k]._id %>" <% if (task.userList.some((user) => String(user._id) == String(users[k]._id))) { %> checked <% } %> />
                                                                                 <%= users[k].username %>
                                                                             </li>
                                                                         <% } %>
@@ -290,15 +292,15 @@
                                                             <% } else { %>
                                                                 <label for="userList" class="col-form-label">Users:</label>
                                                                 <ul>
-                                                                    <% for (let k = 0; k < categories[i].taskList[j].userList.length; k++) { %>
-                                                                        <li><%= categories[i].taskList[j].userList[k].username %></li>
+                                                                    <% for (let k = 0; k < task.userList.length; k++) { %>
+                                                                        <li><%= task.userList[k].username %></li>
                                                                     <% } %>
                                                                 </ul>
                                                             <% } %>
                                                         </div>
 
                                                         <div class="modal-footer">
-                                                            <a href="/delete/task/<%- categories[i].taskList[j]._id %>" class="btn btn-outline-danger">Delete</a>
+                                                            <a href="/delete/task/<%- task._id %>" class="btn btn-outline-danger">Delete</a>
                                                             <button class="btn btn-primary">Save</button>
                                                         </div>
                                                     </form>
@@ -325,7 +327,7 @@
                                             </div>
 
                                             <!-- Add task form -->
-                                            <form action="/add/task/<%- categories[i]._id %>" method="POST">
+                                            <form action="/add/task/<%- category._id %>" method="POST">
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="title" class="col-form-label">Title:</label>
@@ -339,7 +341,7 @@
 
                                                     <div class="form-group">
                                                         <label for="dueDate" class="col-form-label">Due Date:</label>
-                                                        <input type="date" class="form-control" id="dueDate" name="dueDate" required>
+                                                        <input type="date" class="form-control" id="dueDate" name="dueDate" value="<%- new Date().toISOString().slice(0, 10) %>" required>
                                                     </div>
 
                                                     <div class="form-group">
