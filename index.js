@@ -41,25 +41,18 @@ async function connect() {
 }
 connect().catch(err => console.log(err));
 
-// User endpoints
-app.get('/register', function (req, res) {
-    res.render('register');
-});
-
-app.post('/register', User.createOne);
-
-app.get('/', async function (req, res) {
-    if (!await UserModel.findOne({ username: 'admin' })) {
-        UserModel.register(new UserModel({ username: 'admin', isAdmin: true }), 'admin');
-    }
-    res.render('login', { user: req.user, message: req.flash('error') });
-})
-
+// Account endpoints
+app.get('/', Project.login)
 app.post('/', passport.authenticate('local', {
     successRedirect: '/dashboard',
     failureRedirect: '/',
     failureFlash: true
 }));
+
+app.get('/register', function (req, res) { 
+    res.render('register', { message: req.flash('error') }) 
+});
+app.post('/register', User.createOne);
 
 app.get('/logout', function (req, res) {
     req.logout((error) => {
@@ -70,7 +63,7 @@ app.get('/logout', function (req, res) {
     });
 });
 
-app.get('/delete/user/:id', User.deleteOne);
+app.get('/delete/user/:id', isAuthenticated, User.deleteOne);
 
 // Dashboard
 app.get('/dashboard', isAuthenticated, Project.getAll);
