@@ -192,7 +192,7 @@
                 <!-- Categories -->
                 <% for (let i = 0; i < categories.length; i++) { %>
                     <% let category = categories[i] %>
-                    <div class="col-4" draggable="false">
+                    <div class="col-4" id="category-<%- i %>" draggable="false">
                         <div class="bg-white tm-block">
                             <div class="row">
                                 <div class="col-8">
@@ -234,11 +234,11 @@
                                 <!-- End edit category -->
                             </div>
 
-                            <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
+                            <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big" id="categoryTasks-<%- i %>">
                                 <!-- Tasks -->
                                 <% for (let j = 0; j < category.taskList.length; j++) { %>
                                     <% let task = category.taskList[j] %>
-                                    <li class="tm-list-group-item" draggable="true">
+                                    <li class="tm-list-group-item" id="task-<%- i %>-<%- j %>" draggable="true">
                                         <a href="" class="tm-link-black font-weight-bold not-drag" data-toggle="modal" data-target="#edit-task-<%- i %>-<%- j %>"><%= task.title %></a>
                                         <ul>
                                             <li class="description-item"><%= task.description %></li>
@@ -540,56 +540,96 @@
         })
     </script>
 
-    <script>
-        const draggables = document.querySelectorAll(".tm-list-group-item");
-        const droppables = document.querySelectorAll(".col-4");
+<script>
+    const draggables = document.querySelectorAll(".tm-list-group-item");
+    const droppables = document.querySelectorAll(".col-4");
 
-        draggables.forEach((task) => {
-            task.addEventListener("dragstart", () => {
-                task.classList.add("is-dragging");
-            });
-
-            task.addEventListener("dragend", () => {
-                task.classList.remove("is-dragging");
-            });
+    draggables.forEach((task) => {
+        task.addEventListener("dragstart", () => {
+            task.classList.add("is-dragging");
         });
 
-        droppables.forEach((zone) => {
-            zone.addEventListener("dragover", (e) => {
-                e.preventDefault();
-                
-                const bottomTask = insertAboveTask(zone, e.clientY);
-                const curTask = document.querySelector(".is-dragging");
+        task.addEventListener("dragend", () => {
+            task.classList.remove("is-dragging");
+            updateLocalStorage();
+        });
+    });
 
-                if (!bottomTask) {
+    droppables.forEach((zone) => {
+        zone.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            
+            const bottomTask = insertAboveTask(zone, e.clientY);
+            const curTask = document.querySelector(".is-dragging");
+
+            if (!bottomTask) {
                 zone.querySelector(".tm-list-group").appendChild(curTask);
-                } else {
-                    zone.querySelector(".tm-list-group").insertBefore(curTask, bottomTask);
-                }
-            });
+            } else {
+                zone.querySelector(".tm-list-group").insertBefore(curTask, bottomTask);
+            }
+            updateLocalStorage();
         });
+    });
+    const loadFromLocalStorage = () => {
+    const data = JSON.parse(localStorage.getItem('categoryData'));
+    if (data) {
+        Object.keys(data).forEach(categoryId => {
+            const category = document.getElementById(categoryId);
+            const taskList = data[categoryId];
 
+            if (category) {
+                const taskContainer = document.getElementById(`categoryTasks-${categoryId.split('-')[1]}`);
+                
+                taskList.forEach(taskId => {
+                    const task = document.getElementById(taskId);
+                    taskContainer.appendChild(task);
+                });
+            }
+        });
+    }
+};
+    const insertAboveTask = (zone, mouseY) => {
+        const els = zone.querySelectorAll(".tm-list-group-item:not(.is-dragging)");
 
-        const insertAboveTask = (zone, mouseY) => {
-            const els = zone.querySelectorAll(".tm-list-group-item:not(.is-dragging)");
+        let closestTask = null;
+        let closestOffset = Number.NEGATIVE_INFINITY;
 
-            let closestTask = null;
-            let closestOffset = Number.NEGATIVE_INFINITY;
+        els.forEach((task) => {
+            const { top } = task.getBoundingClientRect();
 
-            els.forEach((task) => {
-                const { top } = task.getBoundingClientRect();
+            const offset = mouseY - top;
 
-                const offset = mouseY - top;
-
-                if (offset < 0 && offset > closestOffset) {
+            if (offset < 0 && offset > closestOffset) {
                 closestOffset = offset;
                 closestTask = task;
-                }
-            });
+            }
+        });
 
-            return closestTask;
-        };
-    </script>
+        return closestTask;
+    };
+
+    const updateLocalStorage = () => {
+    const categories = document.querySelectorAll(".col-4");
+    const data = {};
+
+    categories.forEach((category, i) => {
+        const categoryId = category.id;
+        const tasks = Array.from(category.querySelectorAll(".tm-list-group-item")).map(task => task.id);
+        data[categoryId] = tasks;
+    });
+
+    localStorage.setItem('categoryData', JSON.stringify(data));
+};
+
+    // Call updateLocalStorage after any drag and drop operation
+    document.addEventListener('dragend', updateLocalStorage);
+
+    // Load state from localStorage on page load
+    window.addEventListener('load', function() {
+        loadFromLocalStorage();
+        updateLocalStorage(); // Save initial state (optional)
+    });
+</script>
 </body>
 
 </html>
