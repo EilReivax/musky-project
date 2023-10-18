@@ -54,7 +54,7 @@ app.get('/register', function (req, res) {
 });
 app.post('/register', User.createOne);
 
-app.get('/logout', User.logout);
+app.get('/logout', Project.logout);
 app.get('/delete/user/:id', isAuthenticated, User.deleteOne);
 
 // Dashboard

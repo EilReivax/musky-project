@@ -50,16 +50,5 @@ module.exports = {
         }
         
         res.redirect('/dashboard');
-    },
-
-    logout: async function (req, res) {
-        console.log(req.user);
-
-        req.logout((error) => {
-            if (error) {
-                res.status(400).json({ error: error });
-            }
-            res.redirect('/');
-        });
     }
 }

@@ -8,7 +8,11 @@ const PROJECT_ID = 'PROJECT_ID';
 module.exports = {
     login: async function (req, res) {
         if (!await Project.findById(PROJECT_ID)) {
-            let newProject = new Project({ _id: PROJECT_ID });
+            let newProject = new Project({ 
+                _id: PROJECT_ID,
+                startDate: new Date(),
+                endDate: new Date()
+            });
             await newProject.save();
         }
         
@@ -24,6 +28,24 @@ module.exports = {
         }
 
         res.render('login', { message: req.flash('error') });
+    },
+
+    logout: async function (req, res) {
+        let loginDate = req.user.lastLogin;
+        let logoutDate = new Date();
+        let totalHours = (logoutDate.getTime() - loginDate.getTime()) / (1000 * 60 * 60)
+
+        await User.findByIdAndUpdate(req.user._id, { 
+            lastLogin: logoutDate,
+            $inc : { totalHours: totalHours}
+        })
+
+        req.logout((error) => {
+            if (error) {
+                res.status(400).json({ error: error });
+            }
+            res.redirect('/');
+        });
     },
 
     updateOne: async function (req, res) {
