@@ -238,7 +238,7 @@
                                 <!-- Tasks -->
                                 <% for (let j = 0; j < category.taskList.length; j++) { %>
                                     <% let task = category.taskList[j] %>
-                                    <li class="tm-list-group-item" id="task-<%- i %>-<%- j %>" draggable="true">
+                                    <li class="tm-list-group-item pad-task" id="task-<%- i %>-<%- j %>" draggable="true">
                                         <a href="" class="tm-link-black font-weight-bold not-drag" data-toggle="modal" data-target="#edit-task-<%- i %>-<%- j %>"><%= task.title %></a>
                                         <ul>
                                             <li class="description-item"><%= task.description %></li>
