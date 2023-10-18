@@ -176,6 +176,7 @@ ol {
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 8px;
+  /* background-color: #e6e6e6; for odd coloring */
 }
 
 .tm-list-group-pad-big > li {
