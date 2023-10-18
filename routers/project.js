@@ -6,6 +6,13 @@ const User = require('../models/user');
 const PROJECT_ID = 'PROJECT_ID';
 
 module.exports = {
+    login: async function (req, res) {
+        if (!await User.findOne({ username: 'admin' })) {
+            User.register(new User({ username: 'admin', isAdmin: true }), 'admin');
+        }
+        res.render('login', { message: req.flash('error') });
+    },
+
     getAll: async function (req, res) {
         let project = {};
         let categories = [];
