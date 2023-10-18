@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="   ./css/tooplate.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
     
 </head>
 
@@ -154,7 +156,7 @@
                                                                 <li>
                                                                     <a class="btn-sm btn-danger" href="/delete/user/<%- users[i]._id %>">X</a>
                                                                     <label for="priority" class="col-form-label"><%= users[i].username %></label>
-                                                                    <label for="average-hours" class="col-form-label"><%= users[i].averageHours() %></label>
+                                                                    <label for="average-hours" class="col-form-label">| average hours: <%= users[i].averageHours() %> hrs</label>
                                                                 </li>
                                                             <% } %>
                                                         </ol>
@@ -187,6 +189,10 @@
     <!-- End Navbar -->
 
     <!-- Content -->
+    <div class="row margin-sbuto">
+        <a href="/dashboard" class="btn-sm btn-light"><i class="bi bi-sort-down custom-icon-size"></i>
+        </a>
+    </div>
     <div class="container">
         <div class="container-fluid">
             <div class="row tm-content-row tm-mt-big flex-nowrap overflow-auto">
@@ -315,8 +321,7 @@
                                                                         <% for (let k = 1; k < users.length; k++) { %>
                                                                             <li>
                                                                                 <input type="checkbox" name="userList" id="userList" value="<%- users[k]._id %>" <% if (task.userList.some(user => String(user._id) == String(users[k]._id))) { %> checked <% } %> />
-                                                                                <%= users[k].username %>
-                                                                            </li>
+                                                                                <label for="assigned-users" class=""><%= users[k].username %></label>                                                                            </li>
                                                                         <% } %>
                                                                     </ul>
                                                                 </div>
@@ -515,8 +520,9 @@
     <script src="js/tooplate-scripts.js"></script>
 
     <script>
-        const draggables = document.querySelectorAll(".tm-list-group-item");
-        const droppables = document.querySelectorAll(".col-4");
+    document.addEventListener('DOMContentLoaded', function() {
+            const draggables = document.querySelectorAll(".tm-list-group-item");
+            const droppables = document.querySelectorAll(".col-4");
 
         draggables.forEach((task) => {
             task.addEventListener("dragstart", () => {
@@ -532,7 +538,7 @@
         droppables.forEach((zone) => {
             zone.addEventListener("dragover", (e) => {
                 e.preventDefault();
-                
+
                 const bottomTask = insertAboveTask(zone, e.clientY);
                 const curTask = document.querySelector(".is-dragging");
 
@@ -603,9 +609,10 @@
         // Load state from localStorage on page load
         window.addEventListener('load', function() {
             loadFromLocalStorage();
-            updateLocalStorage(); // Save initial state (optional)
         });
-    </script>
+    });
+</script>
+
 </body>
 
 </html>
