@@ -437,6 +437,8 @@ footer {
     right: 20px;
     width: 245px;
     z-index: 1000;
+    margin-top: 10px;
+    margin-right: 40px;
   }
 
   .navbar-nav .nav-link {
