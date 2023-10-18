@@ -688,3 +688,13 @@ div#p-footer {
   white-space: nowrap;
   cursor: pointer;
 }
+
+.back-link {
+  color: black;
+  margin-left: 30px;
+  text-decoration: underline;
+}
+
+.back-link:hover{
+  text-decoration: underline;
+}
