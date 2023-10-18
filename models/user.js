@@ -29,7 +29,7 @@ userSchema.methods.averageHours = function () {
 }
 
 function totalDays() {
-    (this.lastLogin.getTime() - this.startDate.getTime()) / 1000 * 60 * 60 * 24
+    (this.lastLogin.getTime() - this.startDate.getTime()) / (1000 * 60 * 60 * 24)
 }
 
 userSchema.plugin(passportLocalMongoose);
