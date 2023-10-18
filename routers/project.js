@@ -7,9 +7,22 @@ const PROJECT_ID = 'PROJECT_ID';
 
 module.exports = {
     login: async function (req, res) {
-        if (!await User.findOne({ username: 'admin' })) {
-            User.register(new User({ username: 'admin', isAdmin: true }), 'admin');
+        if (!await Project.findById(PROJECT_ID)) {
+            let newProject = new Project({ _id: PROJECT_ID });
+            await newProject.save();
         }
+        
+        if (!await User.findOne({ username: 'admin' })) {
+            User.register(new User(
+                { 
+                    username: 'admin',
+                    startDate: new Date(),
+                    isAdmin: true 
+                }), 
+                'admin'
+            );
+        }
+
         res.render('login', { message: req.flash('error') });
     },
 
@@ -37,11 +50,6 @@ module.exports = {
 
         try {
             project = await Project.findById(PROJECT_ID);
-
-            if (!project) {
-                let newProject = new Project({ _id: PROJECT_ID });
-                await newProject.save();
-            }
 
             if (!await Category.findOne()) {
                 let toDo = new Category({ title: 'To-do' });
@@ -74,10 +82,25 @@ module.exports = {
 
             users = await User.find()
             .exec();
+
+            await User.findByIdAndUpdate(
+                req.user._id,
+                {
+                    lastLogin: new Date()
+                }
+            )
         } catch (error) {
             res.status(400).json({ error: error });
         }
 
-        res.render("index", {project: project, categories: categories, tasks: tasks, users: users, currentUser: req.user});
+        res.render("index", {
+            project: project, 
+            categories: categories, 
+            tasks: tasks, 
+            users: users, 
+            currentUser: req.user,
+            countTasks: await Task.countDocuments(),
+            countTasksCompleted: await Task.countDocuments({ progress: 1 })
+        });
     }
 }
