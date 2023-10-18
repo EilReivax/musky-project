@@ -140,7 +140,6 @@
                             </li>
                         <% } %>
                         <!-- End admin items -->
-
                     </ul>
                     
                     <ul class="navbar-nav">
@@ -287,7 +286,7 @@
                                                                     <ul>
                                                                         <% for (let k = 1; k < users.length; k++) { %>
                                                                             <li>
-                                                                                <input type="checkbox" name="userList" id="userList" value="<%- users[k]._id %>" <% if (task.userList.some((user) => String(user._id) == String(users[k]._id))) { %> checked <% } %> />
+                                                                                <input type="checkbox" name="userList" id="userList" value="<%- users[k]._id %>" <% if (task.userList.some(user => String(user._id) == String(users[k]._id))) { %> checked <% } %> />
                                                                                 <%= users[k].username %>
                                                                             </li>
                                                                         <% } %>
