@@ -37,9 +37,11 @@ passport.serializeUser(UserModel.serializeUser());
 passport.deserializeUser(UserModel.deserializeUser());
 
 async function connect() {
-    await mongoose.connect('mongodb://localhost:27017/FIT2101-3');
+    await mongoose.connect('mongodb://127.0.0.1:27017/FIT2101-3');
 }
-connect().catch(err => console.log(err));
+connect()
+.then(() => console.log('connected on mongodb://127.0.0.1:27017/FIT2101-3'))
+.catch(err => console.log(err));
 
 // Account endpoints
 app.get('/', Project.login)
